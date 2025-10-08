@@ -1,11 +1,39 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import CodeEditor from '../layouts/CodeEditor.astro';
+import MainContent from '../layouts/MainContent.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import TopBar from '../components/top-bar/TopBar.astro';
+import Extensions from '../components/extensions/Extensions.astro';
+import Explorer from '../components/explorer/Explorer.astro';
+import FileTabs from '../components/file-tabs/FileTabs.astro';
+import FilePath from '../components/file-path/FilePath.astro';
 ---
 
 <Layout>
-	<Welcome />
+	<CodeEditor>
+		<div slot="top-bar">
+			<TopBar/>
+		</div>
+
+		<div slot="extensions">
+			<Extensions/>
+		</div>
+
+		<div slot="file-explorer">
+			<Explorer/>
+		</div>
+
+		<div slot="tab-section">
+			<FileTabs/>
+		</div>
+
+		<div slot="file-path">
+			<FilePath/>
+		</div>
+
+		<div slot="main-content">
+			<MainContent></MainContent>
+		</div>
+
+	</CodeEditor>
 </Layout>

@@ -1,0 +1,35 @@
+<!-- The IDE has two rows: the top-bar and the content -->
+<div class="parent">
+	<div class="row">
+		<!-- The content has two columns: the window options, and theme toggle. -->
+		<slot name="top-bar"/>
+
+		<!-- The content is composed of three columns: the extensions, file-explorer, and code-section -->
+		<div class="column">
+			<slot name="extensions"/>
+			<slot name="file-explorer"/>
+
+			<!-- The code section is composed of 3 rows: the tab-section, file-path-section, and main-content -->
+			<div>
+				<slot name="tab-section"/>
+				<slot name="file-path"/>
+				<slot name="main-content"/>
+			</div>
+		</div>
+</div>
+</div>
+
+
+<style>
+	.parent {
+		display: flex;
+	}
+	
+	.column {
+		flex-direction: column;
+	}
+
+	.row {
+		flex-direction: row;
+	}
+</style>

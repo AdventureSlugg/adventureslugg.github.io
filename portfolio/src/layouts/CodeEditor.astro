@@ -1,13 +1,23 @@
+---
+import '../assets/css/styles.css'
+---
+
 <!-- The IDE has two rows: the top-bar and the content -->
 <div class="parent">
-	<div class="row">
+	<div class="column">
 		<!-- The content has two columns: the window options, and theme toggle. -->
 		<slot name="top-bar"/>
 
 		<!-- The content is composed of three columns: the extensions, file-explorer, and code-section -->
-		<div class="column">
-			<slot name="extensions"/>
-			<slot name="file-explorer"/>
+		<div class="row full-width">
+			<slot 
+				name="extensions" 
+				class="flex-child"
+			/>
+			<slot 
+				name="file-explorer"
+				class="flex-child"
+			/>
 
 			<!-- The code section is composed of 3 rows: the tab-section, file-path-section, and main-content -->
 			<div>
@@ -23,13 +33,6 @@
 <style>
 	.parent {
 		display: flex;
-	}
-	
-	.column {
-		flex-direction: column;
-	}
-
-	.row {
-		flex-direction: row;
+		height: 100vh;
 	}
 </style>

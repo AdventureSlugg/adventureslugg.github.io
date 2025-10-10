@@ -1,3 +1,70 @@
-<div>
-	Top Bar
+---
+import '../../assets/css/styles.css';
+---
+
+<div class="tool-bar row">
+	<div class="window-options">
+		<button 
+			id="exit-option"
+			class="exit window-option"
+		> x </button>
+		<button 
+			id="hide-option"
+			class="hide window-option"
+		> _ </button>
+		<button 
+			id="minimize-option"
+			class="minimize window-option"
+		> ^ </button>
+	</div>
+
+	<div class="theme-options">
+		<div class="form-check form-switch">
+			<input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+		</div>
+	</div>
 </div>
+
+<style>
+	.tool-bar {
+		background-color: #001125;
+		height: 3rem;
+		width: 100%;
+	}
+
+	.window-options {
+		padding: .75rem;
+	}
+
+	.theme-options {
+		padding: .75rem;
+		margin-right: 0rem;
+		margin-left: auto;
+	}
+
+	.window-option {
+		border-radius: 5rem;
+		height: 1.5rem;
+		width: 1.5rem;
+		border: 0px;
+	}
+
+	.window-option:hover {
+		opacity: .5;
+	}
+
+	#exit-option {
+		background-color: #FE5F57;
+		color: #8c0700;
+	}
+
+	#hide-option {
+		background-color: #FEBC2E;
+		color: #ac7500;
+	}
+
+	#minimize-option {
+		background-color: #28C840;
+		color:#007712
+	}
+</style>

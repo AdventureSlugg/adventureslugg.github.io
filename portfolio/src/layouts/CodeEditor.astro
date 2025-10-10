@@ -4,7 +4,7 @@ import '../assets/css/styles.css'
 
 <!-- The IDE has two rows: the top-bar and the content -->
 <div class="parent">
-	<div class="column">
+	<div class="column full-width">
 		<!-- The content has two columns: the window options, and theme toggle. -->
 		<slot name="top-bar"/>
 
@@ -12,7 +12,6 @@ import '../assets/css/styles.css'
 		<div class="row full-width">
 			<slot 
 				name="extensions" 
-				class="flex-child"
 			/>
 			<slot 
 				name="file-explorer"

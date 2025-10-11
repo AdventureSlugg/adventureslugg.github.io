@@ -1,3 +1,36 @@
-<div>
-	Extension
+---
+import type { IconType } from '../icons/_iconType';
+
+export type ExtensionType = {
+	alt: string;
+	sourceImage: CallableFunction
+}
+
+interface Props {
+	component: (_props: IconType) => any
+}
+
+const props = Astro.props as Props;
+
+const DEFAULT_STYLE = {
+	size: "3rem",
+	color: "#607694"
+}
+
+---
+<div class="extension">
+	{
+		<props.component size={DEFAULT_STYLE.size} color={DEFAULT_STYLE.color}></props.component>
+	}
 </div>
+
+
+<style>
+	.extension {
+		margin-left: auto;
+		margin-right: auto;
+		height: 3rem;
+		width: 3rem;
+		padding-top: 1.5rem;
+	}
+</style>

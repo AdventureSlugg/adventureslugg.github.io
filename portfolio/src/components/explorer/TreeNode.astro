@@ -1,0 +1,20 @@
+---
+export type TreeNodeType = {
+	name: string,
+	depth?: number,
+	children?: TreeNodeType[]
+}
+
+const props = Astro.props as TreeNodeType;
+
+---
+
+<div style={`margin-left: ${props.depth ? props.depth : 0}rem`}>
+	<p>{props.children ? '⛛ ' : ''}{props.name}</p>
+	{
+		props.children?.map(child => {
+			return <Astro.self name={child.name} children={child.children} depth={props.depth ? props.depth + 1 : 1}></Astro.self>
+		})
+	}
+
+</div>

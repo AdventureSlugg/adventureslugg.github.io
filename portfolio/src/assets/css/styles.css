@@ -1,4 +1,11 @@
 /* Color Scheme */
+:root {
+	--primary-bg-color: #002451;
+	--secondary-bg-color: #001C40;
+	--tertiary-bg-color: #001733;
+	--quarternary-bg-color: #001125;
+}
+
 
 .full-width {
 	width: 100vw;

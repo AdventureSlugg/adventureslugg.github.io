@@ -11,6 +11,10 @@
 	width: 100vw;
 }
 
+.full-relative-height {
+	height: 100%;
+}
+
 .column {
 	display: flex;
 	flex-direction: column;

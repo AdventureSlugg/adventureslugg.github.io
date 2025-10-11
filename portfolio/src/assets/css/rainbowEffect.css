@@ -1,0 +1,34 @@
+.rainbow span {
+  font-weight: 900;
+  letter-spacing: 0;
+  display: block;
+
+  /* Rainbow Gradient */
+  background: linear-gradient(
+    270deg,
+    #ff0000,
+    #ff9900,
+    #ffff00,
+    #33cc33,
+    #0066ff,
+    #6600cc,
+    #ff3399,
+    #ff0000
+  );
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: rainbowMove 5s linear infinite;
+  text-shadow: 0 0 20px rgb(255, 255, 255, .2);
+}
+
+@keyframes rainbowMove {
+  100% {
+    background-position: 0% 100%;
+  }
+  0% {
+    background-position: 200% 0%;
+  }
+}

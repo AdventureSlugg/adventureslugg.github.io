@@ -6,6 +6,16 @@
 	--quarternary-bg-color: #001125;
 }
 
+/* Imported fonts */
+@font-face {
+	font-family: SourceCodePro;
+	src: url(../fonts/Source_Code_Pro/SourceCodePro-VariableFont_wght.ttf);
+}
+
+body {
+	font-family: SourceCodePro;
+}
+
 
 .full-width {
 	width: 100vw;

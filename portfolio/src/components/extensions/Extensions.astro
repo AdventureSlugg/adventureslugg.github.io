@@ -7,14 +7,29 @@ import FileDirectoryIcon from "../icons/FileDirectoryIcon.astro";
 import GitHubIcon from "../icons/GitHubIcon.astro";
 import LinkedinIcon from "../icons/LinkedinIcon.astro";
 import SearchIcon from "../icons/SearchIcon.astro";
-import Extension from "./Extension.astro";
+import Extension, { type ExtensionProps } from "./Extension.astro";
 
-const extensions: ((_props: IconType) => any)[] = [
-	FileDirectoryIcon,
-	SearchIcon,
-	GitHubIcon,
-	LinkedinIcon,
-	DevpostIcon
+const extensions: ExtensionProps[] = [
+	{
+		id: 'explorerClickable', 
+		component: FileDirectoryIcon
+	},
+	{
+		id: 'searchClickable', 
+		component: SearchIcon
+	},
+	{
+		id: 'githubClickable', 
+		component: GitHubIcon
+	},
+	{
+		id: 'linkedinClickable', 
+		component: LinkedinIcon
+	},
+	{
+		id: 'devpostClickable', 
+		component: DevpostIcon
+	}
 ]
 
 ---
@@ -23,7 +38,7 @@ const extensions: ((_props: IconType) => any)[] = [
 	{
 		// For each extension, render the associated svg with the default attributes of 3rem and white
 		extensions.map((ExtensionComponent) => (
-			<Extension component={ExtensionComponent}></Extension>
+			<Extension component={ExtensionComponent.component} id={ExtensionComponent.id}></Extension>
 		))
 	}
 </div>

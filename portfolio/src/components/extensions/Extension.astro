@@ -1,16 +1,12 @@
 ---
 import type { IconType } from '../icons/_iconType';
 
-export type ExtensionType = {
-	alt: string;
-	sourceImage: CallableFunction
+export interface ExtensionProps {
+	component: (_props: IconType) => any,
+	id: string
 }
 
-interface Props {
-	component: (_props: IconType) => any
-}
-
-const props = Astro.props as Props;
+const props = Astro.props as ExtensionProps;
 
 const DEFAULT_STYLE = {
 	size: "3rem",
@@ -18,7 +14,7 @@ const DEFAULT_STYLE = {
 }
 
 ---
-<div class="extension">
+<div class="extension clickable" id={props.id}>
 	{
 		<props.component size={DEFAULT_STYLE.size} color={DEFAULT_STYLE.color}></props.component>
 	}
@@ -34,3 +30,46 @@ const DEFAULT_STYLE = {
 		padding-top: 1.5rem;
 	}
 </style>
+
+<script>
+	const openLink = (url: string) => {
+		if (confirm(`You are being redirected to ${url}. Would you like to proceed?`)) {
+			const link = document.createElement('a');
+			link.href = url;
+			link.target = "_blank"
+			link.click();
+			document.removeChild(link);
+		}
+	}
+
+	const actionMap: Record<string, CallableFunction> = {
+		'explorerClickable': () => {
+			// TODO: Expand/Minimize the Explorer side-bar.
+			console.log("Not yet implemented...");
+		},
+		'searchClickable': () => {
+			// TODO: Open up the Search function.
+			console.log("Not yet implemented...");
+		},
+		'devpostClickable': () => {
+			openLink('https://devpost.com/zmb6893')
+		},
+		'githubClickable': () => {
+			openLink('https://github.com/AdventureSlugg')
+		},
+		'linkedinClickable': () => {
+			openLink('https://www.linkedin.com/in/zoe-bingham/')
+		}
+
+	}
+
+	const clickables = document.querySelectorAll('div.clickable');
+
+	clickables.forEach(clickable => {
+		clickable.addEventListener('click', () => {
+			// TODO: Highlight the clickable option and remove highlight from all other clickables
+			actionMap[clickable.id]();
+		})
+	})
+	
+</script>

@@ -1,3 +1,46 @@
-<div>
-	File tabs
+---
+import FileTab, { type Tab } from "./FileTab.astro";
+
+const tabs: Tab[] = [
+	{
+		name: 'README.md',
+		id: 'readme'
+	},
+	{
+		name: 'README.md',
+		id: 'readme'
+	},
+	{
+		name: 'README.md',
+		id: 'readme'
+	},
+	{
+		name: 'README.md',
+		id: 'readme'
+	},
+	{
+		name: 'README.md',
+		id: 'readme'
+	},
+	{
+		name: 'README.md',
+		id: 'readme'
+	},
+];
+
+---
+
+<div class="file-tabs-section">
+	{
+		tabs.map( tab => (
+			<FileTab name={tab.name} id={tab.id}></FileTab>
+		))
+	}
 </div>
+
+<style>
+	.file-tabs-section {
+		display: -webkit-box;
+		overflow-x: scroll;
+	}
+</style>

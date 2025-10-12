@@ -1,3 +1,45 @@
-<div>
-	Main Content
+---
+import Contact from "../main-content/Contact.astro";
+import Landing from "../main-content/Landing.astro";
+import Philosophy from "../main-content/Philosophy.astro"
+import Process from "../main-content/Process.astro";
+import Projects from "../main-content/Projects.astro";
+---
+
+<div class="main-content">
+	<section class="section">
+		<Landing />
+	</section>
+
+	<section class="section">
+		<Philosophy />
+	</section>
+
+	<section class="section">
+		<Process />
+	</section>
+
+	<section class="section">
+		<Projects />
+	</section>
+
+	<section class="section">
+		<Contact />
+	</section>
 </div>
+
+<style>
+	.main-content {
+		height: 100%;
+		overflow-y: auto;
+	}
+
+	.section {
+		height: 100%;
+		width: 100%;
+		min-height: 0;
+		display: flex;
+		align-items: flex-start;
+		box-sizing: border-box;
+	}
+</style>

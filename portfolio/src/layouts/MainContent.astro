@@ -7,7 +7,7 @@ import Projects from "../main-content/Projects.astro";
 ---
 
 <div class="main-content">
-	<section class="section">
+	<section class="landing section">
 		<Landing />
 	</section>
 
@@ -35,11 +35,14 @@ import Projects from "../main-content/Projects.astro";
 	}
 
 	.section {
-		height: 90%;
 		width: 100%;
 		min-height: 0;
 		display: flex;
 		align-items: flex-start;
 		box-sizing: border-box;
+	}
+
+	.landing {
+		height: 90%;
 	}
 </style>

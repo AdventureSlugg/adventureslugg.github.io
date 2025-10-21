@@ -17,8 +17,9 @@ const props = Astro.props as TreeNodeType;
 				<Astro.self 
 					name={child.name} 
 					children={child.children} 
-					depth={props.depth ? props.depth + 1 : 1} /** Increase the depth by one for the next node */
-				></Astro.self>)
+					depth={props.depth ? props.depth + 1 : 1}
+				/>
+			)
 		})
 	}
 

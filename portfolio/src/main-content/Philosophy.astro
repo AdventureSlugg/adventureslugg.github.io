@@ -1,3 +1,21 @@
-<div id="philosophy">
-	This is the philosophy section
+---
+import SectionTitle from "../components/sections/SectionTitle.astro";
+
+
+---
+
+<div id="philosophy" class="philosophy-section main-inner-content">
+	<SectionTitle title="Philosophy"></SectionTitle>
+	
 </div>
+
+<style>
+	.philosophy-section {
+		min-height: 100%;
+		background-image: url(../assets/images/backgrounds/spider.png);
+		background-size: cover;
+		width: 100%;
+		background-attachment: fixed;
+		align-content: center;
+	}
+</style>

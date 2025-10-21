@@ -34,3 +34,8 @@ body {
 	display: flex;
 	flex-direction: row;
 }
+
+.main-inner-content {
+	padding-right: 5rem;
+	padding-left: 5rem;
+}

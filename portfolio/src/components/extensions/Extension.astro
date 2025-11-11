@@ -44,8 +44,9 @@ const DEFAULT_STYLE = {
 
 	const actionMap: Record<string, CallableFunction> = {
 		'explorerClickable': () => {
-			// TODO: Expand/Minimize the Explorer side-bar.
-			console.log("Not yet implemented...");
+			// Expand/Minimize the Explorer side-bar.
+			const explorerElement = document.getElementById('explorer-section') as HTMLElement;
+			explorerElement.style.display = explorerElement.style.display === 'none' ? 'block' : 'none'
 		},
 		'searchClickable': () => {
 			// TODO: Open up the Search function.

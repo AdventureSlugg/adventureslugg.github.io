@@ -18,7 +18,7 @@ const observer = new IntersectionObserver( entries => {
 	entries.forEach(entry => {
 		if (entry.isIntersecting) {
 			currentSectionID = entry.target.id;
-			setSectionByID(currentSectionID);
+			setSectionByID(currentSectionID, true);
 		}
 	})
 }, observerOptions)
@@ -115,13 +115,13 @@ function selectTabByID(tabID: string) {
  * Scroll to the section in the main content by its ID.
  * @param sectionID 
  */
-function scrollToSectionByID(sectionID: string) {
+function scrollToSectionByID(sectionID: string, scrollBehavior: ScrollBehavior = 'instant') {
 	const section = document.getElementById(sectionID);
 	const mainContent = document.getElementById('main-content');
 	if (section && mainContent) {
 		mainContent.scrollTo({
 			top: section.offsetTop - mainContent.offsetTop,
-			behavior: 'smooth'
+			behavior: scrollBehavior
 		});
 	}
 }
@@ -130,8 +130,8 @@ function scrollToSectionByID(sectionID: string) {
  * Synchronizing the section in view with the tab bar and explorer.
  * @param sectionID 
  */
-function setSectionByID(sectionID: string) {
-	scrollToSectionByID(sectionID);
+function setSectionByID(sectionID: string, byScroll: boolean = false) {
+	scrollToSectionByID(sectionID, byScroll ? 'smooth' : 'instant');
 	highlightNodeByID(sectionID);
 	selectTabByID(sectionID);
 }

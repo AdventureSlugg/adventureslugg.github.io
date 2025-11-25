@@ -1,38 +1,16 @@
 ---
 import FileTab, { type Tab } from "./FileTab.astro";
 
-const tabs: Tab[] = [
-	{
-		name: 'README.md',
-		id: 'readme'
-	},
-	{
-		name: 'README.md',
-		id: 'readme'
-	},
-	{
-		name: 'README.md',
-		id: 'readme'
-	},
-	{
-		name: 'README.md',
-		id: 'readme'
-	},
-	{
-		name: 'README.md',
-		id: 'readme'
-	},
-	{
-		name: 'README.md',
-		id: 'readme'
-	},
-];
+export type FileTabsProps = {
+	tabs: Tab[];
+}
 
+const props = Astro.props as FileTabsProps;
 ---
 
 <div class="file-tabs-section">
 	{
-		tabs.map( tab => (
+		props.tabs.map( tab => (
 			<FileTab name={tab.name} id={tab.id}></FileTab>
 		))
 	}

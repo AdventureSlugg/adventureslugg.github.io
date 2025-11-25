@@ -1,111 +1,16 @@
 ---
 import TreeNode, { type TreeNodeType } from "./TreeNode.astro";
 
-export const fileStructure: TreeNodeType = {
-	name: 'Zoes-Playground',
-	children: [
-		{
-			name: 'README.md'
-		},
-		{
-			name: 'Projects',
-			children: [
-				{
-					name: 'Web',
-					children: [
-						{
-							name: 'TypeRacer.vue'
-						},
-						{
-							name: 'Med-O-Matic.angular.ts'
-						},
-						{
-							name: 'GuppyGram.tsx'
-						}
-					]
-				},
-				{
-					name: 'Mobile',
-					children: [
-						{
-							name: 'TravelQuest.tsx'
-						},
-						{
-							name: 'PassiveAggressivePlants.tsx'
-						}
-					]
-				},
-				{
-					name: 'Game',
-					children: [
-						{
-							name: 'SnailParty.ts'
-						},
-						{
-							name: 'ChefPan.godot'
-						},
-						{
-							name: 'VR-Hide-And-Seek.ts'
-						}
-					]
-				}
-			]
-		},
-		{
-			name: 'Process',
-			children: [
-				{
-					name: 'Overview.md'
-				},
-				{
-					name: 'Understand',
-					children: [
-						{
-							name: 'Investigate.md'
-						},
-						{
-							name: 'Communicate.md'
-						},
-						{
-							name: 'Brainstorm.md'
-						}
-					]
-				},
-				{
-					name: 'Solve',
-					children: [
-						{
-							name: 'Choose.md'
-						},
-						{
-							name: 'Implement.md'
-						}
-					]
-				}
-			]
-		},
-		{
-			name: 'Philosophy',
-			children: [
-				{
-					name: 'Analogy.md'
-				},
-				{
-					name: 'Diagram.png'
-				},
-				{
-					name: 'Summary.md'
-				}
-			]
-		},
-		
-	]
+export type ExplorerType = {
+	rootNode: TreeNodeType
 }
+
+const props = Astro.props as ExplorerType;
 ---
 
 <div class="explorer full-relative-height" id="explorer-section">
 	<b>EXPLORER</b>
-	<TreeNode name={fileStructure.name} children={fileStructure.children}></TreeNode>
+	<TreeNode name={props.rootNode.name} children={props.rootNode.children}></TreeNode>
 </div>
 
 <style>

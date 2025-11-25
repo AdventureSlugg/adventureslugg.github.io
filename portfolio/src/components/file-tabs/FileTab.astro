@@ -6,7 +6,7 @@ export type Tab = {
 
 const props = Astro.props as Tab
 ---
-<div class="tab not-selected" id={`${props.id}-tab`}>
+<div class="tab" id={`${props.id}-tab`}>
 	{props.name}
 </div>
 
@@ -15,13 +15,14 @@ const props = Astro.props as Tab
 		width: fit-content;
 		padding: 1rem;
 		border-right: 1px #252526 solid;
-	}
-
-	.selected {
-		background-color: var(--primary-bg-color);
-	}
-
-	.not-selected {
 		background-color: var(--secondary-bg-color);
 	}
+
+	.selected-tab {
+		background-color: var(--primary-bg-color);
+		border-right: 1px #ffffff solid;
+		border-left: 1px #ffffff solid;
+		border-top: 1px #ffffff solid;
+	}
+
 </style>

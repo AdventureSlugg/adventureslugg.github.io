@@ -1,6 +1,7 @@
 ---
 export type TreeNodeType = {
 	name: string,
+	id: string,
 	depth?: number,
 	children?: TreeNodeType[],
 	parentId?: string
@@ -10,16 +11,17 @@ const props = Astro.props as TreeNodeType;
 
 ---
 
-<div style={`margin-left: ${props.depth ? props.depth : 0}rem;`} class={props.parentId + ' treenode'} id={props.name + '-node'}>
-	<p id={props.name}>{props.children ? '⛛ ' : ''}{props.name}</p>
+<div style={`margin-left: ${props.depth ? props.depth : 0}rem;`} class={props.parentId + ' treenode'} id={props.id + '-node'}>
+	<p id={`${props.id}-text`}>{props.children ? '⛛ ' : ''}{props.name}</p>
 	{
 		props.children?.map(child => {
 			return (
 				<Astro.self 
 					name={child.name} 
+					id={child.id}
 					children={child.children} 
 					depth={props.depth ? props.depth + 1 : 1}
-					parentId={props.name}
+					parentId={props.id}
 				/>
 			)
 		})
@@ -43,41 +45,3 @@ const props = Astro.props as TreeNodeType;
 		border-width: 0.1rem;
 	}
 </style>
-
-<script>
-	/**
-	 * Sets the display of each of the children to none if hidden and block if displayed.
-	 * @param parentID The ID of the parent HTML element
-	 */
-	function toggleView (parentID: string) {
-		const children = document.getElementsByClassName(parentID);
-		let isToggled = false;
-
-		// for every child under the parentID, hide the view
-		for (let i = 0; i <= children.length - 1; i++) {	
-			// If already toggled, set display back to block, otherwise, set to none
-			isToggled = (children[i] as HTMLElement).style.display === 'none';
-			(children[i] as HTMLElement).style.display = isToggled ? 'block' : 'none';
-		}
-
-		// Change the display name of the directory ▶ or ⛛ based on whether or not it's toggled
-		const parent = document.getElementById(parentID) as HTMLElement;
-		parent.innerText = parent.innerText.split('').map(c => c === '▶' ? '⛛' : c === '⛛' ? '▶' : c).join().replaceAll(',', '');
-	}
-
-	// Add event listeners to each of the TreeNodes
-	const treeNodes = document.querySelectorAll('div.treenode');
-	treeNodes.forEach(node => {
-		node.addEventListener('click', () => {
-			// Prevent the events from being propogated up the dom tree. Only want the child click event.
-			event?.stopPropagation()
-
-			// Toggle the view of the node
-			toggleView(node.id.split('-node')[0]);
-
-			// Highlight the selected node and remove highlight from others.
-			treeNodes.forEach(n => n.classList.remove('highlighted'));
-			node.classList.add('highlighted');
-		})
-	})
-</script>

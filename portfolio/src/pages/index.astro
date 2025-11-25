@@ -7,8 +7,76 @@ import Extensions from '../components/extensions/Extensions.astro';
 import Explorer from '../components/explorer/Explorer.astro';
 import FileTabs from '../components/file-tabs/FileTabs.astro';
 import FilePath from '../components/file-path/FilePath.astro';
+import type { Tab } from '../components/file-tabs/FileTab.astro';
+import type { TreeNodeType } from '../components/explorer/TreeNode.astro';
 
 // import 'bootstrap/dist/js/bootstrap.bundle.min.js'
+type Section = {
+	id: string; // used to access the section, tab, and node: id-section; id-tab; id-node,
+	name: string; // display name,
+	subsections?: Section[]; // subsections under this section
+}
+
+const sections: Section[] = [
+	{
+		id: 'landing',
+		name: 'Zoes-Playground',
+		subsections: [
+			{
+				id: 'landing',
+				name: 'README.md'
+			},
+			{
+				id: 'projects',
+				name: 'Projects',
+				subsections: [
+					{
+						id: 'web-projects',
+						name: 'Web'
+					},
+					{
+						id: 'game-projects',
+						name: 'Games'
+					},
+					{
+						id: 'library-projects',
+						name: 'Libraries'
+					}
+				]
+			},
+			{
+				id: 'process',
+				name: 'Process'
+			},
+			{
+				id: 'philosophy',
+				name: 'Philosophy'
+			},
+			{
+				id: 'contact',
+				name: 'Contact'
+			}
+		]
+	}
+]
+
+const tabs: Tab[] = sections[0].subsections!.map( (section) => {
+	return {
+		name: section.name,
+		id: section.id
+	}
+});
+
+const sectionToExplorer = (section: Section): TreeNodeType => {
+	return {
+		name: section.name,
+		id: section.id,
+		children: section.subsections ? section.subsections.map( (subsection) => sectionToExplorer(subsection) ) : undefined
+	}
+};
+
+const explorer = sectionToExplorer(sections[0])
+
 ---
 
 <Layout>
@@ -22,11 +90,11 @@ import FilePath from '../components/file-path/FilePath.astro';
 		</div>
 
 		<div slot="file-explorer">
-			<Explorer/>
+			<Explorer rootNode={explorer}/>
 		</div>
 
 		<div slot="tab-section">
-			<FileTabs/>
+			<FileTabs tabs={tabs}/>
 		</div>
 
 		<div slot="file-path">
@@ -39,3 +107,5 @@ import FilePath from '../components/file-path/FilePath.astro';
 
 	</CodeEditor>
 </Layout>
+
+<script src="../scripts/locationObserver.ts"></script>

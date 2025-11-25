@@ -127,6 +127,15 @@ function scrollToSectionByID(sectionID: string, scrollBehavior: ScrollBehavior =
 }
 
 /**
+ * Updates the file path display at the top of the explorer.
+ * @param sectionID 
+ */
+function updateFilePath(sectionID: string) {
+	const filePath = document.getElementById('file-path') as HTMLInputElement;
+	filePath.innerText = sectionID != 'undefined' ? `Zoes-Playground > ${sectionID}` : 'Zoes-Playground';
+}
+
+/**
  * Synchronizing the section in view with the tab bar and explorer.
  * @param sectionID 
  */
@@ -134,6 +143,7 @@ function setSectionByID(sectionID: string, byScroll: boolean = false) {
 	scrollToSectionByID(sectionID, byScroll ? 'smooth' : 'instant');
 	highlightNodeByID(sectionID);
 	selectTabByID(sectionID);
+	updateFilePath(sectionID);
 }
 
 // #endregion FUNCTION DEFINITIONS

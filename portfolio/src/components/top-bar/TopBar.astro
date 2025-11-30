@@ -21,6 +21,7 @@ import '../../assets/css/rainbowEffect.css'
 
 	<div class="page-title">
 		<p class="rainbow">
+			
 			<span>
 				Welcome to Zoe's Playground!
 			</span>
@@ -35,6 +36,21 @@ import '../../assets/css/rainbowEffect.css'
 </div>
 
 <style>
+	@keyframes bounce {
+	0%, 100% {
+		transform: translateY(0px);
+	}
+	20% {
+		transform: translateY(-10px);
+	}
+	40% {
+		transform: translateY(0px);
+	}
+	}
+	.rainbow:hover {
+		animation: bounce 1.5s ease-in-out;
+	}
+	
 	.page-title {
 		margin:auto; 
 		color: white;

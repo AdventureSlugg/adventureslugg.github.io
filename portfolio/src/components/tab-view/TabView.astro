@@ -35,14 +35,14 @@ console.log(Astro.props)
 <div class="tab-view">
 	<div class="tabs">
 		{
-			sections.map(section => {
-				return <div class="tab" id={`${section.id}-tab`}>{section.name}</div>
+			sections.map((section, index) => {
+				return <div class={`sub-tab ${index===0 ? 'selected-sub-tab' : ''}`} id={`${section.id}-tab`}>{section.name}</div>
 			})
 		}
 	</div>
 	{
-		sections.map(section => {
-			return <div class="content" id={`${section.id}-content`} style="display: none;">
+		sections.map((section, index) => {
+			return <div class="content" id={`${section.id}-content`} style={index===0 ? 'display: block;' : 'display: none;'}>
 				{
 					section.blurb
 				}
@@ -69,14 +69,14 @@ console.log(Astro.props)
 		color: black;
 	}
 
-	.selected-tab {
+	.selected-sub-tab {
 		background-color: #b16cff !important;
 		border-bottom: none;
 		color: white;
 		font-weight: bold;
 	}
 
-	.tab {
+	.sub-tab {
 		padding: 0.5rem 1rem;
 		border: 1px solid black;
 		border-bottom: none;
@@ -85,7 +85,7 @@ console.log(Astro.props)
 		cursor: pointer;
 	}
 
-	.tab:hover {
+	.sub-tab:hover {
 		opacity: .8;
 	}
 
@@ -104,16 +104,16 @@ console.log(Astro.props)
 </style>
 
 <script>
-	const projectTabs = document.querySelectorAll('.tab');
+	const projectTabs = document.querySelectorAll('.sub-tab');
 
 	projectTabs.forEach(tab => {
 		tab.addEventListener('click', () => {
 			// Deselect the previously selected tab and select the clicked tab
-			const selectedTab = document.querySelector('.selected-tab');
+			const selectedTab = document.querySelector('.selected-sub-tab');
 			if (selectedTab) {
-				selectedTab.classList.remove('selected-tab');
+				selectedTab.classList.remove('selected-sub-tab');
 			}
-			tab.classList.add('selected-tab');
+			tab.classList.add('selected-sub-tab');
 
 			// Show the content corresponding to the clicked tab
 			const contents = document.querySelectorAll('.content');

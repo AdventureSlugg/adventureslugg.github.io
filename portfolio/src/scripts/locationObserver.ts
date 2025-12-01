@@ -48,13 +48,42 @@ treeNodes.forEach(node => {
 		// Prevent the events from being propogated up the dom tree. Only want the child click event.
 		event?.stopPropagation()
 
+		const id = node.id.split('-node')[0]
 		// Toggle the view of the node
-		toggleView(node.id.split('-node')[0]);
+		toggleView(id);
 
-		setSectionByID(node.id.split('-node')[0]);
+		setSectionByID(id);
+
+		// In case the node is a project section
+		toggleProjectContent(id)
 	})
 })
 // #endregion Listen for selecting a tree node
+
+// Listen for selecting a project tab
+// const projectTabs = document.querySelectorAll('.sub-tab');
+// projectTabs.forEach(tab => {
+// 	tab.addEventListener('click', () => {
+		// const subTabID = tab.id.split('-tab')[0];
+		// highlightNodeByID(subTabID);
+		// updateFilePath(subTabID);
+		// scrollToSectionByID(subTabID);
+// 	})
+// })
+const projectTabs = document.querySelectorAll('.sub-tab');
+
+projectTabs.forEach(tab => {
+	tab.addEventListener('click', () => {
+		toggleProjectContent(tab);
+
+		// Get the reference for scrolling in top level nav
+		const subTabID = tab.id.split('-tab')[0];
+		highlightNodeByID(subTabID);
+		updateFilePath(subTabID);
+		scrollToSectionByID(subTabID);
+		
+	});
+});
 
 // #endregion EVENT LISTENER SETUP
 
@@ -144,6 +173,34 @@ function setSectionByID(sectionID: string, byScroll: boolean = false) {
 	highlightNodeByID(sectionID);
 	selectTabByID(sectionID);
 	updateFilePath(sectionID);
+}
+
+function toggleProjectContent(tab: Element | string) {
+	let tabElement;
+	if (typeof tab === 'string') {
+		tabElement = document.getElementById(tab);
+	} else {
+		tabElement = tab;
+	}
+	
+	if (tabElement) {
+		// Deselect the previously selected tab and select the clicked tab
+		const selectedTab = document.querySelector('.selected-sub-tab');
+		if (selectedTab) {
+			selectedTab.classList.remove('selected-sub-tab');
+		}
+		tabElement.classList.add('selected-sub-tab');
+
+		// Show the content corresponding to the clicked tab
+		const contents = document.querySelectorAll('.content');
+		contents.forEach(content => {
+			content.setAttribute('style', 'display: none;');
+		});
+		const activeContent = document.getElementById(tabElement.id + '-content');
+		if (activeContent) {
+			activeContent.style.display = 'block';
+		}
+	}
 }
 
 // #endregion FUNCTION DEFINITIONS

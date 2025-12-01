@@ -52,7 +52,7 @@ console.log(Astro.props)
 							return <Card 
 								title={subsection.name} 
 								description={subsection.description}
-								image={{ src: subsection.image ? subsection.image.src : '/public/project-images/games/PartySnailPreview.png', alt: subsection.name }}
+								image={{ src: subsection.image ? subsection.image.src : '/public/project-images/NoImage.png', alt: subsection.name }}
 								badges={subsection.technologies?.map(tech => ({ text: tech.name, color: technologyColors[tech.type] }))}
 							/>
 						})

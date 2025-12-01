@@ -34,7 +34,7 @@ const sections: Section[] = [
 					{
 						id: 'web',
 						name: 'Web/Mobile',
-						blurb: 'Projects focused on web and mobile development.',
+						blurb: 'My Specialty Dish! Presenting... spaghetti! Ehem... I mean... web apps!',
 						subsections: [
 							{
 								id: 'travel-quest',
@@ -100,26 +100,57 @@ const sections: Section[] = [
 					{
 						id: 'games',
 						name: 'Games',
-						blurb: 'Projects focused on game development.',
+						blurb: 'From hungry snails to heated subreddit battles, jump into some of my favorite game projects~',
 						subsections: [
 							{
 								id: 'snail-party',
 								name: 'Snail Party',
+								description: 'A hoard of VERY HUNGRY snails competing in mini-games for the ever-so-delicious strawberry!',
+								image: { src: '/public/project-images/games/PartySnailPreview.png', alt: 'Snail Party' },
+								technologies: [
+									{
+										name: 'MetaHorizon',
+										type: 'frontend'
+									},
+									{
+										name: 'typescript',
+										type: 'backend'
+									}
+								]
 							},
 							{
-								id: 'subreddit-royale',
-								name: 'Subreddit Royale',
+								id: 'block-battles',
+								name: 'Block Battles',
+								description: 'A blocky battle between Reddit communities, where players fight to claim territory for their favorite sub!',
+								technologies: [
+									{
+										name: 'React',
+										type: 'frontend'
+									},
+									{
+										name: 'devvit',
+										type: 'backend'
+									}
+								],
+								image: { src: '/public/project-images/games/BlockBattlesPreview.png', alt: 'Block Battles' }
 							},
 							{
-								id: 'vr-hide-and-seek',
-								name: 'VR Hide and Seek',
+								id: 'chef-pan',
+								name: 'Chef Pan',
+								description: 'Chef Pan has a personal vendetta against vegetables! Help him collect ingredients to make the perfect dish!',
+								technologies: [
+									{
+										name: 'Godot',
+										type: 'frontend'
+									}
+								]
 							}
 						]
 					},
 					{
 						id: 'libraries',
 						name: 'Libraries',
-						blurb: 'Reusable libraries and components I have developed.',
+						blurb: 'Sharing the love with highly customizable and easy to use libraries <3',
 						subsections: [
 							{
 								id: '3d-sea',
@@ -128,10 +159,6 @@ const sections: Section[] = [
 							{
 								id: 'astro-components',
 								name: 'Astro Components',
-							},
-							{
-								id: 'ui-kit',
-								name: 'UI Kit',
 							}
 						]
 					}

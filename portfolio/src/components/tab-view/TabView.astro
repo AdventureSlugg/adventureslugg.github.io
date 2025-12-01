@@ -1,0 +1,130 @@
+---
+import Card, { type ImageType } from "../card/Card.astro"
+
+export type Technology = {
+	name: string,
+	type: 'frontend' | 'backend' | 'api'
+}
+
+export type ProjectSection = {
+	id: string,
+	name: string,
+	blurb: string,
+	subsections?: ProjectSubsection[]
+}
+
+export type ProjectSubsection = {
+	id: string,
+	name: string,
+	image?: ImageType,
+	description?: string,
+	technologies?: Technology[]
+}
+
+const technologyColors: Record<string, string> = {
+	'frontend': '#99ddee',
+	'backend': '#ffee55',
+	'api': '#ff99cc'
+}
+
+const sections = Astro.props.sections as ProjectSection[];
+
+console.log(Astro.props)
+
+---
+<div class="tab-view">
+	<div class="tabs">
+		{
+			sections.map(section => {
+				return <div class="tab" id={`${section.id}-tab`}>{section.name}</div>
+			})
+		}
+	</div>
+	{
+		sections.map(section => {
+			return <div class="content" id={`${section.id}-content`} style="display: none;">
+				{
+					section.blurb
+				}
+				<div style="display:flex; flex-direction: row; gap: 1rem">
+					{
+						section.subsections?.map(subsection => {
+							return <Card 
+								title={subsection.name} 
+								description={subsection.description}
+								image={{ src: subsection.image ? subsection.image.src : '/public/project-images/games/PartySnailPreview.png', alt: subsection.name }}
+								badges={subsection.technologies?.map(tech => ({ text: tech.name, color: technologyColors[tech.type] }))}
+							/>
+						})
+					}
+				</div>
+			</div>
+		})
+	}
+</div>
+
+<style>
+	.tab-view {
+		padding: 1rem;
+		color: black;
+	}
+
+	.selected-tab {
+		background-color: #b16cff !important;
+		border-bottom: none;
+		color: white;
+		font-weight: bold;
+	}
+
+	.tab {
+		padding: 0.5rem 1rem;
+		border: 1px solid black;
+		border-bottom: none;
+		border-radius: 0.5rem 0.5rem 0 0;
+		background-color: #a1ffa1;
+		cursor: pointer;
+	}
+
+	.tab:hover {
+		opacity: .8;
+	}
+
+	.tabs {
+		display: flex;
+		flex-direction: row;
+		gap: 1rem;
+		border-bottom: 2px solid black;
+	}
+	.content {
+		padding: 2rem;
+		border: 1px solid black;
+		border-radius: 0 0.5rem 0.5rem 0.5rem;
+		background-color: #f0f0f0;
+	}
+</style>
+
+<script>
+	const projectTabs = document.querySelectorAll('.tab');
+
+	projectTabs.forEach(tab => {
+		tab.addEventListener('click', () => {
+			// Deselect the previously selected tab and select the clicked tab
+			const selectedTab = document.querySelector('.selected-tab');
+			if (selectedTab) {
+				selectedTab.classList.remove('selected-tab');
+			}
+			tab.classList.add('selected-tab');
+
+			// Show the content corresponding to the clicked tab
+			const contents = document.querySelectorAll('.content');
+			contents.forEach(content => {
+				content.setAttribute('style', 'display: none;');
+			});
+			const activeContent = document.getElementById(tab.id.replace('-tab', '-content'));
+			if (activeContent) {
+				activeContent.style.display = 'block';
+			}
+			
+		});
+	});
+</script>

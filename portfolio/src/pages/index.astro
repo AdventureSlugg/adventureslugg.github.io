@@ -9,12 +9,13 @@ import FileTabs from '../components/file-tabs/FileTabs.astro';
 import FilePath from '../components/file-path/FilePath.astro';
 import type { Tab } from '../components/file-tabs/FileTab.astro';
 import type { TreeNodeType } from '../components/explorer/TreeNode.astro';
+import type { ProjectSection } from '../components/tab-view/TabView.astro';
 
 // import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 type Section = {
 	id: string; // used to access the section, tab, and node: id-section; id-tab; id-node,
 	name: string; // display name,
-	subsections?: Section[]; // subsections under this section
+	subsections?: Section[] | ProjectSection[]; // subsections under this section
 }
 
 const sections: Section[] = [
@@ -32,51 +33,105 @@ const sections: Section[] = [
 				subsections: [
 					{
 						id: 'web',
-						name: 'Web',
+						name: 'Web/Mobile',
+						blurb: 'Projects focused on web and mobile development.',
 						subsections: [
 							{
+								id: 'travel-quest',
+								name: 'Travel Quest',
+								description: 'Assigns personalized travel quests based on user location and preferences.',
+								technologies: [
+									{
+										name: 'React Native',
+										type: 'frontend'
+									},
+									{
+										name: 'Async',
+										type: 'backend'
+									}
+								]
+							},
+							{
 								id: 'code-racer',
-								name: 'Code Racer'
+								name: 'Code Racer',
+								image: { src: '/public/project-images/web/CodeRacerPreview.png', alt: 'Code Racer' },
+								description: 'An online multiplayer coding game that challenges players to solve coding problems as quickly as possible.',
+								technologies: [
+									{
+										name: 'Vue3',
+										type: 'frontend'
+									},
+									{
+										name: 'Node',
+										type: 'backend'
+									},
+									{
+										name: 'Socket.io',
+										type: 'backend'
+									}
+								]
 							},
 							{
 								id: 'apollo-link',
-								name: 'Apollo Link'
-							},
-							{
-								id: 'med-o-matic',
-								name: 'Med-O-Matic'
+								name: 'ApolloLink',
+								image: { src: '/public/project-images/web/ApolloLinkPreview.jpg', alt: 'Apollo Link' },
+								description: 'A life saving web app that monitors patient health data in real-time and alerts medical professionals of any critical changes.',
+								technologies: [
+									{
+										name: 'Angular',
+										type: 'frontend'
+									},
+									{
+										name: 'Express',
+										type: 'backend'
+									},
+									{
+										name: 'Twilio',
+										type: 'api'
+									},
+									{
+										name: 'OpenAI',
+										type: 'api'
+									}
+								]
 							}
 						]
 					},
 					{
 						id: 'games',
 						name: 'Games',
+						blurb: 'Projects focused on game development.',
 						subsections: [
 							{
 								id: 'snail-party',
-								name: 'Snail Party'
+								name: 'Snail Party',
 							},
 							{
 								id: 'subreddit-royale',
-								name: 'Subreddit Royale'
+								name: 'Subreddit Royale',
 							},
 							{
 								id: 'vr-hide-and-seek',
-								name: 'VR Hide and Seek'
+								name: 'VR Hide and Seek',
 							}
 						]
 					},
 					{
 						id: 'libraries',
 						name: 'Libraries',
+						blurb: 'Reusable libraries and components I have developed.',
 						subsections: [
 							{
 								id: '3d-sea',
-								name: '3D Sea'
+								name: '3D Sea',
 							},
 							{
-								id: 'video-ui',
-								name: 'Video UI'
+								id: 'astro-components',
+								name: 'Astro Components',
+							},
+							{
+								id: 'ui-kit',
+								name: 'UI Kit',
 							}
 						]
 					}
@@ -141,7 +196,9 @@ const sectionToExplorer = (section: Section): TreeNodeType => {
 	}
 };
 
-const explorer = sectionToExplorer(sections[0])
+const explorer = sectionToExplorer(sections[0]);
+
+const projectsSection: ProjectSection[] = sections[0].subsections!.find( (section) => section.id === 'projects' )?.subsections as ProjectSection[] || [];
 
 ---
 
@@ -168,7 +225,7 @@ const explorer = sectionToExplorer(sections[0])
 		</div>
 
 		<div class="full-relative-height" slot="main-content">
-			<MainContent></MainContent>
+			<MainContent projects={ projectsSection }></MainContent>
 		</div>
 
 	</CodeEditor>

@@ -61,15 +61,6 @@ treeNodes.forEach(node => {
 // #endregion Listen for selecting a tree node
 
 // Listen for selecting a project tab
-// const projectTabs = document.querySelectorAll('.sub-tab');
-// projectTabs.forEach(tab => {
-// 	tab.addEventListener('click', () => {
-		// const subTabID = tab.id.split('-tab')[0];
-		// highlightNodeByID(subTabID);
-		// updateFilePath(subTabID);
-		// scrollToSectionByID(subTabID);
-// 	})
-// })
 const projectTabs = document.querySelectorAll('.sub-tab');
 
 projectTabs.forEach(tab => {
@@ -183,7 +174,8 @@ function toggleProjectContent(tab: Element | string) {
 		tabElement = tab;
 	}
 	
-	if (tabElement) {
+	// Make sure the element exists and is a project tab before applying the changes
+	if (tabElement && (tabElement.parentNode as HTMLElement).id === 'project-tabs') {
 		// Deselect the previously selected tab and select the clicked tab
 		const selectedTab = document.querySelector('.selected-sub-tab');
 		if (selectedTab) {

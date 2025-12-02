@@ -1,3 +1,5 @@
+let rickRoll = false;
+
 const openLink = (url: string, confirmation: boolean = true) => {
 	const link = document.createElement('a');
 	link.href = url;
@@ -41,7 +43,15 @@ const actionMap: Record<string, CallableFunction> = {
 		document.getElementById('base')!.classList.replace('right-side-up', 'upside-down');
 	},
 	'hide-option': () => {
-		openLink('https://www.youtube.com/watch?v=E4WlUXrJgy4', false);
+		const hide = document.getElementById('hide-option');
+
+		if (!rickRoll) {
+			hide!.title = "Last chance... I'M WARNING YOU!"
+			rickRoll = true;
+		} else {
+			hide!.title = "... What did I tell you?"
+			openLink('https://www.youtube.com/watch?v=E4WlUXrJgy4', false);
+		}
 	}
 
 }

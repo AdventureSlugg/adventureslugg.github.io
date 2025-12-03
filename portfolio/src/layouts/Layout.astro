@@ -12,6 +12,7 @@ import '../assets/css/styles.css';
 		<title>Developer Space: Zoe's Playground</title>
 	</head>
 	<body id="base" class="right-side-up">
+		<img id="harold" src="/public/spider/cute-spider-idle-long.gif" class="spider" alt="harris" title="Harris">
 		<slot />
 	</body>
 </html>
@@ -23,6 +24,11 @@ import '../assets/css/styles.css';
 		width: 100%;
 		height: 100%;
 		background-color: var(--primary-bg-color);
+	}
+	.spider {
+		top: 0;
+		right: 0;
+		position: absolute;
 	}
 	.upside-down {
 		transform: rotate(900deg);

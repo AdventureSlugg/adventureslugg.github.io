@@ -4,4 +4,78 @@ import SectionTitle from "../components/sections/SectionTitle.astro";
 
 <div id="process" class="main-inner-content">
 	<SectionTitle title="Process"></SectionTitle>
+	<h1>
+		Okay, so now you want to know <i>how the magic happens?</i>
+	</h1>
+	<p>
+		So you wanna peek behind the curtain, huh?
+	</p>
+	<p>
+		You want the <b>recipe</b>, the <i>secret sauce</i>, the magic✨✨...
+	</p>
+	<p>
+		Here's <b>Zoe's Simple 4-step Plan</b> to guaranteed success, or your money back! <i>(Terms and conditions apply)</i>
+	</p>
+	<div>
+		<div class="overlap-container">
+			<img src="/public/main-content-images/ProcessDiagram.png" class="diagram">
+			<div class="cards">
+				<div class="card" style="border-radius: 10px 0 0 0;">
+					<p>
+						💭 Understand
+					</p>
+				</div>
+				<div class="card" style="border-radius: 0 10px 0 0;">
+					<p>
+						🔍 Investigate
+					</p>
+				</div>
+				<div class="card" style="border-radius: 0 0 0 10px;">
+					<p>
+						📋 Plan
+					</p>
+				</div>
+				<div class="card" style="border-radius: 0 0 10px 0;">
+					<p>
+						🛠️ Implement
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+
+<style>
+	.card {
+		width: 50%;
+		height: 50%;
+		background-color: rgba(140, 128, 173, .95);
+		border: 1px white solid;
+		box-sizing: border-box;
+		opacity: 0;
+	}
+
+	.card:hover {
+		opacity: 1;
+	}
+	.diagram {
+		width: 100%;
+		z-index: 1;
+		display: block;
+	}
+	.overlap-container {
+		width: 100%;
+		position: relative;
+		margin-bottom: 2rem;
+	}
+	.cards {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 2;
+		display: flex;
+		flex-wrap: wrap;
+	}
+</style>

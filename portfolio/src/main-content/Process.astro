@@ -21,24 +21,81 @@ import SectionTitle from "../components/sections/SectionTitle.astro";
 			<img src="/public/main-content-images/ProcessDiagram.png" class="diagram">
 			<div class="cards">
 				<div class="card" style="border-radius: 10px 0 0 0;">
-					<p>
+					<p class="section-title" style="color: #3BD1FF">
 						💭 Understand
 					</p>
+					<div class="card-body">
+						<p>
+							Set your direction.
+						</p>
+						<ul>
+							<li>
+								Who is the user?
+							</li>
+							<li>
+								What problem does this solve?
+							</li>
+							<li>
+								What should the result look like?
+							</li>
+						</ul>
+					</div>
+					
 				</div>
 				<div class="card" style="border-radius: 0 10px 0 0;">
-					<p>
+					<p class="section-title" style="color: #3bff9a">
 						🔍 Investigate
 					</p>
+					<div class="card-body">
+						<p>
+							Understand your position.
+						</p>
+						<ul>
+							<li>
+								Determine what we already have.
+							</li>
+							<li>
+								Become familiar with the structure.
+							</li>
+							<li>
+								Figure out where the new additions will fit best.
+							</li>
+						</ul>
+					</div>
 				</div>
 				<div class="card" style="border-radius: 0 0 0 10px;">
-					<p>
+					<p class="section-title" style="color: #ff51f6">
 						📋 Plan
 					</p>
+					<div class="card-body">
+						<p>
+							Determine your solution.
+						</p>
+						<ul>
+							<li>
+								What are my options?
+							</li>
+							<li>
+								What are the advantages and disadvantages of each approach?
+							</li>
+							<li>
+								Given the system, which solution is most appropriate?
+							</li>
+						</ul>
+					</div>
 				</div>
 				<div class="card" style="border-radius: 0 0 10px 0;">
-					<p>
+					<p class="section-title" style="color: #ffe23b">
 						🛠️ Implement
 					</p>
+					<div class="card-body">
+						<p>
+							Execute your plan.
+						</p>
+						<p>
+							No bulleted list. This is actually the easiest part of the entire process. Once you know the solution, it's just a matter of translating it to code!
+						</p>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -46,6 +103,13 @@ import SectionTitle from "../components/sections/SectionTitle.astro";
 </div>
 
 <style>
+	.section-title {
+		font-size: 2rem;
+		text-transform: uppercase;
+		margin-left: 1.5rem;
+		font-weight: bold;
+	}
+
 	.card {
 		width: 50%;
 		height: 50%;
@@ -58,6 +122,12 @@ import SectionTitle from "../components/sections/SectionTitle.astro";
 	.card:hover {
 		opacity: 1;
 	}
+
+	.card-body {
+		margin-left: 1.5rem;
+		margin-right: 1.5rem;
+	}
+
 	.diagram {
 		width: 100%;
 		z-index: 1;

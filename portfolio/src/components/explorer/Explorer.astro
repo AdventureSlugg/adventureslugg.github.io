@@ -9,16 +9,64 @@ const props = Astro.props as ExplorerType;
 ---
 
 <div class="explorer full-relative-height" id="explorer-section">
-	<b>EXPLORER</b>
-	<TreeNode name={props.rootNode.name} children={props.rootNode.children}></TreeNode>
+	<div class="file-section">
+		<b>EXPLORER</b>
+		<TreeNode name={props.rootNode.name} children={props.rootNode.children}></TreeNode>
+	</div>
+	<div class="resize-handle"></div>
 </div>
 
 <style>
+	.file-section {
+		overflow-x: hidden;
+		min-width: 1px;
+	}
+
 	.explorer {
 		background-color: var(--secondary-bg-color);
 		color: white;
-		min-width: 15rem;
+		min-width: 2rem;
 		overflow-y: scroll;
-		padding: 1rem;
+		overflow-x: hidden;
+		resize: horizontal;
+		display: flex;
+		flex-direction: row;
+	}
+
+	.resize-handle {
+		margin-left: auto;
+		margin-right: 0;
+		top: 0;
+		right: 0;
+		min-width: 3px;
+		height: 100%;
+		cursor: ew-resize;
+		z-index: 100;	
+	}
+	.resize-handle:hover {
+		background-color: aliceblue;
 	}
 </style>
+
+<script>
+	const explorer = document.querySelector('.explorer');
+	const handle = document.querySelector('.resize-handle');
+
+	let isResizing = false;
+
+	handle!.addEventListener('mousedown', () => {
+		isResizing = true;
+	});
+
+	window.addEventListener('mousemove', (e) => {
+		if (!isResizing) return;
+
+		const newWidth = e.clientX - explorer!.getBoundingClientRect().left;
+			(explorer! as HTMLElement).style.width = `${newWidth}px`;
+	});
+
+	window.addEventListener('mouseup', () => {
+		isResizing = false;
+	});
+
+</script>

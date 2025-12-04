@@ -19,7 +19,9 @@ const actionMap: Record<string, CallableFunction> = {
 	'explorerClickable': () => {
 		// Expand/Minimize the Explorer side-bar.
 		const explorerElement = document.getElementById('explorer-section') as HTMLElement;
-		explorerElement.style.display = explorerElement.style.display === 'none' ? 'block' : 'none'
+		explorerElement.style.display = explorerElement.style.display === 'none' ? 'flex' : 'none';
+		const explorer = document.querySelector('.explorer');
+		(explorer as HTMLElement).style.width = '';		
 	},
 	'searchClickable': () => {
 		// TODO: Open up the Search function.
@@ -58,6 +60,7 @@ const actionMap: Record<string, CallableFunction> = {
 
 const clickables = document.querySelectorAll('div.clickable');
 const buttonClickables = document.querySelectorAll('button.clickable');
+const imageClickables = document.querySelectorAll('img.clickable')
 
 clickables.forEach(clickable => {
 	clickable.addEventListener('click', () => {

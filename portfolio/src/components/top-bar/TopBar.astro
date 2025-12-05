@@ -25,7 +25,7 @@ import '../../assets/css/rainbowEffect.css'
 	<div class="page-title">
 		<p class="rainbow">
 			
-			<span>
+			<span class="text">
 				Welcome to Zoe's Playground!
 			</span>
 		</p>
@@ -39,16 +39,58 @@ import '../../assets/css/rainbowEffect.css'
 </div>
 
 <style>
+	@media screen and (min-width: 1024px) {
+		.tool-bar {
+			height: 3vw;
+		}
+		.window-options {
+			padding: .75vw;
+		}
+		.theme-options {
+			padding: .75vw;
+			margin-right: 0vw;
+		}
+		.window-option {
+			border-radius: 5vw;
+			height: 1.5vw;
+			width: 1.5vw;
+			border: 0px;
+			font-size: 1vw;
+		}
+	}
+	@media screen and (max-width: 1023px) {
+		.tool-bar {
+			height: 10vw;
+		}
+		.window-options {
+			padding: 2.5vw;
+		}
+		.theme-options {
+			padding: 1vw;
+			margin-right: 0vw;
+		}
+		.window-option {
+			border-radius: 5vw;
+			height: 4vw;
+			width: 4vw;
+			border: 0px;
+			margin-right: 1.5vw;
+			font-size: 2vw;
+		}
+		.text {
+			font-size: 2vw;
+		}
+	}
 	@keyframes bounce {
-	0%, 100% {
-		transform: translateY(0vw);
-	}
-	20% {
-		transform: translateY(-1vw);
-	}
-	40% {
-		transform: translateY(0vw);
-	}
+		0%, 100% {
+			transform: translateY(0vw);
+		}
+		20% {
+			transform: translateY(-1vw);
+		}
+		40% {
+			transform: translateY(0vw);
+		}
 	}
 	.rainbow:hover {
 		animation: bounce 1.5s ease-in-out;
@@ -58,27 +100,10 @@ import '../../assets/css/rainbowEffect.css'
 		margin:auto; 
 		color: white;
 	}
+
 	.tool-bar {
 		background-color: var(--quarternary-bg-color);
-		height: 3vw;
 		width: 100%;
-	}
-
-	.window-options {
-		padding: .75vw;
-	}
-
-	.theme-options {
-		padding: .75vw;
-		margin-right: 0vw;
-	}
-
-	.window-option {
-		border-radius: 5vw;
-		height: 1.5vw;
-		width: 1.5vw;
-		border: 0px;
-		font-size: 1vw;
 	}
 
 	.window-option:hover {

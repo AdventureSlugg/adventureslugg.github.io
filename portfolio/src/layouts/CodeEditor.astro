@@ -4,27 +4,20 @@ import '../assets/css/styles.css'
 
 <!-- The IDE has two rows: the top-bar and the content -->
 <div class="parent" draggable="false">
+	<!-- Mobile Layout -->
 	<div class="column full-width">
 		<!-- The content has two columns: the window options, and theme toggle. -->
 		<slot name="top-bar"/>
-
-		<!-- The content is composed of three columns: the extensions, file-explorer, and code-section -->
-		<div class="row full-width full-relative-height">
-			<slot 
-				name="extensions" 
-			/>
-			<slot 
-				name="file-explorer"
-			/>
-
-			<!-- The code section is composed of 3 rows: the tab-section, file-path-section, and main-content -->
-			<div class="code-section">
-				<slot name="tab-section"/>
-				<slot name="file-path"/>
-				<slot name="main-content"/>
-			</div>
+		
+		<slot name="main-content"/>
+		<slot name="tab-section"></slot>
+		<div class="row full-width bottom">
+			<slot name="file-explorer"></slot>
+			<slot name="extensions"/></slot>
 		</div>
-</div>
+		
+		
+	</div>
 </div>
 
 
@@ -39,5 +32,9 @@ import '../assets/css/styles.css'
 		background-color: var(--primary-bg-color);
 		color: white;
 		flex: 1 1 auto;
+	}
+
+	.bottom {
+		height: 60vh;
 	}
 </style>

@@ -11,7 +11,7 @@ const props = Astro.props as TreeNodeType;
 
 ---
 
-<div style={`margin-left: ${props.depth ? props.depth : 0}rem;`} class={props.parentId + ' treenode'} id={props.id + '-node'}>
+<div style={`margin-left: ${props.depth ? props.depth : 0}vw;`} class={props.parentId + ' treenode'} id={props.id + '-node'}>
 	<p id={`${props.id}-text`}>{props.children ? '⛛ ' : ''}{props.name}</p>
 	{
 		props.children?.map(child => {
@@ -35,7 +35,7 @@ const props = Astro.props as TreeNodeType;
 
 	.treenode p {
 		margin: 0;
-		padding: 0.2rem 0;
+		padding: 0.2vw 0;
 		text-wrap: nowrap;
 	}
 
@@ -43,6 +43,6 @@ const props = Astro.props as TreeNodeType;
 		background-color: rgb(31, 74, 123);
 		border-color: rgb(144, 203, 255);
 		border-style: solid;
-		border-width: 0.1rem;
+		border-width: 0.1vw;
 	}
 </style>

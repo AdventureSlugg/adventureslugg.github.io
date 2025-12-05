@@ -19,13 +19,13 @@ const props = Astro.props as ExplorerType;
 <style>
 	.file-section {
 		overflow-x: hidden;
-		min-width: 1px;
+		min-width: .1vw;
 	}
 
 	.explorer {
 		background-color: var(--secondary-bg-color);
 		color: white;
-		min-width: 2rem;
+		min-width: 2vw;
 		overflow-y: scroll;
 		overflow-x: hidden;
 		resize: horizontal;
@@ -38,7 +38,7 @@ const props = Astro.props as ExplorerType;
 		margin-right: 0;
 		top: 0;
 		right: 0;
-		min-width: 3px;
+		min-width: .3vw;
 		height: 100%;
 		cursor: ew-resize;
 		z-index: 100;	

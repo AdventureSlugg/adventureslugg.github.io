@@ -46,7 +46,7 @@ console.log(Astro.props)
 				{
 					section.blurb
 				}
-				<div style="display:flex; flex-direction: row; gap: 1rem">
+				<div style="display:flex; flex-direction: row; gap: 1vw">
 					{
 						section.subsections?.map(subsection => {
 							return <Card 
@@ -65,7 +65,7 @@ console.log(Astro.props)
 
 <style>
 	.tab-view {
-		padding: 1rem;
+		padding: 1vw;
 		color: black;
 		width: 100%;
 	}
@@ -78,10 +78,10 @@ console.log(Astro.props)
 	}
 
 	.sub-tab {
-		padding: 0.5rem 1rem;
-		border: 1px solid black;
+		padding: 0.5vw 1vw;
+		border: .1vw solid black;
 		border-bottom: none;
-		border-radius: 0.5rem 0.5rem 0 0;
+		border-radius: 0.5vw 0.5vw 0 0;
 		background-color: #a1ffa1;
 		cursor: pointer;
 	}
@@ -93,13 +93,13 @@ console.log(Astro.props)
 	.tabs {
 		display: flex;
 		flex-direction: row;
-		gap: 1rem;
-		border-bottom: 2px solid black;
+		gap: 1vw;
+		border-bottom: .2vw solid black;
 	}
 	.content {
-		padding: 2rem;
-		border: 1px solid black;
-		border-radius: 0 0.5rem 0.5rem 0.5rem;
+		padding: 2vw;
+		border: .1vw solid black;
+		border-radius: 0 0.5vw 0.5vw 0.5vw;
 		background-color: #f0f0f0;
 	}
 </style>

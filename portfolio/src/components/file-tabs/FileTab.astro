@@ -11,19 +11,41 @@ const props = Astro.props as Tab
 </div>
 
 <style>
+	@media screen and (min-width: 1024px) {
+		.tab {
+			padding: 1vw;
+			border-right: .1vw;
+		}
+		.tab:hover {
+			border-right: .1vw;
+			border-left: .1vw;
+			border-top: .1vw;
+		}
+	}
+	@media screen and (max-width: 1023px) {
+		.tab {
+			padding: 1.5vw;
+			border-right: .01vw;
+			border-bottom: 0vw;
+			border-left: .01vw;
+			border-top: .01vw;
+			font-size: 4vw;
+		}
+	}
+
 	.tab {
 		width: fit-content;
-		padding: 1vw;
-		border-right: .1vw #252526 solid;
+		border-color: #252526;
+		border-style: solid;
 		background-color: var(--secondary-bg-color);
+		color: white;
 	}
 
 	.tab:hover {
 		color:#feffa7;
+		border-color: #feffa7;
+		border-style: solid;
 		cursor: pointer;
-		border-right: .1vw #feffa7 solid;
-		border-left: .1vw #feffa7 solid;
-		border-top: .1vw #feffa7 solid;
 	}
 
 	.selected-tab {

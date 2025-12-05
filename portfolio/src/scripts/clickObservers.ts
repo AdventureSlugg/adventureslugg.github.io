@@ -1,4 +1,50 @@
+import { nullable } from "astro:schema";
+
 let rickRoll = false;
+let harrisAlive = true;
+
+const deathSequence = [
+	{
+		src: "/public/spider/death-sequence/f1.png",
+		time: 1000,
+		opacity: '1'
+	},
+	{
+		src: "/public/spider/death-sequence/f2.png",
+		time: 1750,
+		opacity: '1'
+	},
+	{
+		src: "/public/spider/death-sequence/f3.png",
+		time: 1900,
+		opacity: '1'
+	},
+	{
+		src: "/public/spider/death-sequence/f4.png",
+		time: 2000,
+		opacity: '1'
+	},
+	{
+		src: "/public/spider/death-sequence/f6.png",
+		time: 2100,
+		opacity: '1'
+	},
+	{
+		src: "/public/spider/death-sequence/f6.png",
+		time: 10000,
+		opacity: '.5'
+	},
+	{
+		src: "/public/spider/death-sequence/f6.png",
+		time: 20000,
+		opacity: '.2'
+	},
+	{
+		src: null,
+		time: 20000,
+		opacity: '0'
+	},
+]
 
 const openLink = (url: string, confirmation: boolean = true) => {
 	const link = document.createElement('a');
@@ -54,6 +100,25 @@ const actionMap: Record<string, CallableFunction> = {
 			hide!.title = "... What did I tell you?"
 			openLink('https://www.youtube.com/watch?v=E4WlUXrJgy4', false);
 		}
+	},
+	'harris': async () => {
+		console.log("Harris clicked")
+		if (harrisAlive) {
+			let harrisElement = document.getElementById('harris') as HTMLImageElement;
+			deathSequence.forEach( async frame => {
+				setTimeout(() => {
+					if (frame.src){
+						harrisElement.src = frame.src;
+						harrisElement.style.opacity = frame.opacity;
+					} else {
+						harrisElement.remove();
+					}
+					
+				}, frame.time)
+			})
+			
+		}
+		harrisAlive = false;
 	}
 
 }
@@ -62,15 +127,15 @@ const clickables = document.querySelectorAll('div.clickable');
 const buttonClickables = document.querySelectorAll('button.clickable');
 const imageClickables = document.querySelectorAll('img.clickable')
 
-clickables.forEach(clickable => {
+const allClickables = [
+	...clickables,
+	...buttonClickables,
+	...imageClickables
+]
+
+allClickables.forEach(clickable => {
 	clickable.addEventListener('click', () => {
 		// TODO: Highlight the clickable option and remove highlight from all other clickables
-		actionMap[clickable.id]();
-	})
-})
-
-buttonClickables.forEach(clickable => {
-	clickable.addEventListener('click', () => {
 		actionMap[clickable.id]();
 	})
 })

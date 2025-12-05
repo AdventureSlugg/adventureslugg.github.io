@@ -7,27 +7,23 @@ const deathSequence = [
 	{
 		src: "/public/spider/death-sequence/f1.png",
 		time: 1000,
-		opacity: '1'
 	},
 	{
 		src: "/public/spider/death-sequence/f2.png",
 		time: 1750,
-		opacity: '1'
 	},
 	{
 		src: "/public/spider/death-sequence/f3.png",
 		time: 1900,
-		opacity: '1'
 	},
 	{
 		src: "/public/spider/death-sequence/f4.png",
 		time: 2000,
-		opacity: '1'
 	},
 	{
 		src: "/public/spider/death-sequence/f6.png",
 		time: 2100,
-		opacity: '1'
+		title: 'R.I.P. Harris'
 	},
 	{
 		src: "/public/spider/death-sequence/f6.png",
@@ -109,7 +105,8 @@ const actionMap: Record<string, CallableFunction> = {
 				setTimeout(() => {
 					if (frame.src){
 						harrisElement.src = frame.src;
-						harrisElement.style.opacity = frame.opacity;
+						harrisElement.style.opacity = frame.opacity ? frame.opacity : '1';
+						if (frame.title) harrisElement.title = frame.title;
 					} else {
 						harrisElement.remove();
 					}

@@ -44,6 +44,16 @@ const extensions: ExtensionProps[] = [
 </div>
 
 <style>
+	@media screen and (min-width: 1024px) {
+		.extensions {
+			min-width: 5vw
+		}
+	}
+	@media screen and (max-width: 1023px) {
+		.extensions {
+			min-width: 15vw
+		}
+	}
 	.extensions {
 		background-color: var(--tertiary-bg-color);
 		color: #607694;

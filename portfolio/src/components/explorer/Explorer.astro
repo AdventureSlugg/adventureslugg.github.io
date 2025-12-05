@@ -17,6 +17,15 @@ const props = Astro.props as ExplorerType;
 </div>
 
 <style>
+	@media screen and (min-width: 1024px) {
+
+	}
+	@media screen and (max-width: 1023px) {
+		.explorer {
+			width: 85vw
+		}
+	}
+
 	.file-section {
 		overflow-x: hidden;
 		min-width: .1vw;

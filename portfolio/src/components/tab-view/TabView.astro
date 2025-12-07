@@ -43,10 +43,13 @@ console.log(Astro.props)
 	{
 		sections.map((section, index) => {
 			return <div class="content" id={`${section.id}-content`} style={index===0 ? 'display: block;' : 'display: none;'}>
-				{
-					section.blurb
-				}
-				<div style="display:flex; flex-direction: row; gap: 1vw">
+				<p style="color: black">
+					{
+						section.blurb
+					}
+				</p>
+				
+				<div class="projects-container">
 					{
 						section.subsections?.map(subsection => {
 							return <Card 
@@ -64,6 +67,24 @@ console.log(Astro.props)
 </div>
 
 <style>
+	@media screen and (min-width: 1024px) {
+		.projects-container {
+			flex-direction: row; 
+
+		}
+	}
+	@media screen and (max-width: 1023px) {
+		.projects-container {
+			flex-direction: column; 
+
+		}
+	}
+
+	.projects-container {
+		display:flex; 
+		gap: 1vw;
+	}
+
 	.tab-view {
 		padding: 1vw;
 		color: black;

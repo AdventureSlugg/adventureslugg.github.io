@@ -1,0 +1,14 @@
+<!-- Mobile Layout -->
+<div class="column full-width">
+	<!-- The content has two columns: the window options, and theme toggle. -->
+	<slot name="top-bar"/>
+	
+	<slot name="main-content"/>
+	<slot name="tab-section"></slot>
+	<div class="row full-width bottom">
+		<slot name="file-explorer"></slot>
+		<slot name="extensions"/></slot>
+	</div>
+	
+	
+</div>

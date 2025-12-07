@@ -11,6 +11,30 @@
 	
 
 <style>
+	@media screen and (min-width: 1024px) {
+		.tagline {
+			font-size: 4vw;
+			font-weight: 400;
+			text-shadow: .1vw .5vw .5vw black;
+		}
+
+		.tagline:hover {
+			font-size: 5vw;
+		}
+	}
+
+	@media screen and (max-width: 1023px) {
+		.tagline {
+			font-size: 4vh;
+			font-weight: 400;
+			text-shadow: .1vw .5vw .5vw black;
+		}
+
+		.tagline:hover {
+			font-size: 5vh;
+		}
+	}
+
 	.landing-section {
 		min-height: 100%;
 		background-image: url(../assets/images/backgrounds/web.png);
@@ -22,16 +46,6 @@
 
 	.tagline-container {
 		padding: 0% 10% 5% 10%;
-	}
-
-	.tagline {
-		font-size: 4vw;
-		font-weight: 400;
-		text-shadow: .1vw .5vw .5vw black;
-	}
-
-	.tagline:hover {
-		font-size: 5vw;
 	}
 
 	.line-1 {

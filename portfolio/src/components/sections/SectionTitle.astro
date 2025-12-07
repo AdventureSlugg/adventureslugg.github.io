@@ -7,18 +7,7 @@ const props = Astro.props as TitleProps
 ---
 
 <div>
-	<p class="section-title">
+	<h1>
 		{props.title}
-	</p>
+	</h1>
 </div>
-
-<style>
-	.section-title {
-		font-size: 3vw;
-		font-weight: 400;
-		padding-bottom: 1vw;
-		border-bottom: 1vw #F5FFDA solid;
-		color: #F5FFDA;
-		width: fit-content;
-	}
-</style>

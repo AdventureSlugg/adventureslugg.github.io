@@ -47,6 +47,7 @@ a {
 
 p {
 	color: white;
+	font-size: 2vh;
 }
 
 .card p {
@@ -55,4 +56,16 @@ p {
 
 h1 {
 	color: white;
+	font-size: 5vh;
+	font-weight: 600;
+	padding-bottom: 1vw;
+	border-bottom: 1vw #F5FFDA solid;
+	color: #F5FFDA;
+	width: fit-content;
+}
+
+h2 {
+	color: white;
+	font-size: 3.5vh;
+	font-weight: 400;
 }

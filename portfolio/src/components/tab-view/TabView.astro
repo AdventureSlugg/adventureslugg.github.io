@@ -36,7 +36,11 @@ console.log(Astro.props)
 	<div class="tabs" id="project-tabs">
 		{
 			sections.map((section, index) => {
-				return <div class={`sub-tab ${index===0 ? 'selected-sub-tab' : ''}`} id={`${section.id}`}>{section.name}</div>
+				return <div class={`sub-tab ${index===0 ? 'selected-sub-tab' : ''}`} id={`${section.id}`}>
+					<p style="color: black">
+						{section.name}
+					</p>
+				</div>
 			})
 		}
 	</div>

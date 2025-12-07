@@ -41,13 +41,13 @@ const props = Astro.props as CardProps;
 
 	@media screen and (min-width: 1024px) {
 		.card {
-			width: 15vw;
+			width: 30%;
 		}
 	}
 
 	@media screen and (max-width: 1023px) {
 		.card {
-			width: 100%;
+			width: 80%;
 		}
 	}
 
@@ -71,8 +71,9 @@ const props = Astro.props as CardProps;
 
 	.card-image {
 		width: 100%;
-		height: 20vh;
+		/* height: 20vh; */
 		border-radius: 0.5vw 0.5vw 0 0;
 		border-bottom: #cacaca solid .1vw;
+		aspect-ratio: 16 / 9;
 	}
 </style>

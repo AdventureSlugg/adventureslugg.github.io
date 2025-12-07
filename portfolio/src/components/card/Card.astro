@@ -38,6 +38,19 @@ const props = Astro.props as CardProps;
 </div>
 
 <style>
+
+	@media screen and (min-width: 1024px) {
+		.card {
+			width: 15vw;
+		}
+	}
+
+	@media screen and (max-width: 1023px) {
+		.card {
+			width: 27vw;
+		}
+	}
+
 	.card {
 		border: .01vw solid black;
 		margin: 1vw 0;
@@ -45,7 +58,6 @@ const props = Astro.props as CardProps;
 		box-shadow: 1vw 1vw 3vw rgba(0,0,0,0.1);
 		background-color: #fff;
 		color: black;
-		width: 15vw;
 	}
 
 	.card:hover {

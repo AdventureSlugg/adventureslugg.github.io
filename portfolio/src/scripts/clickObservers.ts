@@ -59,11 +59,24 @@ const openLink = (url: string, confirmation: boolean = true) => {
 
 const actionMap: Record<string, CallableFunction> = {
 	'explorerClickable': () => {
-		// Expand/Minimize the Explorer side-bar.
-		const explorerElement = document.getElementById('explorer-section') as HTMLElement;
-		explorerElement.style.display = explorerElement.style.display === 'none' ? 'flex' : 'none';
-		const explorer = document.querySelector('.explorer');
-		(explorer as HTMLElement).style.width = '';		
+		
+
+		// If the screen is mobile, then get the bottom section and hide it.
+		const bottom = document.getElementsByClassName('bottom');
+		if (bottom && bottom[0]) {
+			(bottom[0] as HTMLElement).style.display = 'none';
+			// Change the main-content view to 80vh
+			const mainContent = document.getElementById('main-content');
+			if (mainContent) {
+				mainContent.style.height = '85vh'
+			}
+		} else {
+			// Expand/Minimize the Explorer side-bar.
+			const explorerElement = document.getElementById('explorer-section') as HTMLElement;
+			explorerElement.style.display = explorerElement.style.display === 'none' ? 'flex' : 'none';
+			const explorer = document.querySelector('.explorer');
+			(explorer as HTMLElement).style.width = '';
+		}
 	},
 	'searchClickable': () => {
 		// TODO: Open up the Search function.

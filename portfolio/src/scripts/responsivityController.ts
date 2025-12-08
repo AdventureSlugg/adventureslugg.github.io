@@ -1,6 +1,3 @@
-// Get the screen size and determine whether or not to show the mobile or desktop view
-console.log(window.innerWidth);
-
 // Get the mobile and desktop layouts
 const mobileLayout = document.getElementById('mobile-layout');
 const desktopLayout = document.getElementById('desktop-layout');

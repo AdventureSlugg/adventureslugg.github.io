@@ -1,6 +1,7 @@
 // Get the mobile and desktop layouts
 const mobileLayout = document.getElementById('mobile-layout');
 const desktopLayout = document.getElementById('desktop-layout');
+const parentOfLayout = document.getElementById('parent-layout')
 
 // Determine the initial layout
 determineLayout();
@@ -13,10 +14,13 @@ window.addEventListener('resize', () => {
 function determineLayout() {
 	// When the width is less than 1023, show the mobile view and hide the desktop layout.
 	if (window.innerWidth < 1023) {
-		desktopLayout!.style.display = 'none';
-		mobileLayout!.style.display = 'flex';
+		if( window.innerWidth > 550) {
+			// Top should take up 60vw, bottom 40vw
+		}
+		desktopLayout!.remove();
+		parentOfLayout!.appendChild(mobileLayout!);
 	} else { // Otherwise, show the desktop view
-		mobileLayout!.style.display = 'none';
-		desktopLayout!.style.display = 'block';
+		mobileLayout!.remove();
+		parentOfLayout!.appendChild(desktopLayout!)
 	}
 }

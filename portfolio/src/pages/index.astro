@@ -10,6 +10,7 @@ import FilePath from '../components/file-path/FilePath.astro';
 import type { Tab } from '../components/file-tabs/FileTab.astro';
 import type { TreeNodeType } from '../components/explorer/TreeNode.astro';
 import type { ProjectSection } from '../components/tab-view/TabView.astro';
+import MobileCodeEditor from '../layouts/MobileCodeEditor.astro';
 
 // import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 type Section = {
@@ -253,34 +254,68 @@ const projectsSection: ProjectSection[] = sections[0].subsections!.find( (sectio
 ---
 
 <Layout>
-	<CodeEditor>
-		<div slot="top-bar">
-			<TopBar/>
-		</div>
+	<div class="parent" draggable="false" id="parent-layout">
+		<MobileCodeEditor>
+			<div slot="top-bar">
+				<TopBar layout="mobile"/>
+			</div>
 
-		<div slot="extensions">
-			<Extensions/>
-		</div>
+			<div slot="extensions">
+				<Extensions layout="mobile"/>
+			</div>
 
-		<div slot="file-explorer">
-			<Explorer rootNode={explorer}/>
-		</div>
+			<div slot="file-explorer">
+				<Explorer rootNode={explorer} layout="mobile"/>
+			</div>
 
-		<div slot="tab-section">
-			<FileTabs tabs={tabs}/>
-		</div>
+			<div slot="tab-section">
+				<FileTabs tabs={tabs} layout="mobile"/>
+			</div>
 
-		<div slot="file-path">
-			<FilePath/>
-		</div>
+			<div slot="file-path">
+				<FilePath layout="mobile"/>
+			</div>
 
-		<div class="full-relative-height" slot="main-content">
-			<MainContent projects={ projectsSection }></MainContent>
-		</div>
+			<div class="full-relative-height" slot="main-content">
+				<MainContent projects={ projectsSection } layout="mobile"></MainContent>
+			</div>
+		</MobileCodeEditor>
 
-	</CodeEditor>
+		<CodeEditor>
+			<div slot="top-bar">
+				<TopBar layout="desktop"/>
+			</div>
+
+			<div slot="extensions">
+				<Extensions layout="desktop"/>
+			</div>
+
+			<div slot="file-explorer">
+				<Explorer rootNode={explorer} layout="desktop"/>
+			</div>
+
+			<div slot="tab-section">
+				<FileTabs tabs={tabs} layout="desktop"/>
+			</div>
+
+			<div slot="file-path">
+				<FilePath layout="desktop"/>
+			</div>
+
+			<div class="full-relative-height" slot="main-content">
+				<MainContent projects={ projectsSection } layout="desktop"></MainContent>
+			</div>
+		</CodeEditor>
+	</div>
 </Layout>
+<style>
+	.parent {
+		display: flex;
+		height: 100vh;
+		overflow: hidden;
+	}
 
+</style>
 <script src="../scripts/locationObserver.ts"></script>
 <script src="../scripts/clickObservers.ts"></script>
 <script src="../scripts/responsivityController"></script>

@@ -1,19 +1,20 @@
 ---
+import type { LayoutType } from "../../interfaces/layoutType";
 import TreeNode, { type TreeNodeType } from "./TreeNode.astro";
 
-export type ExplorerType = {
-	rootNode: TreeNodeType
+export interface ExplorerType extends LayoutType {
+	rootNode: TreeNodeType,
 }
 
 const props = Astro.props as ExplorerType;
 ---
 
-<div class="explorer full-relative-height" id="explorer-section">
+<div class="explorer full-relative-height" id=`explorer-section-${props.layout}`>
 	<div class="file-section">
-		<b style="font-size: 1.5vh">EXPLORER</b>
+		<b style="font-size: 1.5vh; margin: 1rem;">EXPLORER</b>
 		<TreeNode name={props.rootNode.name} children={props.rootNode.children}></TreeNode>
 	</div>
-	<div class="resize-handle"></div>
+	<div class="resize-handle" id=`resize-handle-${props.layout}`></div>
 </div>
 
 <style>
@@ -67,8 +68,8 @@ const props = Astro.props as ExplorerType;
 </style>
 
 <script>
-	const explorer = document.querySelector('.explorer');
-	const handle = document.querySelector('.resize-handle');
+	const explorer = document.getElementById('explorer-section-desktop');
+	const handle = document.getElementById('resize-handle-desktop');
 
 	let isResizing = false;
 

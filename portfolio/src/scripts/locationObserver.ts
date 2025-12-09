@@ -1,7 +1,9 @@
 // #region INITIAL STATES
+
 // The scroll begins at the landing section
 let currentSectionID = 'landing';
 const sections = ["contact", "landing", "philosophy", "process", "projects"]
+const layouts = ['desktop', 'mobile'];
 // #endregion INITIAL STATES
 
 
@@ -124,10 +126,14 @@ function highlightNodeByID(node: string | HTMLElement) {
  */
 function selectTabByID(tabID: string) { 
 	const tabs = document.querySelectorAll('div.tab');
-	const tab = document.getElementById(`${tabID.toLowerCase()}-tab`);
-	if (tab) {
-		tabs.forEach(t => t.classList.remove('selected-tab'));
-		tab.classList.add('selected-tab');
+	const tabLayouts = document.getElementsByClassName(`${tabID.toLowerCase()}-tab`);
+	tabs.forEach(t => t.classList.remove('selected-tab'));
+	if (tabLayouts) {
+		for (let i=0; i < tabLayouts.length; i++) {
+			if (tabLayouts[i]) {
+				tabLayouts[i].classList.add('selected-tab');
+			}
+		}
 	}
 }
 
@@ -152,7 +158,9 @@ function scrollToSectionByID(sectionID: string, scrollBehavior: ScrollBehavior =
  */
 function updateFilePath(sectionID: string) {
 	const filePath = document.getElementById('file-path') as HTMLInputElement;
-	filePath.innerText = sectionID != 'undefined' ? `Zoes-Playground > ${sectionID}` : 'Zoes-Playground';
+	if (filePath) {
+		filePath.innerText = sectionID != 'undefined' ? `Zoes-Playground > ${sectionID}` : 'Zoes-Playground';
+	}
 }
 
 /**

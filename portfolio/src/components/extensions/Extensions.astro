@@ -1,4 +1,5 @@
 ---
+import type { LayoutType } from "../../interfaces/layoutType";
 import type { IconType } from "../icons/_iconType";
 
 // Get the customizable svgs
@@ -9,25 +10,27 @@ import LinkedinIcon from "../icons/LinkedinIcon.astro";
 import SearchIcon from "../icons/SearchIcon.astro";
 import Extension, { type ExtensionProps } from "./Extension.astro";
 
+const props = Astro.props as LayoutType;
+
 const extensions: ExtensionProps[] = [
 	{
-		id: 'explorerClickable', 
+		id: 'explorerClickable' + props.layout, 
 		component: FileDirectoryIcon
 	},
 	{
-		id: 'searchClickable', 
+		id: 'searchClickable' + props.layout, 
 		component: SearchIcon
 	},
 	{
-		id: 'githubClickable', 
+		id: 'githubClickable' + props.layout, 
 		component: GitHubIcon
 	},
 	{
-		id: 'linkedinClickable', 
+		id: 'linkedinClickable' + props.layout, 
 		component: LinkedinIcon
 	},
 	{
-		id: 'devpostClickable', 
+		id: 'devpostClickable' + props.layout, 
 		component: DevpostIcon
 	}
 ]

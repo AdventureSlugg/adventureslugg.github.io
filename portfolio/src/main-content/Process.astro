@@ -3,6 +3,7 @@ import SectionTitle from "../components/sections/SectionTitle.astro";
 
 type ProcessSection = {
 	title: string,
+	id: string,
 	description: string,
 	color: string,
 	bullets?: string[]
@@ -10,6 +11,7 @@ type ProcessSection = {
 
 const processSections: ProcessSection[] = [
 	{
+		id: 'understand',
 		title: '💭 Understand',
 		description: 'Set your direction.',
 		color: '#3BD1FF',
@@ -20,6 +22,7 @@ const processSections: ProcessSection[] = [
 		]
 	},
 	{
+		id: 'investigate',
 		title: '🔍 Investigate',
 		description: 'Understand your position.',
 		color: '#3bff9a',
@@ -30,6 +33,7 @@ const processSections: ProcessSection[] = [
 		]
 	},
 	{
+		id: 'plan',
 		title: '📋 Plan',
 		description: 'Determine your solution.',
 		color: '#ff51f6',
@@ -40,6 +44,7 @@ const processSections: ProcessSection[] = [
 		]
 	},
 	{
+		id: 'implement',
 		title: '🛠️ Implement',
 		description: 'Execute your plan. No bulleted list. This is actually the easiest part of the entire process. Once you know the solution, it\'s just a matter of translating it to code!',
 		color: '#ffe23b',
@@ -75,7 +80,7 @@ const cornerMap: Record<number, string> = {
 				{
 					processSections.map((section, i) => {
 						return (
-							<div class="card" style={`border-radius: ${cornerMap[i]};`}>
+							<div class="card" style={`border-radius: ${cornerMap[i]};`} id={section.id}>
 								<p class="section-title" style={`color: ${section.color}`}>
 									{section.title}
 								</p>

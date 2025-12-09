@@ -54,7 +54,8 @@ const sections = Astro.props.sections as ProjectSection[];
 					{
 						section.subsections?.map(subsection => {
 							return <Card 
-								title={subsection.name} 
+								title={subsection.name}
+								id={subsection.id}
 								description={subsection.description}
 								image={{ src: subsection.image ? subsection.image.src : '/public/project-images/NoImage.png', alt: subsection.name }}
 								badges={subsection.technologies?.map(tech => ({ text: tech.name, color: technologyColors[tech.type] }))}

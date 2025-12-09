@@ -8,6 +8,7 @@ export type ImageType = {
 
 export type CardProps = {
 	title: string,
+	id: string,
 	description?: string,
 	image?: ImageType,
 	badges?: { text: string, color: string }[]
@@ -16,7 +17,7 @@ export type CardProps = {
 const props = Astro.props as CardProps;
 
 ---
-<div class="card">
+<div class="card" id={props.id}>
 	{ 
 		props.image ? <img class="card-image" src={props.image?.src} alt={props.image?.alt}/> : ''
 	}

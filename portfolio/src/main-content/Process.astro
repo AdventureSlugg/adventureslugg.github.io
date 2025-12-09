@@ -1,5 +1,57 @@
 ---
 import SectionTitle from "../components/sections/SectionTitle.astro";
+
+type ProcessSection = {
+	title: string,
+	description: string,
+	color: string,
+	bullets?: string[]
+}
+
+const processSections: ProcessSection[] = [
+	{
+		title: '💭 Understand',
+		description: 'Set your direction.',
+		color: '#3BD1FF',
+		bullets: [
+			'Who is the user?',
+			'What problem does this solve?',
+			'What should the result look like?'
+		]
+	},
+	{
+		title: '🔍 Investigate',
+		description: 'Understand your position.',
+		color: '#3bff9a',
+		bullets: [
+			'Determine what we already have.',
+			'Become familiar with the structure.',
+			'Figure out where the new additions will fit best.'
+		]
+	},
+	{
+		title: '📋 Plan',
+		description: 'Determine your solution.',
+		color: '#ff51f6',
+		bullets: [
+			'What are my options?',
+			'What are the advantages and disadvantages of each approach?',
+			'Given the system, which solution is most appropriate?'
+		]
+	},
+	{
+		title: '🛠️ Implement',
+		description: 'Execute your plan. No bulleted list. This is actually the easiest part of the entire process. Once you know the solution, it\'s just a matter of translating it to code!',
+		color: '#ffe23b',
+	}
+]
+
+const cornerMap: Record<number, string> = {
+	0: '1vw 0 0 0',
+	1: '0 1vw 0 0',
+	2: '0 0 0 1vw',
+	3: '0 0 1vw 0'
+}
 ---
 
 <div id="process" class="main-inner-content">
@@ -20,83 +72,35 @@ import SectionTitle from "../components/sections/SectionTitle.astro";
 		<div class="overlap-container">
 			<img src="/public/main-content-images/ProcessDiagram.png" class="diagram">
 			<div class="cards">
-				<div class="card" style="border-radius: 1vw 0 0 0;">
-					<p class="section-title" style="color: #3BD1FF">
-						💭 Understand
-					</p>
-					<div class="card-body">
-						<p>
-							Set your direction.
-						</p>
-						<ul>
-							<li>
-								<p>Who is the user?</p>
-							</li>
-							<li>
-								<p>What problem does this solve?</p>
-							</li>
-							<li>
-								<p>What should the result look like?</p>
-							</li>
-						</ul>
-					</div>
-					
-				</div>
-				<div class="card" style="border-radius: 0 1vw 0 0;">
-					<p class="section-title" style="color: #3bff9a">
-						🔍 Investigate
-					</p>
-					<div class="card-body">
-						<p>
-							Understand your position.
-						</p>
-						<ul>
-							<li>
-								<p>Determine what we already have.</p>
-							</li>
-							<li>
-								<p>Become familiar with the structure.</p>
-							</li>
-							<li>
-								<p>Figure out where the new additions will fit best.</p>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="card" style="border-radius: 0 0 0 1vw;">
-					<p class="section-title" style="color: #ff51f6">
-						📋 Plan
-					</p>
-					<div class="card-body">
-						<p>
-							Determine your solution.
-						</p>
-						<ul>
-							<li>
-								<p>What are my options?</p>
-							</li>
-							<li>
-								<p>What are the advantages and disadvantages of each approach?</p>
-							</li>
-							<li>
-								<p>Given the system, which solution is most appropriate?</p>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="card" style="border-radius: 0 0 1vw 0;">
-					<p class="section-title" style="color: #ffe23b">
-						🛠️ Implement
-					</p>
-					<div class="card-body">
-						<p>
-							Execute your plan.
-						</p>
-						<p>
-							No bulleted list. This is actually the easiest part of the entire process. Once you know the solution, it's just a matter of translating it to code!
-						</p>
-					</div>
-				</div>
+				{
+					processSections.map((section, i) => {
+						return (
+							<div class="card" style={`border-radius: ${cornerMap[i]};`}>
+								<p class="section-title" style={`color: ${section.color}`}>
+									{section.title}
+								</p>
+								<div class="card-body">
+									<p>
+										{section.description}
+									</p>
+									<ul>
+										{
+											section.bullets?.map(bullet => {
+												return (
+													<li>
+														<p>
+															{bullet}
+														</p>
+													</li>
+												)
+											})
+										}
+									</ul>
+								</div>
+							</div>
+						)
+					})
+				}
 			</div>
 		</div>
 	</div>

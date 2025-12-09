@@ -1,4 +1,5 @@
-import { nullable } from "astro:schema";
+import { nullable, ZodBoolean } from "astro:schema";
+import type { LayoutType } from "../interfaces/layoutType";
 
 let rickRoll = false;
 let harrisAlive = true;
@@ -58,9 +59,7 @@ const openLink = (url: string, confirmation: boolean = true) => {
 }
 
 const actionMap: Record<string, CallableFunction> = {
-	'explorerClickable': () => {
-		
-
+	'explorerClickablemobile': () => {
 		// If the screen is mobile, then get the bottom section and hide it.
 		const bottom = document.getElementsByClassName('bottom');
 		if (bottom && bottom[0]) {
@@ -70,48 +69,60 @@ const actionMap: Record<string, CallableFunction> = {
 			if (mainContent) {
 				mainContent.style.height = '85vh'
 			}
-		} else {
-			// Expand/Minimize the Explorer side-bar.
-			const explorerElement = document.getElementById('explorer-section') as HTMLElement;
-			explorerElement.style.display = explorerElement.style.display === 'none' ? 'flex' : 'none';
-			const explorer = document.querySelector('.explorer');
-			(explorer as HTMLElement).style.width = '';
 		}
 	},
-	'searchClickable': () => {
+	'searchClickablemobile': () => {
 		// TODO: Open up the Search function.
 		console.log("Not yet implemented...");
 	},
-	'devpostClickable': () => {
+	'devpostClickablemobile': () => {
 		openLink('https://devpost.com/zmb6893')
 	},
-	'githubClickable': () => {
+	'githubClickablemobile': () => {
 		openLink('https://github.com/AdventureSlugg')
 	},
-	'linkedinClickable': () => {
+	'linkedinClickablemobile': () => {
 		openLink('https://www.linkedin.com/in/zoe-bingham/')
 	},
-	'exit-option': () => {
+	'explorerClickabledesktop': () => {
+		// Expand/Minimize the Explorer side-bar.
+		const explorerElement = document.getElementById('explorer-section-desktop') as HTMLElement;
+		explorerElement.style.display = explorerElement.style.display === 'none' ? 'flex' : 'none';
+		const explorer = document.querySelector('.explorer');
+		(explorer as HTMLElement).style.width = '';
+	},
+	'searchClickabledesktop': () => {
+		// TODO: Open up the Search function.
+		console.log("Not yet implemented...");
+	},
+	'devpostClickabledesktop': () => {
+		openLink('https://devpost.com/zmb6893')
+	},
+	'githubClickabledesktop': () => {
+		openLink('https://github.com/AdventureSlugg')
+	},
+	'linkedinClickabledesktop': () => {
+		openLink('https://www.linkedin.com/in/zoe-bingham/')
+	},
+	'exit-option-mobile': () => {
 		alert('Oh no you don\'t! Get back there!');
 	},
-	'minimize-option': () => {
-		document.getElementsByClassName('upside-down').length > 0 ?
-		document.getElementById('base')!.classList.replace('upside-down', 'right-side-up') :
-		document.getElementById('base')!.classList.replace('right-side-up', 'upside-down');
+	'exit-option-desktop': () => {
+		alert('Oh no you don\'t! Get back there!');
 	},
-	'hide-option': () => {
-		const hide = document.getElementById('hide-option');
-
-		if (!rickRoll) {
-			hide!.title = "Last chance... I'M WARNING YOU!"
-			rickRoll = true;
-		} else {
-			hide!.title = "... What did I tell you?"
-			openLink('https://www.youtube.com/watch?v=E4WlUXrJgy4', false);
-		}
+	'minimize-option-mobile': () => {
+		flipScreen();
+	},
+	'minimize-option-desktop': () => {
+		flipScreen();
+	},
+	'hide-option-mobile': () => {
+		rickRollAction({layout: 'mobile'})
+	},
+	'hide-option-desktop': () => {
+		rickRollAction({layout: 'desktop'})
 	},
 	'harris': async () => {
-		console.log("Harris clicked")
 		if (harrisAlive) {
 			let harrisElement = document.getElementById('harris') as HTMLImageElement;
 			deathSequence.forEach( async frame => {
@@ -149,3 +160,32 @@ allClickables.forEach(clickable => {
 		actionMap[clickable.id]();
 	})
 })
+
+function flipScreen () {
+	document.getElementsByClassName('upside-down').length > 0 ?
+	document.getElementById('base')!.classList.replace('upside-down', 'right-side-up') :
+	document.getElementById('base')!.classList.replace('right-side-up', 'upside-down');
+}
+
+function rickRollAction (layoutType: LayoutType) {
+	const hide = document.getElementById(`hide-option-${layoutType.layout}`);
+
+	const warning =  "DO NOT PRESS! Last chance... I'M WARNING YOU!";
+	const toldYouSo = "... What did I tell you?"
+	
+	if (!rickRoll) {
+		if (layoutType.layout === 'desktop') {
+			hide!.title = warning;
+		} else {
+			alert(warning);
+		}
+		rickRoll = true;
+	} else {
+		if (layoutType.layout === 'desktop') {
+			hide!.title = toldYouSo;
+		} else {
+			alert(toldYouSo)
+		}
+		openLink('https://www.youtube.com/watch?v=E4WlUXrJgy4', false);
+	}
+}

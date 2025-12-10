@@ -15,23 +15,28 @@ const props = Astro.props as LayoutType;
 const extensions: ExtensionProps[] = [
 	{
 		id: 'explorerClickable' + props.layout, 
-		component: FileDirectoryIcon
+		component: FileDirectoryIcon,
+		layout: props.layout
 	},
 	{
 		id: 'searchClickable' + props.layout, 
-		component: SearchIcon
+		component: SearchIcon,
+		layout: props.layout
 	},
 	{
 		id: 'githubClickable' + props.layout, 
-		component: GitHubIcon
+		component: GitHubIcon,
+		layout: props.layout
 	},
 	{
 		id: 'linkedinClickable' + props.layout, 
-		component: LinkedinIcon
+		component: LinkedinIcon,
+		layout: props.layout
 	},
 	{
 		id: 'devpostClickable' + props.layout, 
-		component: DevpostIcon
+		component: DevpostIcon,
+		layout: props.layout
 	}
 ]
 
@@ -40,8 +45,8 @@ const extensions: ExtensionProps[] = [
 <div class="extensions full-relative-height">
 	{
 		// For each extension, render the associated svg with the default attributes of 3rem and white
-		extensions.map((ExtensionComponent) => (
-			<Extension component={ExtensionComponent.component} id={ExtensionComponent.id}></Extension>
+		extensions.map((extension) => (
+			<Extension component={extension.component} id={extension.id} layout={extension.layout}></Extension>
 		))
 	}
 </div>

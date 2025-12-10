@@ -13,7 +13,7 @@ window.addEventListener('resize', () => {
 
 function determineLayout() {
 	// When the width is less than 1023, show the mobile view and hide the desktop layout.
-	if (window.innerWidth < 1023) {
+	if (window.innerWidth <= 1023) {
 		if( window.innerWidth > 550) {
 			// Top should take up 60vw, bottom 40vw
 		}

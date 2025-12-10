@@ -1,0 +1,31 @@
+---
+import '../assets/css/styles.css'
+---
+
+<!-- The IDE has two rows: the top-bar and the content -->
+<!-- Mobile Layout -->
+<div class="column full-width" id="mobile-layout">
+	<!-- The content has two columns: the window options, and theme toggle. -->
+	<slot name="top-bar"/>
+	
+	<slot name="main-content"/>
+	<slot name="tab-section"></slot>
+	<div class="row full-width bottom">
+		<slot name="file-explorer"></slot>
+		<slot name="extensions"/></slot>
+	</div>
+</div>
+
+
+<style>
+	.code-section {
+		background-color: var(--primary-bg-color);
+		color: white;
+		flex: 1 1 auto;
+		height: 85vh;
+	}
+
+	.bottom {
+		height: 60vh;
+	}
+</style>

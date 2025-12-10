@@ -1,0 +1,44 @@
+---
+import '../assets/css/styles.css';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Developer Space: Zoe's Playground</title>
+	</head>
+	<body id="base" class="right-side-up">
+		<img id="harris" src="/public/spider/seasonal/winter-harris.gif" class="spider clickable" alt="harris" title="Harris">
+		<slot />
+	</body>
+</html>
+
+<style>
+	html,
+	body {
+		margin: 0;
+		width: 100%;
+		height: 100%;
+		background-color: var(--primary-bg-color);
+	}
+	.spider {
+		top: 0;
+		right: 0;
+		position: absolute;
+		z-index: 100;
+		cursor: pointer;
+		width: 12vh;
+	}
+	.upside-down {
+		transform: rotate(900deg);
+		transition: transform 1.5s ease-in-out;
+	}
+	.right-side-up {
+		transform: rotate(0deg);
+		transition: transform 1.5s ease-in-out;
+	}
+</style>

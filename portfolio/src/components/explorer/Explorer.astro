@@ -1,0 +1,91 @@
+---
+import type { LayoutType } from "../../interfaces/layoutType";
+import TreeNode, { type TreeNodeType } from "./TreeNode.astro";
+
+export interface ExplorerType extends LayoutType {
+	rootNode: TreeNodeType,
+}
+
+const props = Astro.props as ExplorerType;
+---
+
+<div class="explorer full-relative-height" id=`explorer-section-${props.layout}`>
+	<div class="file-section">
+		<b style="font-size: 1.5vh; margin: 1rem;">EXPLORER</b>
+		<TreeNode name={props.rootNode.name} children={props.rootNode.children}></TreeNode>
+	</div>
+	<div class="resize-handle" id=`resize-handle-${props.layout}`></div>
+</div>
+
+<style>
+	@media screen and (min-width: 1024px) {
+		.file-section {
+			height: 95vh;
+		}
+
+	}
+	@media screen and (max-width: 1023px) {
+		.explorer {
+			width: 80vw;
+			padding-top: 5vw;
+			padding-left: 5vw;
+		}
+		.file-section {
+			width: 100%;
+			height: 100vh;
+		}
+	}
+
+	.file-section {
+		overflow-x: hidden;
+		min-width: .1vw;
+	}
+
+	.explorer {
+		background-color: var(--secondary-bg-color);
+		color: white;
+		min-width: 2vw;
+		overflow-y: scroll;
+		overflow-x: hidden;
+		resize: horizontal;
+		display: flex;
+		flex-direction: row;
+	}
+
+	.resize-handle {
+		margin-left: auto;
+		margin-right: 0;
+		top: 0;
+		right: 0;
+		min-width: .3vw;
+		height: 100%;
+		cursor: ew-resize;
+		z-index: 100;	
+	}
+	.resize-handle:hover {
+		background-color: aliceblue;
+	}
+</style>
+
+<script>
+	const explorer = document.getElementById('explorer-section-desktop');
+	const handle = document.getElementById('resize-handle-desktop');
+
+	let isResizing = false;
+
+	handle!.addEventListener('mousedown', () => {
+		isResizing = true;
+	});
+
+	window.addEventListener('mousemove', (e) => {
+		if (!isResizing) return;
+
+		const newWidth = e.clientX - explorer!.getBoundingClientRect().left;
+			(explorer! as HTMLElement).style.width = `${newWidth}px`;
+	});
+
+	window.addEventListener('mouseup', () => {
+		isResizing = false;
+	});
+
+</script>

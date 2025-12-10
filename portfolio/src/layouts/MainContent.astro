@@ -1,0 +1,64 @@
+---
+import Contact from "../main-content/Contact.astro";
+import Landing from "../main-content/Landing.astro";
+import Philosophy from "../main-content/Philosophy.astro"
+import Process from "../main-content/Process.astro";
+import Projects from "../main-content/Projects.astro";
+
+const { projects } = Astro.props;
+---
+
+<div class="main-content" id="main-content">
+	<section class="landing section">
+		<Landing />
+	</section>
+
+	<!-- The first thing hiring managers or prospective team members might want to see are my skills in action -->
+	<section class="section">
+		<Projects projects={projects}/>
+	</section>
+
+	<!-- Now they might be wondering how I do it... -->
+	 <section class="section">
+		<Process />
+	</section>
+
+	<!-- If they are really interested, they will want to know why I do things the way I do -->
+	<section class="section">
+		<Philosophy />
+	</section>
+
+	<!-- Now they are interested... but how can I make them emotionally invested? -->
+	<section class="section">
+		<Contact />
+	</section>
+</div>
+
+<style>
+	@media screen and (min-width: 1024px) {
+		.main-content {
+			height: 100%;
+		}
+	}
+	@media screen and (max-width: 1023px) {
+		.main-content {
+			height: 40vh;
+		}
+	}
+	
+	.main-content {
+		overflow-y: auto;
+	}
+
+	.section {
+		width: 100%;
+		min-height: 0;
+		display: flex;
+		align-items: flex-start;
+		box-sizing: border-box;
+	}
+
+	.landing {
+		height: 90%;
+	}
+</style>

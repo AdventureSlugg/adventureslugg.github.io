@@ -1,0 +1,25 @@
+---
+import FileTab, { type Tab } from "./FileTab.astro";
+
+export type FileTabsProps = {
+	tabs: Tab[];
+}
+
+const props = Astro.props as FileTabsProps;
+---
+
+<div class="file-tabs-section">
+	{
+		props.tabs.map( tab => (
+			<FileTab name={tab.name} id={tab.id}></FileTab>
+		))
+	}
+</div>
+
+<style>
+	.file-tabs-section {
+		display: -webkit-box;
+		overflow-x: scroll;
+		background-color: #001834;
+	}
+</style>

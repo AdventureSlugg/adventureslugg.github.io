@@ -1,0 +1,71 @@
+/* Color Scheme */
+:root {
+	--primary-bg-color: #002451;
+	--secondary-bg-color: #001C40;
+	--tertiary-bg-color: #001733;
+	--quarternary-bg-color: #001125;
+}
+
+/* Imported fonts */
+@font-face {
+	font-family: SourceCodePro;
+	src: url(../fonts/Source_Code_Pro/SourceCodePro-VariableFont_wght.ttf);
+}
+
+body {
+	font-family: SourceCodePro;
+	font-size: 1vw
+}
+
+
+.full-width {
+	width: 100vw;
+}
+
+.full-relative-height {
+	height: 100%;
+}
+
+.column {
+	display: flex;
+	flex-direction: column;
+}
+
+.row {
+	display: flex;
+	flex-direction: row;
+}
+
+.main-inner-content {
+	padding-right: 6vw;
+	padding-left: 6vw;
+}
+
+a {
+	color: #89f9ff
+}
+
+p {
+	color: white;
+	font-size: 2vh;
+}
+
+.card p {
+	color: black;
+}
+
+h1 {
+	color: white;
+	font-size: 5vh;
+	font-weight: 600;
+	padding-bottom: 1vw;
+	border-bottom: 1vw #F5FFDA solid;
+	color: #F5FFDA;
+	width: fit-content;
+}
+
+h2 {
+	color: white;
+	font-size: 3.5vh;
+	font-weight: 400;
+}

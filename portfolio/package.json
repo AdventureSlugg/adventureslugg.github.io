@@ -1,0 +1,18 @@
+{
+  "name": "portfolio",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "@types/bootstrap": "^5.2.10",
+    "astro": "^5.14.1",
+    "astro-bootstrap": "^0.7.2",
+    "bootstrap": "^5.3.8"
+  }
+}

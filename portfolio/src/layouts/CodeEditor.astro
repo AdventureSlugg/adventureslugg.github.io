@@ -1,0 +1,41 @@
+---
+import '../assets/css/styles.css'
+---
+
+<!-- Desktop Layout -->
+<div class="column full-width" id="desktop-layout">
+	<!-- The content has two columns: the window options, and theme toggle. -->
+	<slot name="top-bar"/>
+
+	<!-- The content is composed of three columns: the extensions, file-explorer, and code-section -->
+	<div class="row full-width full-relative-height">
+		<slot 
+			name="extensions" 
+		/>
+		<slot 
+			name="file-explorer"
+		/>
+
+		<!-- The code section is composed of 3 rows: the tab-section, file-path-section, and main-content -->
+		<div class="code-section">
+			<slot name="tab-section"/>
+			<slot name="file-path"/>
+			<slot name="main-content"/>
+		</div>
+	</div>
+</div>
+
+
+
+<style>
+	.code-section {
+		background-color: var(--primary-bg-color);
+		color: white;
+		flex: 1 1 auto;
+		height: 85vh;
+	}
+
+	.bottom {
+		height: 60vh;
+	}
+</style>

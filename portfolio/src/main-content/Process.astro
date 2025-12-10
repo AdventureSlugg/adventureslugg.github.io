@@ -1,0 +1,172 @@
+---
+import SectionTitle from "../components/sections/SectionTitle.astro";
+
+type ProcessSection = {
+	title: string,
+	id: string,
+	description: string,
+	color: string,
+	bullets?: string[]
+}
+
+const processSections: ProcessSection[] = [
+	{
+		id: 'understand',
+		title: '💭 Understand',
+		description: 'Set your direction.',
+		color: '#3BD1FF',
+		bullets: [
+			'Who is the user?',
+			'What problem does this solve?',
+			'What should the result look like?'
+		]
+	},
+	{
+		id: 'investigate',
+		title: '🔍 Investigate',
+		description: 'Understand your position.',
+		color: '#3bff9a',
+		bullets: [
+			'Determine what we already have.',
+			'Become familiar with the structure.',
+			'Figure out where the new additions will fit best.'
+		]
+	},
+	{
+		id: 'plan',
+		title: '📋 Plan',
+		description: 'Determine your solution.',
+		color: '#ff51f6',
+		bullets: [
+			'What are my options?',
+			'What are the advantages and disadvantages of each approach?',
+			'Given the system, which solution is most appropriate?'
+		]
+	},
+	{
+		id: 'implement',
+		title: '🛠️ Implement',
+		description: 'Execute your plan. No bulleted list. This is actually the easiest part of the entire process. Once you know the solution, it\'s just a matter of translating it to code!',
+		color: '#ffe23b',
+	}
+]
+
+const cornerMap: Record<number, string> = {
+	0: '1vw 0 0 0',
+	1: '0 1vw 0 0',
+	2: '0 0 0 1vw',
+	3: '0 0 1vw 0'
+}
+---
+
+<div id="process" class="main-inner-content">
+	<SectionTitle title="Process"></SectionTitle>
+	<h2>
+		<i>How the Magic Happens~~</i>
+	</h2>
+	<p>
+		So you wanna peek behind the curtain, huh?
+	</p>
+	<p>
+		You want the <b>recipe</b>, the <i>secret sauce</i>, the magic✨✨...
+	</p>
+	<p>
+		Here's <b>Zoe's Simple 4-step Plan</b> to guaranteed success, or your money back! <i>(Terms and conditions apply)</i>
+	</p>
+	<div>
+		<div class="overlap-container">
+			<img src="/public/main-content-images/ProcessDiagram.png" class="diagram">
+			<div class="cards">
+				{
+					processSections.map((section, i) => {
+						return (
+							<div class="card" style={`border-radius: ${cornerMap[i]};`} id={section.id}>
+								<p class="section-title" style={`color: ${section.color}`}>
+									{section.title}
+								</p>
+								<div class="card-body">
+									<p>
+										{section.description}
+									</p>
+									<ul>
+										{
+											section.bullets?.map(bullet => {
+												return (
+													<li>
+														<p>
+															{bullet}
+														</p>
+													</li>
+												)
+											})
+										}
+									</ul>
+								</div>
+							</div>
+						)
+					})
+				}
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+	.section-title {
+		font-size: 2vw;
+		text-transform: uppercase;
+		margin-bottom: 1vw;
+		margin-left: 1.5vw;
+		font-weight: bold;
+	}
+
+	.card {
+		width: 50%;
+		height: 50%;
+		background-color: rgba(140, 128, 173, .95);
+		border: .1vw white solid;
+		box-sizing: border-box;
+		opacity: 0;
+		text-shadow: .2vw .2vw .5vw rgba(0,0,0, .5);
+		padding: 2vh 0vh;
+	}
+
+	.card:hover {
+		opacity: 1;
+	}
+
+	.card-body {
+		margin-left: 3vw;
+		margin-right: 1vw;
+	}
+
+	.diagram {
+		width: 100%;
+		z-index: 1;
+		display: block;
+	}
+	.overlap-container {
+		width: 100%;
+		position: relative;
+		margin: 1vw;
+		margin-bottom: 2vw;
+	}
+	.cards {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 2;
+		display: flex;
+		flex-wrap: wrap;
+	}
+	.card-body p {
+		margin: 0vw;
+		font-size: 2vh;
+	}
+	ul {
+		list-style-type: circle;
+	}
+
+</style>

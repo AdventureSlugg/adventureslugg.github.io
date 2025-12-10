@@ -1,0 +1,18 @@
+---
+import SectionTitle from "../components/sections/SectionTitle.astro";
+import TabView, { type ProjectSection } from "../components/tab-view/TabView.astro";
+
+const { projects } = Astro.props;
+---
+
+<div id="projects" class="main-inner-content">
+	<SectionTitle title="Projects"></SectionTitle>
+	<h2>
+		Where the Magic Happens 🦄
+	</h2>
+
+	<p>
+		I dabble in a little bit of this... a little bit of that. Here are a few project highlights from each category!
+	</p>
+	<TabView sections={projects}></TabView>
+</div>

@@ -1,0 +1,127 @@
+---
+import Card, { type ImageType } from "../card/Card.astro"
+
+export type Technology = {
+	name: string,
+	type: 'frontend' | 'backend' | 'api'
+}
+
+export type ProjectSection = {
+	id: string,
+	name: string,
+	blurb: string,
+	subsections?: ProjectSubsection[]
+}
+
+export type ProjectSubsection = {
+	id: string,
+	name: string,
+	image?: ImageType,
+	description?: string,
+	technologies?: Technology[]
+}
+
+const technologyColors: Record<string, string> = {
+	'frontend': '#99ddee',
+	'backend': '#ffee55',
+	'api': '#ff99cc'
+}
+
+const sections = Astro.props.sections as ProjectSection[];
+---
+<div class="tab-view">
+	<div class="tabs" id="project-tabs">
+		{
+			sections.map((section, index) => {
+				return <div class={`sub-tab ${index===0 ? 'selected-sub-tab' : ''}`} id={`${section.id}`}>
+					<p style="color: black">
+						{section.name}
+					</p>
+				</div>
+			})
+		}
+	</div>
+	{
+		sections.map((section, index) => {
+			return <div class="content" id={`${section.id}-content`} style={index===0 ? 'display: block;' : 'display: none;'}>
+				<p style="color: black">
+					{
+						section.blurb
+					}
+				</p>
+				
+				<div class="projects-container">
+					{
+						section.subsections?.map(subsection => {
+							return <Card 
+								title={subsection.name}
+								id={subsection.id}
+								description={subsection.description}
+								image={{ src: subsection.image ? subsection.image.src : '/public/project-images/NoImage.png', alt: subsection.name }}
+								badges={subsection.technologies?.map(tech => ({ text: tech.name, color: technologyColors[tech.type] }))}
+							/>
+						})
+					}
+				</div>
+			</div>
+		})
+	}
+</div>
+
+<style>
+	@media screen and (min-width: 1024px) {
+		.projects-container {
+			flex-direction: row; 
+		}
+	}
+	@media screen and (max-width: 1023px) {
+		.projects-container {
+			flex-direction: column; 
+			align-items: center;
+		}
+	}
+
+	.projects-container {
+		display:flex; 
+		gap: 1vw;
+	}
+
+	.tab-view {
+		padding: 1vw;
+		color: black;
+		width: 100%;
+	}
+
+	.selected-sub-tab {
+		background-color: #b16cff !important;
+		border-bottom: none;
+		color: white;
+		font-weight: bold;
+	}
+
+	.sub-tab {
+		padding: 0.5vw 1vw;
+		border: .1vw solid black;
+		border-bottom: none;
+		border-radius: 0.5vw 0.5vw 0 0;
+		background-color: #a1ffa1;
+		cursor: pointer;
+	}
+
+	.sub-tab:hover {
+		opacity: .8;
+	}
+
+	.tabs {
+		display: flex;
+		flex-direction: row;
+		gap: 1vw;
+		border-bottom: .2vw solid black;
+	}
+	.content {
+		padding: 2vw;
+		border: .1vw solid black;
+		border-radius: 0 0.5vw 0.5vw 0.5vw;
+		background-color: #f0f0f0;
+	}
+</style>

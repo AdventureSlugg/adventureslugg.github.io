@@ -1,0 +1,321 @@
+---
+import CodeEditor from '../layouts/CodeEditor.astro';
+import MainContent from '../layouts/MainContent.astro';
+import Layout from '../layouts/Layout.astro';
+import TopBar from '../components/top-bar/TopBar.astro';
+import Extensions from '../components/extensions/Extensions.astro';
+import Explorer from '../components/explorer/Explorer.astro';
+import FileTabs from '../components/file-tabs/FileTabs.astro';
+import FilePath from '../components/file-path/FilePath.astro';
+import type { Tab } from '../components/file-tabs/FileTab.astro';
+import type { TreeNodeType } from '../components/explorer/TreeNode.astro';
+import type { ProjectSection } from '../components/tab-view/TabView.astro';
+import MobileCodeEditor from '../layouts/MobileCodeEditor.astro';
+
+// import 'bootstrap/dist/js/bootstrap.bundle.min.js'
+type Section = {
+	id: string; // used to access the section, tab, and node: id-section; id-tab; id-node,
+	name: string; // display name,
+	subsections?: Section[] | ProjectSection[]; // subsections under this section
+}
+
+const sections: Section[] = [
+	{
+		id: 'landing',
+		name: 'Zoes-Playground',
+		subsections: [
+			{
+				id: 'landing',
+				name: '👁️‍🗨️ README.md'
+			},
+			{
+				id: 'projects',
+				name: '🔮 Projects',
+				subsections: [
+					{
+						id: 'web',
+						name: '🌐 Web/Mobile',
+						blurb: 'My Specialty Dish! Presenting... spaghetti! Ehem... I mean... web apps!',
+						subsections: [
+							{
+								id: 'travel-quest',
+								name: 'Travel Quest',
+								description: 'Assigns personalized travel quests based on user location and preferences.',
+								image: {
+									src: '/public/project-images/web/TravelQuestPreview.png',
+									alt: 'Travel Quest'
+								},
+								technologies: [
+									{
+										name: 'React Native',
+										type: 'frontend'
+									},
+									{
+										name: 'Async',
+										type: 'backend'
+									}
+								]
+							},
+							{
+								id: 'code-racer',
+								name: 'Code Racer',
+								image: { src: '/public/project-images/web/CodeRacerPreview.png', alt: 'Code Racer' },
+								description: 'An online multiplayer coding game that challenges players to solve coding problems as quickly as possible.',
+								technologies: [
+									{
+										name: 'Vue3',
+										type: 'frontend'
+									},
+									{
+										name: 'Node',
+										type: 'backend'
+									},
+									{
+										name: 'Socket.io',
+										type: 'backend'
+									}
+								]
+							},
+							{
+								id: 'apollo-link',
+								name: 'ApolloLink',
+								image: { src: '/public/project-images/web/ApolloLinkPreview.jpg', alt: 'Apollo Link' },
+								description: 'A life saving web app that monitors patient health data in real-time and alerts medical professionals of any critical changes.',
+								technologies: [
+									{
+										name: 'Angular',
+										type: 'frontend'
+									},
+									{
+										name: 'Express',
+										type: 'backend'
+									},
+									{
+										name: 'Twilio',
+										type: 'api'
+									},
+									{
+										name: 'OpenAI',
+										type: 'api'
+									}
+								]
+							}
+						]
+					},
+					{
+						id: 'games',
+						name: '👾 Games',
+						blurb: 'From hungry snails to heated subreddit battles, jump into some of my favorite game projects~',
+						subsections: [
+							{
+								id: 'party-snail',
+								name: 'Party Snail',
+								description: 'A hoard of VERY HUNGRY snails competing in mini-games for the ever-so-delicious strawberry!',
+								image: { src: '/public/project-images/games/PartySnailPreview.png', alt: 'Party Snail' },
+								technologies: [
+									{
+										name: 'MetaHorizon',
+										type: 'frontend'
+									},
+									{
+										name: 'typescript',
+										type: 'backend'
+									}
+								]
+							},
+							{
+								id: 'block-battles',
+								name: 'Block Battles',
+								description: 'A blocky battle between Reddit communities, where players fight to claim territory for their favorite sub!',
+								technologies: [
+									{
+										name: 'React',
+										type: 'frontend'
+									},
+									{
+										name: 'devvit',
+										type: 'backend'
+									}
+								],
+								image: { src: '/public/project-images/games/BlockBattlesPreview.png', alt: 'Block Battles' }
+							},
+							{
+								id: 'chef-pan',
+								name: 'Chef Pan',
+								description: 'Chef Pan has a personal vendetta against vegetables! Help him collect ingredients to make the perfect dish!',
+								technologies: [
+									{
+										name: 'Godot',
+										type: 'frontend'
+									}
+								]
+							}
+						]
+					},
+					{
+						id: 'libraries',
+						name: '📚 Libraries',
+						blurb: 'Sharing the love with highly customizable and easy to use libraries <3',
+						subsections: [
+							{
+								id: 'three-d-sea',
+								name: 'ThreeDSea',
+								description: 'An extensive and highly customizable 3D graphics library built on Three.js',
+								image: {
+									src: '/public/project-images/libraries/ThreeDSea.png'
+								},
+								technologies: [
+									{
+										name: 'React',
+										type: 'frontend'
+									},
+									{
+										name: 'Three.js',
+										type: 'frontend'
+									}
+								]
+							},
+							{
+								id: 'vrx-component-library',
+								name: 'VRX Component Library',
+								description: 'An in-house Vue 3 component library, including common templates, layouts, and reusable components for video products'
+							}
+						]
+					}
+				]
+			},
+			{
+				id: 'process',
+				name: '⚙️ Process',
+				subsections: [
+					{
+						id: 'understand',
+						name: 'Understand'
+					},
+					{
+						id: 'investigate',
+						name: 'Investigate'
+					},
+					{
+						id: 'plan',
+						name: 'Plan'
+					},
+					{
+						id: 'implement',
+						name: "Implement"
+					}
+				]
+			},
+			{
+				id: 'philosophy',
+				name: '💭 Philosophy',
+				subsections: [
+					{
+						id: 'craftsmanship',
+						name: 'Spinnining the Web'
+					},
+					{
+						id: 'debugging',
+						name: "Debugging"
+					},
+					{
+						id: 'extendibility',
+						name: "Expanding the Web"
+					}
+				]
+			},
+			{
+				id: 'contact',
+				name: '📞 Contact'
+			}
+		]
+	}
+]
+
+const tabs: Tab[] = sections[0].subsections!.map( (section) => {
+	return {
+		name: section.name,
+		id: section.id
+	}
+});
+
+const sectionToExplorer = (section: Section): TreeNodeType => {
+	return {
+		name: section.name,
+		id: section.id,
+		children: section.subsections ? section.subsections.map( (subsection) => sectionToExplorer(subsection) ) : undefined
+	}
+};
+
+const explorer = sectionToExplorer(sections[0]);
+
+const projectsSection: ProjectSection[] = sections[0].subsections!.find( (section) => section.id === 'projects' )?.subsections as ProjectSection[] || [];
+
+---
+
+<Layout>
+	<div class="parent" draggable="false" id="parent-layout">
+		<MobileCodeEditor>
+			<div slot="top-bar">
+				<TopBar layout="mobile"/>
+			</div>
+
+			<div slot="extensions">
+				<Extensions layout="mobile"/>
+			</div>
+
+			<div slot="file-explorer">
+				<Explorer rootNode={explorer} layout="mobile"/>
+			</div>
+
+			<div slot="tab-section">
+				<FileTabs tabs={tabs} layout="mobile"/>
+			</div>
+
+			<div slot="file-path">
+				<FilePath layout="mobile"/>
+			</div>
+
+			<div class="full-relative-height" slot="main-content">
+				<MainContent projects={ projectsSection } layout="mobile"></MainContent>
+			</div>
+		</MobileCodeEditor>
+
+		<CodeEditor>
+			<div slot="top-bar">
+				<TopBar layout="desktop"/>
+			</div>
+
+			<div slot="extensions">
+				<Extensions layout="desktop"/>
+			</div>
+
+			<div slot="file-explorer">
+				<Explorer rootNode={explorer} layout="desktop"/>
+			</div>
+
+			<div slot="tab-section">
+				<FileTabs tabs={tabs} layout="desktop"/>
+			</div>
+
+			<div slot="file-path">
+				<FilePath layout="desktop"/>
+			</div>
+
+			<div class="full-relative-height" slot="main-content">
+				<MainContent projects={ projectsSection } layout="desktop"></MainContent>
+			</div>
+		</CodeEditor>
+	</div>
+</Layout>
+<style>
+	.parent {
+		display: flex;
+		height: 100vh;
+		overflow: hidden;
+	}
+
+</style>
+<script src="../scripts/locationObserver.ts"></script>
+<script src="../scripts/clickObservers.ts"></script>
+<script src="../scripts/responsivityController"></script>

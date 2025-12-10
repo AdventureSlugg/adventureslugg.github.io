@@ -1,0 +1,70 @@
+---
+import type { LayoutType } from "../../interfaces/layoutType";
+import type { IconType } from "../icons/_iconType";
+
+// Get the customizable svgs
+import DevpostIcon from "../icons/DevpostIcon.astro";
+import FileDirectoryIcon from "../icons/FileDirectoryIcon.astro";
+import GitHubIcon from "../icons/GitHubIcon.astro";
+import LinkedinIcon from "../icons/LinkedinIcon.astro";
+import SearchIcon from "../icons/SearchIcon.astro";
+import Extension, { type ExtensionProps } from "./Extension.astro";
+
+const props = Astro.props as LayoutType;
+
+const extensions: ExtensionProps[] = [
+	{
+		id: 'explorerClickable' + props.layout, 
+		component: FileDirectoryIcon,
+		layout: props.layout
+	},
+	{
+		id: 'searchClickable' + props.layout, 
+		component: SearchIcon,
+		layout: props.layout
+	},
+	{
+		id: 'githubClickable' + props.layout, 
+		component: GitHubIcon,
+		layout: props.layout
+	},
+	{
+		id: 'linkedinClickable' + props.layout, 
+		component: LinkedinIcon,
+		layout: props.layout
+	},
+	{
+		id: 'devpostClickable' + props.layout, 
+		component: DevpostIcon,
+		layout: props.layout
+	}
+]
+
+---
+
+<div class="extensions full-relative-height">
+	{
+		// For each extension, render the associated svg with the default attributes of 3rem and white
+		extensions.map((extension) => (
+			<Extension component={extension.component} id={extension.id} layout={extension.layout}></Extension>
+		))
+	}
+</div>
+
+<style>
+	@media screen and (min-width: 1024px) {
+		.extensions {
+			min-width: 5vw
+		}
+	}
+	@media screen and (max-width: 1023px) {
+		.extensions {
+			min-width: 15vw
+		}
+	}
+	.extensions {
+		background-color: var(--tertiary-bg-color);
+		color: #607694;
+		width: 5vw;
+	}
+</style>

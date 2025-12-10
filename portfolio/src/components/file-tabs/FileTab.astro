@@ -1,0 +1,62 @@
+---
+export type Tab = {
+	name: string;
+	id: string;
+}
+
+const props = Astro.props as Tab
+---
+<div class=`tab ${props.id}-tab` id={`${props.id}-tab`}>
+	{props.name}
+</div>
+
+<style>
+	@media screen and (min-width: 1024px) {
+		.tab {
+			padding: 1vw;
+			border-right: .1vw;
+			border-left: .1vw;
+			border-bottom: 0vw;
+			border-top: .1vw;
+		}
+		.tab:hover {
+			border-right: .1vw;
+			border-left: .1vw;
+			border-top: .1vw;
+		}
+	}
+	@media screen and (max-width: 1023px) {
+		.tab {
+			padding: 1.5vw;
+			border-right: .01vw;
+			border-bottom: 0vw;
+			border-left: .01vw;
+			border-top: .01vw;
+			font-size: 2vh;
+		}
+	}
+
+	.tab {
+		width: fit-content;
+		border-color: #252526;
+		border-style: solid;
+		background-color: var(--secondary-bg-color);
+		color: white;
+		user-select: none;
+	}
+
+	.tab:hover {
+		color:#feffa7;
+		border-color: #feffa7;
+		border-style: solid;
+		cursor: pointer;
+	}
+
+	.selected-tab {
+		background-color: var(--primary-bg-color);
+		border-right: .1vw #ffffff solid;
+		border-left: .1vw #ffffff solid;
+		border-top: .1vw #ffffff solid;
+	}
+
+</style>

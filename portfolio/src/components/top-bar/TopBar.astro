@@ -1,0 +1,129 @@
+---
+import '../../assets/css/styles.css';
+import '../../assets/css/rainbowEffect.css'
+import type { LayoutType } from '../../interfaces/layoutType';
+
+const props = Astro.props as LayoutType;
+---
+
+<div class="tool-bar row">
+	<div class="window-options">
+		<button 
+			id=`exit-option-${props.layout}`
+			class="exit window-option clickable"
+			title="Exit"
+		> x </button>
+		<button 
+			id=`hide-option-${props.layout}`
+			class="hide window-option clickable"
+			title="DO NOT press this button"
+		> _ </button>
+		<button 
+			id=`minimize-option-${props.layout}`
+			class="minimize window-option clickable"
+			title="Huh... wonder what this does?"
+		> ^ </button>
+	</div>
+
+	<div class="page-title">
+		<p class="rainbow">
+			
+			<span class="text">
+				Welcome to Zoe's Playground!
+			</span>
+		</p>
+	</div>
+
+	<div class="theme-options">
+		<div class="form-check form-switch">
+		</div>
+	</div>
+</div>
+
+<style>
+	@media screen and (min-width: 1024px) {
+		.tool-bar {
+			height: 5vh;
+		}
+		.window-options {
+			padding: 1.75vh;
+		}
+		.theme-options {
+			padding: .75vw;
+			margin-right: 0vw;
+		}
+		.window-option {
+			border-radius: 5vw;
+			height: 1.5vw;
+			width: 1.5vw;
+			border: 0px;
+			font-size: 1vw;
+		}
+	}
+	@media screen and (max-width: 1023px) {
+		.tool-bar {
+			height: 6vh;
+		}
+		.window-options {
+			padding: 1.75vh;
+		}
+		.theme-options {
+			padding: 1vw;
+			margin-right: 0vw;
+		}
+		.window-option {
+			border-radius: 5vw;
+			height: 2.5vh;
+			width: 2.5vh;
+			border: 0px;
+			margin-right: 0.5vh;
+			font-size: 1vh;
+		}
+		.text {
+			font-size: 1.5vh;
+		}
+	}
+	@keyframes bounce {
+		0%, 100% {
+			transform: translateY(0vw);
+		}
+		20% {
+			transform: translateY(-1vw);
+		}
+		40% {
+			transform: translateY(0vw);
+		}
+	}
+	.rainbow:hover {
+		animation: bounce 1.5s ease-in-out;
+	}
+	
+	.page-title {
+		margin:auto; 
+		color: white;
+	}
+
+	.tool-bar {
+		background-color: var(--quarternary-bg-color);
+		width: 100%;
+	}
+
+	.window-option:hover {
+		opacity: .5;
+	}
+
+	.exit {
+		background-color: #FE5F57;
+		color: #8c0700;
+	}
+
+	.hide {
+		background-color: #FEBC2E;
+		color: #ac7500;
+	}
+
+	.minimize {
+		background-color: #28C840;
+		color:#007712
+	}
+</style>

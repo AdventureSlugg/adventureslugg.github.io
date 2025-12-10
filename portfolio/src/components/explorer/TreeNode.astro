@@ -1,0 +1,61 @@
+---
+export type TreeNodeType = {
+	name: string,
+	id: string,
+	depth?: number,
+	children?: TreeNodeType[],
+	parentId?: string
+}
+
+const props = Astro.props as TreeNodeType;
+
+---
+
+<div style={`margin-left: ${props.depth ? props.depth : 1}rem;`} class={props.parentId + ' treenode'} id={props.id + '-node'}>
+	<p id={`${props.id}-text`}>{props.children ? '⛛ ' : ''}{props.name}</p>
+	{
+		props.children?.map(child => {
+			return (
+				<Astro.self 
+					name={child.name} 
+					id={child.id}
+					children={child.children} 
+					depth={props.depth ? props.depth + 1 : 1}
+					parentId={props.id}
+				/>
+			)
+		})
+	}
+</div>
+<style>
+	@media screen and (min-width: 1024px) {
+		.treenode p {
+			padding: 0.2vw 0;
+			text-wrap: nowrap;
+		}
+	}
+	@media screen and (max-width: 1023px) {
+		.treenode p {
+			font-size: 1.5vh;
+			margin: 0;
+			padding: 0.4vw 0;
+		}
+	}
+
+	.treenode {
+		cursor: pointer;
+		user-select: none;
+	}
+
+	.treenode p {
+		text-wrap: nowrap;
+		margin: 1vh;
+	}
+
+	.highlighted {
+		background-color: rgb(31, 74, 123);
+		border-color: rgb(144, 203, 255);
+		border-style: solid;
+		border-width: 0.1vw;
+	}
+</style>

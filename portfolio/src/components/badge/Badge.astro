@@ -1,0 +1,34 @@
+---
+type BadgeProps = {
+	text: string;
+	color: string;
+}
+const props = Astro.props as BadgeProps;
+---
+
+<div class="badge" style={`background-color: ${props.color};`}>
+	{props.text}
+</div>
+<style>
+	@media screen and (min-width: 1024px) {
+		.badge {
+			font-size: 2vh;
+			padding: 0.2vh 0.5vh;
+			margin-bottom: 0.5vh;
+		}
+	}
+	@media screen and (max-width: 1023px) {
+		.badge {
+			font-size: 2vh;
+			padding: 0.5vh 0.8vh;
+			margin-bottom: 1vw;
+			margin-right: 1vw;
+		}
+	}
+	.badge {
+		display: inline-block;
+		border-radius: 0.5vw;
+		color: #333;
+		font-weight: bold;
+	}
+</style>

@@ -1,0 +1,55 @@
+---
+import type { LayoutType } from '../../interfaces/layoutType';
+import type { IconType } from '../icons/_iconType';
+
+export interface ExtensionProps extends LayoutType {
+	component: (_props: IconType) => any,
+	id: string
+}
+
+type ExtensionStyle = {
+	size: string,
+	color: string
+}
+
+const props = Astro.props as ExtensionProps;
+
+const LAYOUT_STYLES: Record<string, ExtensionStyle> = {
+	"mobile": {
+		size: "10vw",
+		color: "#607694"
+	},
+	"desktop": {
+		size: "3vw",
+		color: "#607694"
+	}
+}
+
+---
+<div class="extension clickable" id={props.id}>
+	{
+		<props.component size={LAYOUT_STYLES[props.layout].size} color={LAYOUT_STYLES[props.layout].color}></props.component>
+	}
+</div>
+
+
+<style>
+	@media screen and (min-width: 1024px) {
+		.extension {
+			padding-top: 1.5vw;
+			height: 3vw;
+			width: 3vw;
+		}
+	}
+	@media screen and (max-width: 1023px) {
+		.extension {
+			padding-top: 3.5vh;
+			height: 10vw;
+			width: 10vw;
+		}
+	}
+	.extension {
+		margin-left: auto;
+		margin-right: auto;
+	}
+</style>

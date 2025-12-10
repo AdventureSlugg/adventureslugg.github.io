@@ -43,18 +43,19 @@ const props = Astro.props as CardProps;
 	@media screen and (min-width: 1024px) {
 		.card {
 			width: 30%;
+			margin: 1vw 0;
 		}
 	}
 
 	@media screen and (max-width: 1023px) {
 		.card {
 			width: 80%;
+			margin-top: 4vh
 		}
 	}
 
 	.card {
 		border: .01vw solid black;
-		margin: 1vw 0;
 		border-radius: 0.5vw;
 		box-shadow: 1vw 1vw 3vw rgba(0,0,0,0.1);
 		background-color: #fff;

@@ -6,33 +6,33 @@ let harrisAlive = true;
 
 const deathSequence = [
 	{
-		src: "/assets/images/harris/seasonal/default/death-sequence/f1.png",
+		src: "/assets/images/harris/seasonal/default/death-sequence/f1.webp",
 		time: 1000,
 	},
 	{
-		src: "/assets/images/harris/seasonal/default/death-sequence/f2.png",
+		src: "/assets/images/harris/seasonal/default/death-sequence/f2.webp",
 		time: 1750,
 	},
 	{
-		src: "/assets/images/harris/seasonal/default/death-sequence/f3.png",
+		src: "/assets/images/harris/seasonal/default/death-sequence/f3.webp",
 		time: 1900,
 	},
 	{
-		src: "/assets/images/harris/seasonal/default/death-sequence/f4.png",
+		src: "/assets/images/harris/seasonal/default/death-sequence/f4.webp",
 		time: 2000,
 	},
 	{
-		src: "/assets/images/harris/seasonal/default/death-sequence/f6.png",
+		src: "/assets/images/harris/seasonal/default/death-sequence/f6.webp",
 		time: 2100,
 		title: 'R.I.P. Harris'
 	},
 	{
-		src: "/assets/images/harris/seasonal/default/death-sequence/f6.png",
+		src: "/assets/images/harris/seasonal/default/death-sequence/f6.webp",
 		time: 10000,
 		opacity: '.5'
 	},
 	{
-		src: "/assets/images/harris/seasonal/default/death-sequence/f6.png",
+		src: "/assets/images/harris/seasonal/default/death-sequence/f6.webp",
 		time: 20000,
 		opacity: '.2'
 	},

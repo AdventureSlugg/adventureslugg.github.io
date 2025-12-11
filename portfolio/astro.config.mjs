@@ -5,5 +5,4 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
 	devToolbar: {enabled: false},
 	site: 'https://adventureslugg.github.io',
-	base: 'adventureslugg.github.io'
 });

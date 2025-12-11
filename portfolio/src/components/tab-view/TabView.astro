@@ -60,7 +60,7 @@ const sections = Astro.props.sections as ProjectSection[];
 								image={{ 
 									src: subsection.image 
 										? subsection.image.src 
-										: '/public/assets/images/content/projects/NoImage.png', 
+										: '/assets/images/content/projects/NoImage.png', 
 									alt: subsection.name 
 								}}
 								badges={subsection.technologies?.map(tech => ({ text: tech.name, color: technologyColors[tech.type] }))}

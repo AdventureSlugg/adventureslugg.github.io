@@ -9,7 +9,7 @@
 /* Imported fonts */
 @font-face {
 	font-family: SourceCodePro;
-	src: url(../fonts/Source_Code_Pro/SourceCodePro-VariableFont_wght.ttf);
+	src: url(public/assets/fonts/Source_Code_Pro/SourceCodePro-VariableFont_wght.ttf);
 }
 
 body {

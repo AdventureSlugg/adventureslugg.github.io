@@ -6,33 +6,33 @@ let harrisAlive = true;
 
 const deathSequence = [
 	{
-		src: "/public/spider/death-sequence/f1.png",
+		src: "/public/assets/images/harris/seasonal/default/death-sequence/f1.png",
 		time: 1000,
 	},
 	{
-		src: "/public/spider/death-sequence/f2.png",
+		src: "/public/assets/images/harris/seasonal/default/death-sequence/f2.png",
 		time: 1750,
 	},
 	{
-		src: "/public/spider/death-sequence/f3.png",
+		src: "/public/assets/images/harris/seasonal/default/death-sequence/f3.png",
 		time: 1900,
 	},
 	{
-		src: "/public/spider/death-sequence/f4.png",
+		src: "/public/assets/images/harris/seasonal/default/death-sequence/f4.png",
 		time: 2000,
 	},
 	{
-		src: "/public/spider/death-sequence/f6.png",
+		src: "/public/assets/images/harris/seasonal/default/death-sequence/f6.png",
 		time: 2100,
 		title: 'R.I.P. Harris'
 	},
 	{
-		src: "/public/spider/death-sequence/f6.png",
+		src: "/public/assets/images/harris/seasonal/default/death-sequence/f6.png",
 		time: 10000,
 		opacity: '.5'
 	},
 	{
-		src: "/public/spider/death-sequence/f6.png",
+		src: "/public/assets/images/harris/seasonal/default/death-sequence/f6.png",
 		time: 20000,
 		opacity: '.2'
 	},

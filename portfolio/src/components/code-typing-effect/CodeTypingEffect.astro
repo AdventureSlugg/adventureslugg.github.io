@@ -1,0 +1,59 @@
+---
+const textArray = [
+	{
+		text: 'Fullstack',
+		color: '#C676FF'
+	},
+	{
+		text: 'Software Engineer',
+		color: '#FFCF94'
+	}
+]
+---
+
+<div class="editor">
+	<div class="type-writer">
+		<p>
+			{ 
+				textArray.map(text => {
+					return <span style={`color: ${text.color}`}> {text.text} </span>
+				}) 
+			}
+		</p>
+	</div>
+</div>
+
+<style>
+	.editor {
+		background-color: #1D193C;
+		border-radius: 1vh;
+		border: 1px solid #C5DBFF;
+		padding: .5rem;
+		width: fit-content;
+		font-weight: 400;
+	}
+
+	.type-writer {
+		padding-left: .5rem;
+		padding-right: .5rem;
+		border-right: .15em solid orange;
+		overflow: hidden;
+		white-space: nowrap;
+		letter-spacing: .2rem;
+		animation: 
+			typing 1.5s steps(28, end),
+			blink-caret .75s step-end infinite;
+	}
+
+	/* The typing effect */
+	@keyframes typing {
+		from { width: 0 }
+		to { width: 100% }
+	}
+
+	/* The typewriter cursor effect */
+	@keyframes blink-caret {
+		from, to { border-color: transparent }
+		50% { border-color: orange; }
+	}
+</style>

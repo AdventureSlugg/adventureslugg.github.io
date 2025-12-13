@@ -1,3 +1,7 @@
+---
+import CodeTypingEffect from "../components/code-typing-effect/CodeTypingEffect.astro";
+---
+
 <div class="landing-section main-inner-content" id="landing">
 	<div class="tagline-container">
 		<p class="tagline line-1">
@@ -6,6 +10,9 @@
 		<p class="tagline line-2">
 			My Approach
 		</p>
+		<div class="hug-right">
+			<CodeTypingEffect></CodeTypingEffect>
+		</div>
 	</div>
 	</div>
 	
@@ -57,5 +64,11 @@
 	.line-2 {
 		color: #F5FFDA;
 		text-align: end;
+	}
+
+	.hug-right {
+		width: fit-content;
+		margin-left: auto;
+		margin-right: 0px;
 	}
 </style>

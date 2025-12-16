@@ -10,7 +10,7 @@ export type ProjectSection = {
 	id: string,
 	name: string,
 	blurb: string,
-	subsections?: ProjectSubsection[]
+	subsections?: ProjectSubsection[],
 }
 
 export type ProjectSubsection = {
@@ -19,6 +19,8 @@ export type ProjectSubsection = {
 	image?: ImageType,
 	description?: string,
 	technologies?: Technology[]
+	sourceCodeLink?: string,
+	demoLink?: string
 }
 
 const technologyColors: Record<string, string> = {
@@ -64,6 +66,8 @@ const sections = Astro.props.sections as ProjectSection[];
 									alt: subsection.name 
 								}}
 								badges={subsection.technologies?.map(tech => ({ text: tech.name, color: technologyColors[tech.type] }))}
+								sourceCodeLink={subsection.sourceCodeLink}
+								demoLink={subsection.demoLink}
 							/>
 						})
 					}

@@ -8,7 +8,7 @@ import SectionTitle from "../components/sections/SectionTitle.astro";
 <div id="philosophy" class="philosophy-section main-inner-content">
 	<SectionTitle title="Philosophy"></SectionTitle>
 		<h2>
-			Why I am so F***ing Good at Magic✨✨
+			Why I am so F<span class="block-text">rogg</span>ing Good at Magic✨✨
 		</h2>
 	
 		<p>
@@ -82,5 +82,16 @@ import SectionTitle from "../components/sections/SectionTitle.astro";
 		background-attachment: fixed;
 		align-content: center;
 		text-shadow: .2vw .2vw .5vw rgba(0,0,0,.5);
+	}
+
+	.block-text {
+		background-color: white;
+		color: white;
+		text-shadow: none;
+		border-radius: 2px;
+	}
+
+	.block-text:hover {
+		background-color: transparent;
 	}
 </style>

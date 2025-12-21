@@ -2,12 +2,26 @@
 type BadgeProps = {
 	text: string;
 	color: string;
+	textColor?: string;
+	height?: number;
+	spacing?: number;
 }
 const props = Astro.props as BadgeProps;
 ---
 
-<div class="badge" style={`background-color: ${props.color};`}>
-	{props.text}
+<div 
+	class="badge" 
+	style={`
+		background-color: ${props.color}; 
+		color: ${props.textColor || '#FFFFFF'}; 
+		height: ${props.height || 'auto'}; 
+		display: ${props.spacing ? 'flex' : 'inline-block'};
+		padding-left: ${props.spacing || '0'};
+		padding-right: ${props.spacing || '0'};
+	`}>
+		<p style={`margin: ${props.spacing ? 'auto' : '0'};`}>
+			{props.text}
+		</p>
 </div>
 <style>
 	@media screen and (min-width: 1024px) {

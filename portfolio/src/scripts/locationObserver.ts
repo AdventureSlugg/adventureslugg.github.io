@@ -78,6 +78,12 @@ projectTabs.forEach(tab => {
 	});
 });
 
+// Add an event listener to the featured projects button
+const jumpToProjects = document.getElementById('landing-cta');
+jumpToProjects?.addEventListener('click', () => {
+	setSectionByID('projects', true);
+});
+
 // #endregion EVENT LISTENER SETUP
 
 // #region FUNCTION DEFINITIONS

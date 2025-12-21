@@ -1,21 +1,32 @@
 ---
+import Badge from "../components/badge/Badge.astro";
 import CodeTypingEffect from "../components/code-typing-effect/CodeTypingEffect.astro";
 ---
 
 <div class="landing-section main-inner-content" id="landing">
 	<div class="tagline-container">
-		<p class="tagline line-1">
-			Behind the Code
-		</p>
-		<p class="tagline line-2">
-			My Approach
-		</p>
-		<div class="hug-right">
-			<CodeTypingEffect></CodeTypingEffect>
+		<div class="left-to-right">
+			<div class="left" style="margin-right: 2vw">
+				<p class="name">
+					Zoe Bingham
+				</p>
+				<div>
+					<CodeTypingEffect></CodeTypingEffect>
+				</div>
+			</div>
+			<img id="landing-cta" src="/public/assets/images/content/FeaturedProjects.png" class="preview-image">
+		</div>
+		<div class="bottom">
+			<p style="font-size: 2.5vh;">
+				Crafting <span>engaging</span>, <span style="color: #FFD45E;">seamless</span>, <span>performant</span> <span style="color:#FFADF7">web-experiences</span>
+			</p>
+			<div class="left-to-right">
+				<Badge text="Code Migrations" color="#A932FF" textColor="#FFFFFF" height="4.5vh" spacing="1vw"></Badge>
+				<Badge text="Internal Tooling" color="#00D0FF" textColor="#FFFFFF" height="4.5vh" spacing="1vw"></Badge>
+				<Badge text="AI Integrations" color="#FF00EA" textColor="#FFFFFF" height="4.5vh" spacing="1vw"></Badge>
+			</div>
 		</div>
 	</div>
-	</div>
-	
 
 <style>
 	@media screen and (min-width: 1024px) {
@@ -34,6 +45,11 @@ import CodeTypingEffect from "../components/code-typing-effect/CodeTypingEffect.
 		}
 	}
 
+	.left-to-right {
+		display: flex;
+		justify-content: space-between;
+	}
+
 	.landing-section {
 		min-height: 100%;
 		background-image: url(/public/assets/images/backgrounds/WebGradient.webp);
@@ -41,10 +57,12 @@ import CodeTypingEffect from "../components/code-typing-effect/CodeTypingEffect.
 		width: 100%;
 		background-attachment: fixed;
 		align-content: center;
+		display: flex;
 	}
 
 	.tagline-container {
-		padding: 0% 10% 5% 10%;
+		/* padding: 0% 10% 5% 10%; */
+		margin: auto;
 		user-select: none;
 	}
 
@@ -62,5 +80,23 @@ import CodeTypingEffect from "../components/code-typing-effect/CodeTypingEffect.
 		width: fit-content;
 		margin-left: auto;
 		margin-right: 0px;
+	}
+
+	.name {
+		font-size: 4.25vw;
+		margin: 1vh;
+		text-align: start;
+		color: #FFBB00;
+	}
+
+	.preview-image {
+		aspect-ratio: 16 / 9;
+		width: 20vw;
+		margin-right: auto;
+	}
+
+	.preview-image:hover {
+		transform: scale(1.1);
+		transition: transform 0.5s ease-in-out;
 	}
 </style>

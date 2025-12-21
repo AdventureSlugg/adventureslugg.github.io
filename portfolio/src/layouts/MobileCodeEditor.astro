@@ -14,10 +14,39 @@ import '/public/assets/styles/styles.css'
 		<slot name="file-explorer"></slot>
 		<slot name="extensions"/></slot>
 	</div>
+
+	<div id="mobileExplorerToggle" class="clickable">
+		<p id="isMobileExploreToggled"> ^ </p>
+	</div>
 </div>
 
 
 <style>
+	#mobileExplorerToggle {
+		background-color: #ffc23e;
+		border-radius: 100%;
+		position: absolute;
+		bottom: 5px;
+		right: 10px;
+		border: 2px solid #ffaf3e;
+		border-shadow: 0 4px 8px rgba(0,0,0,0.2);
+		width: 2rem;
+		height: 2rem;
+		opacity: 0.8;
+		p {
+			color: white;
+			height: fit-content;
+			width: fit-content;
+			margin: auto;
+			margin-top: auto;
+			margin-top: .25rem;
+		}
+	}
+
+	#mobileExplorerToggle:hover {
+		opacity: 1;
+	}
+
 	.code-section {
 		background-color: var(--primary-bg-color);
 		color: white;

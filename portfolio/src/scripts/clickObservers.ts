@@ -60,16 +60,7 @@ const openLink = (url: string, confirmation: boolean = true) => {
 
 const actionMap: Record<string, CallableFunction> = {
 	'explorerClickablemobile': () => {
-		// If the screen is mobile, then get the bottom section and hide it.
-		const bottom = document.getElementsByClassName('bottom');
-		if (bottom && bottom[0]) {
-			(bottom[0] as HTMLElement).style.display = 'none';
-			// Change the main-content view to 80vh
-			const mainContent = document.getElementById('main-content');
-			if (mainContent) {
-				mainContent.style.height = '85vh'
-			}
-		}
+		hideMobileExplorer();
 	},
 	'searchClickablemobile': () => {
 		// TODO: Open up the Search function.
@@ -121,6 +112,10 @@ const actionMap: Record<string, CallableFunction> = {
 	},
 	'hide-option-desktop': () => {
 		rickRollAction({layout: 'desktop'})
+	},
+	'mobileExplorerToggle': () => {
+		console.log("Toggling the explorer section...");
+		toggleMobileExplorer();
 	},
 	'harris': async () => {
 		if (harrisAlive) {
@@ -187,5 +182,49 @@ function rickRollAction (layoutType: LayoutType) {
 			alert(toldYouSo)
 		}
 		openLink('https://www.youtube.com/watch?v=E4WlUXrJgy4', false);
+	}
+}
+
+let isExplorerOpen = false;
+
+function toggleMobileExplorer () {
+	console.log("Toggling the explorer section...");
+	// Change the toggle state of the button.
+	const toggleElement = document.getElementById('isMobileExploreToggled') as HTMLElement;
+
+	// Toggle the visibility of the explorer section.
+	if (isExplorerOpen) { // If the explorer is open, then close it and change the toggle button to prompt to open it back up
+		toggleElement.innerText = '^';
+		hideMobileExplorer();
+		isExplorerOpen = false;
+	} else {
+		toggleElement.innerText = 'v';
+		openMobileExplorer();
+		isExplorerOpen = true;
+	}
+}
+
+export function hideMobileExplorer () {
+	// If the screen is mobile, then get the bottom section and hide it.
+	const bottom = document.getElementsByClassName('bottom');
+	if (bottom && bottom[0]) {
+		(bottom[0] as HTMLElement).style.display = 'none';
+		// Change the main-content view to 80vh
+		const mainContent = document.getElementById('main-content');
+		if (mainContent) {
+			mainContent.style.height = '85vh'
+		}
+	}
+}
+
+function openMobileExplorer () {
+	const bottom = document.getElementsByClassName('bottom');
+	if (bottom && bottom[0]) {
+		(bottom[0] as HTMLElement).style.display = 'flex';
+		// Change the main-content view to 40vh
+		const mainContent = document.getElementById('main-content');
+		if (mainContent) {
+			mainContent.style.height = '40vh'
+		}
 	}
 }

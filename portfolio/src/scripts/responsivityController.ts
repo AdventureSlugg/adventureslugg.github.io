@@ -1,3 +1,5 @@
+import { hideMobileExplorer } from "./clickObservers";
+
 // Get the mobile and desktop layouts
 const mobileLayout = document.getElementById('mobile-layout');
 const desktopLayout = document.getElementById('desktop-layout');
@@ -19,6 +21,9 @@ function determineLayout() {
 		}
 		desktopLayout!.remove();
 		parentOfLayout!.appendChild(mobileLayout!);
+		
+		// Hide the mobile explorer by default
+		hideMobileExplorer();
 	} else { // Otherwise, show the desktop view
 		mobileLayout!.remove();
 		parentOfLayout!.appendChild(desktopLayout!)

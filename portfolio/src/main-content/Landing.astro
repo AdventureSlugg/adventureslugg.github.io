@@ -5,7 +5,7 @@ import CodeTypingEffect from "../components/code-typing-effect/CodeTypingEffect.
 
 <div class="landing-section main-inner-content" id="landing">
 	<div class="tagline-container">
-		<div class="left-to-right">
+		<div class="left-to-right top-landing">
 			<div class="left" style="margin-right: 2vw">
 				<p class="name">
 					Zoe Bingham
@@ -16,8 +16,8 @@ import CodeTypingEffect from "../components/code-typing-effect/CodeTypingEffect.
 			</div>
 			<img id="landing-cta" src="/assets/images/content/FeaturedProjects.webp" class="preview-image">
 		</div>
-		<div class="bottom">
-			<p style="font-size: 2.5vh;">
+		<div class="bottom-landing">
+			<p class="bottom-landing-text">
 				Crafting <span>engaging</span>, <span style="color: #FFD45E;">seamless</span>, <span>performant</span> <span style="color:#FFADF7">web-experiences</span>
 			</p>
 			<div class="left-to-right">
@@ -35,6 +35,18 @@ import CodeTypingEffect from "../components/code-typing-effect/CodeTypingEffect.
 			font-weight: 400;
 			text-shadow: .1vw .5vw .5vw black;
 		}
+
+		.top-landing {
+			flex-direction: row;
+		}
+
+		.name {
+			font-size: 4.25vw;
+		}
+
+		.bottom-landing-text {
+			font-size: 2vh;
+		}
 	}
 
 	@media screen and (max-width: 1023px) {
@@ -42,6 +54,21 @@ import CodeTypingEffect from "../components/code-typing-effect/CodeTypingEffect.
 			font-size: 4vh;
 			font-weight: 400;
 			text-shadow: .1vw .5vw .5vw black;
+		}
+
+		.top-landing {
+			flex-direction: column;
+		}
+
+		.name {
+			font-size: 5vh;
+		}
+
+		#landing-cta {
+			display: none;
+		}
+		.botton-landing-text {
+			font-size: 1vh;
 		}
 	}
 
@@ -83,7 +110,6 @@ import CodeTypingEffect from "../components/code-typing-effect/CodeTypingEffect.
 	}
 
 	.name {
-		font-size: 4.25vw;
 		margin: 1vh;
 		text-align: start;
 		color: #FFBB00;

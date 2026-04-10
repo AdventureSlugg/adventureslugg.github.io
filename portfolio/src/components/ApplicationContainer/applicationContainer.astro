@@ -43,7 +43,25 @@
 			<div class="green circle"/>
 		</div>
 	</div>
-	<div class="content"></div>
+	<div class="content">
+		<div class="text">
+			<h1>
+				UPDATE:
+			</h1>
+			<p>
+				Thanks for stopping by! My portfolio is currently under reconstruction.
+			</p>
+
+			<p>
+				Updates will continue gradually over the next couple of weeks. 
+			</p>
+
+			<p>
+				Hope to see you again soon!
+			</p>
+		</div>
+		
+	</div>
 </div>
 
 <style>
@@ -51,12 +69,14 @@
 		border: .1vh solid var(--dark-stroke);
 		box-shadow: var(--box-shadow);
 		position: absolute;
-		min-height: 40vh;
-		min-width: 40vw;
+		height: 42vh;
+		width: 40vw;
 		top: 25vh;
 		left: 30vw;
 		border-radius: 1vh;
 		overflow: hidden;
+		display: flex;
+		flex-direction: column;
 	}
 	.top-bar {
 		background-color: var(--dark-bg);
@@ -68,7 +88,7 @@
 		margin-top: .75vh;
 		margin-left: 1vw;
 		display: flex;
-		width: 5vw;
+		min-width: 5vw;
 		justify-content: space-around;
 	}
 
@@ -95,7 +115,15 @@
 	}
 
 	.content {
+		background-color: var(--dark-bg);
+		opacity: .8;
+		flex: 1;
+		overflow-y: scroll;
+	}
 
+	.text {
+		color: white;
+		padding: 1vw;
 	}
 </style>
 

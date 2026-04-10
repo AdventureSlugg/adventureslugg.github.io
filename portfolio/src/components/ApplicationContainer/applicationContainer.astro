@@ -65,14 +65,32 @@
 </div>
 
 <style>
+	@media (min-width: 585px) {
+		#application-container {
+			height: 42vh;
+			width: 40vw;
+			top: 25vh;
+			left: 30vw;
+		}
+	}
+	@media (max-width: 584px) {
+		#application-container {
+			height: 60vh;
+			width: 75vw;
+			top: 10vh;
+			left: 15vw;
+		}
+		h1 {
+			font-size: 5vh;
+		}
+		p {
+			font-size: 2.5vh;
+		}
+	}
 	#application-container {
 		border: .1vh solid var(--dark-stroke);
 		box-shadow: var(--box-shadow);
 		position: absolute;
-		height: 42vh;
-		width: 40vw;
-		top: 25vh;
-		left: 30vw;
 		border-radius: 1vh;
 		overflow: hidden;
 		display: flex;

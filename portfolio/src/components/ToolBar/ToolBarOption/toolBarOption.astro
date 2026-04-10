@@ -16,22 +16,46 @@ const props = Astro.props as IToolBarOption;
 </div>
 
 <style>
-	.tool-bar-option {
-		height: 10vh;
-		width: 10vh;
-		padding: .5vh;
+	@media (min-width: 585px) {
+		.tool-bar-option {
+			height: 10vh;
+			width: 10vh;
+			padding: .5vh;
+		}
+
+		.tool-bar-option:hover {
+			height: 11vh;
+			width: 11vh;
+		}
+
+		.hover-label {
+			opacity: 0;
+		}
+
+		.icon-wrapper:hover .hover-label {
+			opacity: 1;
+		}
 	}
 
-	.tool-bar-option:hover {
-		height: 11vh;
-		width: 11vh;
-	}
+	@media (max-width: 584px) {
+		.tool-bar-option {
+			height: 5vh;
+			width: 5vh;
+			padding: .25vh;
+		}
 
-	.hover-label {
-		opacity: 0;
-	}
+		.tool-bar-option:hover {
+			height: 11vh;
+			width: 11vh;
+		}
 
-	.icon-wrapper:hover .hover-label {
-		opacity: 1;
+		.hover-label {
+			opacity: 0;
+		}
+
+		.icon-wrapper:hover .hover-label {
+			opacity: 1;
+		}
 	}
+	
 </style>

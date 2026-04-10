@@ -35,17 +35,35 @@ import Toolbar from "../components/ToolBar/toolbar.astro";
 		height: 97vh;
 	}
 
-	.tool-bar {
-		position: absolute;
-		width: 60vw;
-		height: 11vh;
-		border-radius: 1vw;
-		background-color: var(--dark-bg);
-		opacity: 80%;
-		bottom: 0;
-		margin: 1vh 20vw;
-		border: solid .1vw var(--dark-stroke);
-		box-shadow: var(--box-shadow);
-		min-width: 60vh;
+	@media (min-width: 585px) {
+		.tool-bar {
+			position: absolute;
+			width: 60vw;
+			height: 11vh;
+			border-radius: 1vw;
+			background-color: var(--dark-bg);
+			opacity: 80%;
+			bottom: 0;
+			margin: 1vh 20vw;
+			border: solid .1vw var(--dark-stroke);
+			box-shadow: var(--box-shadow);
+			min-width: 60vh;
+		}
+	}
+
+	@media (max-width: 584px) {
+		.tool-bar {
+			position: absolute;
+			width: 70vw;
+			height: 6vh;
+			border-radius: 1vw;
+			background-color: var(--dark-bg);
+			opacity: 80%;
+			bottom: 0;
+			margin: 4vh 15vw;
+			border: solid .1vw var(--dark-stroke);
+			box-shadow: var(--box-shadow);
+			min-width: 30vh;
+		}
 	}
 </style>

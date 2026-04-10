@@ -1,10 +1,14 @@
 ---
+import HoverLabel from "../../HoverLabel/hoverLabel.astro";
 import type { IToolBarOption } from "./IToolBarOption";
 
 const props = Astro.props as IToolBarOption;
 ---
 
-<div>
+<div class="icon-wrapper">
+	<span class="hover-label">
+		<HoverLabel label={props.title}/>
+	</span>
 	<img
 		class="tool-bar-option" 
 		src={props.url}
@@ -21,5 +25,13 @@ const props = Astro.props as IToolBarOption;
 	.tool-bar-option:hover {
 		height: 11vh;
 		width: 11vh;
+	}
+
+	.hover-label {
+		opacity: 0;
+	}
+
+	.icon-wrapper:hover .hover-label {
+		opacity: 1;
 	}
 </style>

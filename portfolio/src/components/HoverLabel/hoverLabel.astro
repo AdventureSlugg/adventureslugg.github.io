@@ -1,0 +1,30 @@
+---
+import type { IHoverLabel } from "./IHoverLabel";
+
+const props = Astro.props as IHoverLabel;
+---
+
+<div class="hover-label" id={props.label}>
+	<p class="hover-text">{props.label}</p>
+</div>
+
+<style>
+	.hover-label {
+		height: 15vh;
+		position: absolute;
+		top: -6vh;
+		pointer-events: none;
+	}
+
+	.hover-text {
+		width: fit-content;
+		background-color: var(--dark-bg);
+		padding: 0 2vw;
+		color: white;
+		border: .1vw solid var(--dark-stroke);
+		border-radius: .5vw;
+		box-shadow: var(--box-shadow);
+		text-align: center;
+		font-size: 2vh;
+	}
+</style>

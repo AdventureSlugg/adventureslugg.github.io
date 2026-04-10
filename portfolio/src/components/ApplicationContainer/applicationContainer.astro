@@ -1,0 +1,103 @@
+---
+---
+<script is:inline>
+	let dragging = false;
+	let startX = 0;
+	let startY = 0;
+	let baseX = 0;
+	let baseY = 0;
+
+	const el = () => document.getElementById("application-container");
+
+	function down(e) {
+		dragging = true;
+		startX = e.clientX;
+		startY = e.clientY;
+	}
+
+	function move(e) {
+		if(!dragging) { return }
+		const dx = e.clientX - startX;
+		const dy = e.clientY - startY;
+
+		el().style.transform = `translate(${baseX + dx}px, ${baseY + dy}px)`;
+	}
+
+	function up(e) {
+		if(!dragging) { return }
+		
+		const dx = e.clientX - startX;
+		const dy = e.clientY - startY;
+
+		baseX += dx;
+		baseY += dy;
+		dragging = false;
+	}
+</script>
+
+<div id="application-container" onpointerdown="down(event)">
+	<div class="top-bar">
+		<div class="option-container">
+			<div class="red circle"/>
+			<div class="yellow circle"/>
+			<div class="green circle"/>
+		</div>
+	</div>
+	<div class="content"></div>
+</div>
+
+<style>
+	#application-container {
+		border: .1vh solid var(--dark-stroke);
+		box-shadow: var(--box-shadow);
+		position: absolute;
+		min-height: 40vh;
+		min-width: 40vw;
+		border-radius: 1vh;
+		overflow: hidden;
+	}
+	.top-bar {
+		background-color: var(--dark-bg);
+		display: flex;
+		height: 3vh;
+	}
+
+	.option-container {
+		margin-top: .75vh;
+		margin-left: 1vw;
+		display: flex;
+		width: 5vw;
+		justify-content: space-around;
+	}
+
+	.circle {
+		width: 1.5vh;
+		height: 1.5vh;
+		border-radius: 100px;
+	}
+
+	.circle:hover {
+		opacity: .8;
+	}
+
+	.red {
+		background-color: #FF5656;
+	}
+
+	.green {
+		background-color: #44d07c;
+	}
+
+	.yellow {
+		background-color: #f3f04a;
+	}
+
+	.content {
+
+	}
+</style>
+
+<script is:inline>
+	document.addEventListener("pointermove", move);
+	document.addEventListener("pointerup", up);
+</script>

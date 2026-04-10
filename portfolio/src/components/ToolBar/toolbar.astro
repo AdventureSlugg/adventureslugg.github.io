@@ -1,0 +1,59 @@
+---
+import type { ACTION_ERROR_CODES, ACTION_QUERY_PARAMS } from "astro:actions";
+import type { IToolBarOption } from "./ToolBarOption/IToolBarOption";
+import ToolBarOption from "./ToolBarOption/toolBarOption.astro";
+
+const options: IToolBarOption[] = [
+	{
+		title: 'Projects',
+		url: '/public/icons/terminal-icon.png',
+		content: {}
+	},
+	{
+		title: 'Professional Experience',
+		url: '/public/icons/calendar-icon.png',
+		content: {}
+	},
+	{
+		title: 'About Me',
+		url: '/public/icons/books-icon.png',
+		content: {}
+	},
+	{
+		title: 'Contact Me',
+		url: '/public/icons/contact-book-icon.png',
+		content: {}
+	}
+];
+
+const trashOption: IToolBarOption = {
+	title: 'Trash',
+	url: '/public/icons/trash-icon.png',
+	content: {}
+}
+---
+
+<div class="tool-bar">
+	{
+		options.map(o => <ToolBarOption {...o}/>)
+	}
+
+	<div class="vertical-line"/>
+
+	<ToolBarOption {...trashOption}/>
+</div>
+
+<style>
+.tool-bar {
+	display: flex;
+	justify-content: space-around;
+}
+
+.vertical-line {
+	height: 8vh;
+	width: 1px;
+	background-color: var(--dark-stroke);
+	margin-top: 1vh;
+}
+
+</style>

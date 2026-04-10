@@ -1,0 +1,25 @@
+---
+import type { IToolBarOption } from "./IToolBarOption";
+
+const props = Astro.props as IToolBarOption;
+---
+
+<div>
+	<img
+		class="tool-bar-option" 
+		src={props.url}
+	/>
+</div>
+
+<style>
+	.tool-bar-option {
+		height: 10vh;
+		width: 10vh;
+		padding: .5vh;
+	}
+
+	.tool-bar-option:hover {
+		height: 11vh;
+		width: 11vh;
+	}
+</style>

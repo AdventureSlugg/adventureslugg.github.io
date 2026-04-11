@@ -61,8 +61,8 @@ const props = Astro.props as IApplicationProps;
 	}
 
 	function hide(e) {
-		console.log('hide')
-		e.currentTarget.closest('.application-container').style.display = 'none';
+		e.currentTarget.closest('.application-container').classList.toggle('visible');
+		e.currentTarget.closest('.application-container').classList.toggle('hidden');
 	}
 
 	function expand(e) {

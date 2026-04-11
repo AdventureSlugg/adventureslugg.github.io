@@ -4,14 +4,15 @@ import type { IToolBarOption } from "./IToolBarOption";
 
 const props = Astro.props as IToolBarOption;
 ---
-
-<div class="icon-wrapper">
+<div class="icon-wrapper" id={props.id}>
 	<span class="hover-label">
 		<HoverLabel label={props.title}/>
 	</span>
 	<img
 		class="tool-bar-option" 
 		src={props.url}
+		onclick="toggleApplicationView"
+		data-applicationID={props.applicationId}
 	/>
 </div>
 

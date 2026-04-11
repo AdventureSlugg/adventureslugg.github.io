@@ -1,6 +1,7 @@
 ---
 interface IApplicationProps {
 	id: string;
+	open?: boolean;
 }
 
 const props = Astro.props as IApplicationProps;
@@ -54,18 +55,17 @@ const props = Astro.props as IApplicationProps;
 	}
 
 	function hide(e) {
+		console.log('hide')
 		e.currentTarget.closest('.application-container').style.display = 'none';
 	}
 
 	function expand(e) {
 		const el = e.currentTarget.closest('.application-container')
-
-		const isExpanded = el.classList.toggle('expanded')
-	
+		el.classList.toggle('expanded')
 	}
 </script>
 
-<div id={props.id} class="application-container">
+<div id={props.id} class={`application-container ${props.open ? ' visible' : ' hidden'}`}>
 	<div class="top-bar" onpointerdown="down(event)">
 		<div class="option-container">
 			<div class="red circle" onclick=""/>
@@ -99,6 +99,14 @@ const props = Astro.props as IApplicationProps;
 		p {
 			font-size: 2.5vh;
 		}
+	}
+
+	.hidden {
+		display: none !important;
+	}
+
+	.visible {
+		display: inherit;
 	}
 
 	.expanded {
@@ -163,7 +171,14 @@ const props = Astro.props as IApplicationProps;
 	document.addEventListener("pointerup", up);
 
 	// Top bar event listeners to altering methods
-	document.getElementsByClassName('red')[0].addEventListener("click", hide);
-	document.getElementsByClassName('yellow')[0].addEventListener("click", hide);
-	document.getElementsByClassName('green')[0].addEventListener("click", expand);
+	Array.from(document.getElementsByClassName('red')).forEach(redButton => {
+		console.log("Adding A listener")
+		redButton.addEventListener("click", hide);
+	})
+	Array.from(document.getElementsByClassName('yellow')).forEach(yellowButton => {
+		yellowButton.addEventListener("click", hide);
+	})
+	Array.from(document.getElementsByClassName('green')).forEach(greenButton => {
+		greenButton.addEventListener("click", expand);
+	})
 </script>

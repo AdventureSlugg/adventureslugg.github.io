@@ -1,5 +1,6 @@
 export interface IToolBarOption {
 	title: string;
 	url: string;
-	content: {}
+	id: string;
+	applicationId: string;
 }

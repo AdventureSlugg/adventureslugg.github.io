@@ -69,7 +69,7 @@ const noIcon = '/public/icons/contact-book-icon.png';
 				const InnerContent = section.innerContent;
 
 				return <ApplicationContainer id={section.id + '-application-container'} open={section.initialDisplay}>
-					<div slot="content">
+					<div slot="content" class="full-height full-width">
 						<InnerContent id={section.id + '-content'} title={section.title}></InnerContent>
 					</div>
 				</ApplicationContainer>
@@ -177,5 +177,13 @@ const noIcon = '/public/icons/contact-book-icon.png';
 			box-shadow: var(--box-shadow);
 			min-width: 30vh;
 		}
+	}
+
+	.full-height {
+		height: 100%;
+	}
+
+	.full-width {
+		width: 100%;
 	}
 </style>

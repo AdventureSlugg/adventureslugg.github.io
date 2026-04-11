@@ -8,7 +8,24 @@ import Toolbar from "../components/ToolBar/toolbar.astro";
 
 	</div>
 	<div class="main-content">
-		<ApplicationContainer></ApplicationContainer>
+		<ApplicationContainer id="message-notice">
+			<div class="text content" slot="content">
+				<h1>
+					UPDATE:
+				</h1>
+				<p>
+					Thanks for stopping by! My portfolio is currently under reconstruction.
+				</p>
+
+				<p>
+					Updates will continue gradually over the next couple of weeks. 
+				</p>
+
+				<p>
+					Hope to see you again soon!
+				</p>
+			</div>
+		</ApplicationContainer>
 	</div>
 	<div class="tool-bar">
 		<Toolbar></Toolbar>
@@ -33,6 +50,18 @@ import Toolbar from "../components/ToolBar/toolbar.astro";
 
 	.main-content {
 		height: 97vh;
+	}
+
+	.content {
+		background-color: var(--dark-bg);
+		opacity: .8;
+		flex: 1;
+		overflow-y: scroll;
+	}
+
+	.text {
+		color: white;
+		padding: 1vw;
 	}
 
 	@media (min-width: 585px) {

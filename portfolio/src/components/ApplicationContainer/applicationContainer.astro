@@ -1,72 +1,73 @@
 ---
+interface IApplicationProps {
+	id: string;
+}
+
+const props = Astro.props as IApplicationProps;
 ---
 <script is:inline>
 	let dragging = false;
 	let startX = 0;
 	let startY = 0;
-	let baseX = 0;
-	let baseY = 0;
-
-	const el = () => document.getElementById("application-container");
+	let activeEl = null;
 
 	function down(e) {
+		activeEl = e.currentTarget.closest('.application-container');
 		dragging = true;
+
 		startX = e.clientX;
 		startY = e.clientY;
+
+		// initialize per-element state if missing
+		if (!activeEl.dataset.x) {
+			activeEl.dataset.x = "0";
+			activeEl.dataset.y = "0";
+		}
 	}
 
 	function move(e) {
-		if(!dragging) { return }
+		if (!dragging || !activeEl) return;
+
+		const baseX = parseFloat(activeEl.dataset.x);
+		const baseY = parseFloat(activeEl.dataset.y);
+
 		const dx = e.clientX - startX;
 		const dy = e.clientY - startY;
 
-		el().style.transform = `translate(${baseX + dx}px, ${baseY + dy}px)`;
+		activeEl.style.transform = `translate(${baseX + dx}px, ${baseY + dy}px)`;
 	}
 
 	function up(e) {
-		if(!dragging) { return }
-		
+		if (!dragging || !activeEl) return;
+
+		const baseX = parseFloat(activeEl.dataset.x);
+		const baseY = parseFloat(activeEl.dataset.y);
+
 		const dx = e.clientX - startX;
 		const dy = e.clientY - startY;
 
-		baseX += dx;
-		baseY += dy;
+		activeEl.dataset.x = baseX + dx;
+		activeEl.dataset.y = baseY + dy;
+
 		dragging = false;
+		activeEl = null;
 	}
 </script>
 
-<div id="application-container" onpointerdown="down(event)">
-	<div class="top-bar">
+<div id={props.id} class="application-container">
+	<div class="top-bar" onpointerdown="down(event)">
 		<div class="option-container">
 			<div class="red circle"/>
 			<div class="yellow circle"/>
 			<div class="green circle"/>
 		</div>
 	</div>
-	<div class="content">
-		<div class="text">
-			<h1>
-				UPDATE:
-			</h1>
-			<p>
-				Thanks for stopping by! My portfolio is currently under reconstruction.
-			</p>
-
-			<p>
-				Updates will continue gradually over the next couple of weeks. 
-			</p>
-
-			<p>
-				Hope to see you again soon!
-			</p>
-		</div>
-		
-	</div>
+	<slot name="content"/>
 </div>
 
 <style>
 	@media (min-width: 585px) {
-		#application-container {
+		.application-container {
 			height: 42vh;
 			width: 40vw;
 			top: 25vh;
@@ -74,7 +75,7 @@
 		}
 	}
 	@media (max-width: 584px) {
-		#application-container {
+		.application-container {
 			height: 60vh;
 			width: 75vw;
 			top: 10vh;
@@ -87,7 +88,8 @@
 			font-size: 2.5vh;
 		}
 	}
-	#application-container {
+
+	.application-container {
 		border: .1vh solid var(--dark-stroke);
 		box-shadow: var(--box-shadow);
 		position: absolute;
@@ -96,6 +98,7 @@
 		display: flex;
 		flex-direction: column;
 	}
+
 	.top-bar {
 		background-color: var(--dark-bg);
 		display: flex;
@@ -132,17 +135,7 @@
 		background-color: #f3f04a;
 	}
 
-	.content {
-		background-color: var(--dark-bg);
-		opacity: .8;
-		flex: 1;
-		overflow-y: scroll;
-	}
-
-	.text {
-		color: white;
-		padding: 1vw;
-	}
+	
 </style>
 
 <script is:inline>

@@ -178,7 +178,6 @@ const props = Astro.props as IApplicationProps;
 
 	// Top bar event listeners to altering methods
 	Array.from(document.getElementsByClassName('red')).forEach(redButton => {
-		console.log("Adding A listener")
 		redButton.addEventListener("click", hide);
 	})
 	Array.from(document.getElementsByClassName('yellow')).forEach(yellowButton => {

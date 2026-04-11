@@ -78,7 +78,7 @@ const props = Astro.props as IProjectProps
 				</div>
 			</div>
 
-			<div class="project-card">
+			<div class="project-card last">
 				<h2>
 					Project 1
 				</h2>
@@ -179,6 +179,10 @@ h2 {
 	padding: 1vh 1vw;
 	border-radius: .5vh;
 	border: .1vh solid var(--dark-stroke);
+}
+
+.last {
+	margin-bottom: 6vh;
 }
 
 .project-card:hover {

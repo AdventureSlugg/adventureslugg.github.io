@@ -1,3 +1,199 @@
-<div>
-	This is the projects section
+---
+import type { IContentSection } from "./_IContentSection"
+
+
+interface IProjectProps extends IContentSection {};
+
+const props = Astro.props as IProjectProps
+---
+
+<div id={props.id} class="project-section">
+	<div class="left-bar">
+		<h1>
+			Project List
+		</h1>
+		<input class="search-bar" placeholder="Search for project...">
+		<div class="filter-section">
+			<div class="filter-item">
+				Web
+			</div>
+			<div class="filter-item">
+				Game
+			</div>
+			<div class="filter-item">
+				Tool
+			</div>
+		</div>
+		<div class="projects-selection">
+			<div class="project-card">
+				<h2>
+					Project 1
+				</h2>
+				
+				<div class="categories">
+					<div class="filter-item">
+						Vue
+					</div>
+					<div class="filter-item">
+						Node
+					</div>
+					<div class="filter-item">
+						Game
+					</div>
+				</div>
+			</div>
+			<div class="project-card">
+				<h2>
+					Project 2
+				</h2>
+				
+				<div class="categories">
+					<div class="filter-item">
+						Web
+					</div>
+					<div class="filter-item">
+						React
+					</div>
+					<div class="filter-item">
+						Game
+					</div>
+				</div>
+			</div>
+
+			<div class="project-card">
+				<h2>
+					Project 1
+				</h2>
+				
+				<div class="categories">
+					<div class="filter-item">
+						Vue
+					</div>
+					<div class="filter-item">
+						Node
+					</div>
+					<div class="filter-item">
+						Game
+					</div>
+				</div>
+			</div>
+
+			<div class="project-card">
+				<h2>
+					Project 1
+				</h2>
+				
+				<div class="categories">
+					<div class="filter-item">
+						Vue
+					</div>
+					<div class="filter-item">
+						Node
+					</div>
+					<div class="filter-item">
+						Game
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+
+	<div class="project-info">
+		Project Info Section
+	</div>
 </div>
+
+<style>
+
+h1 {
+	font-size: 15px;
+	font-weight: 100;
+	color: white;
+	margin-top: .5vh;
+}
+
+h2 {
+	font-size: 12px;
+	font-weight: 100;
+	color: white;
+	margin-top: .5vh;
+	margin-bottom: .5vh;
+}
+
+.project-section {
+	background: var(--dark-bg-glass);
+	height: 100%;
+	display: flex;
+}
+
+.left-bar {
+	background-color: rgba(21,21,21, .3);
+	border: solid var(--dark-stroke);
+	border-width: 0 .1vh 0 0;
+	width: 30%;
+	padding: 1vh 1.5vw;
+	min-height: 100%;
+	scrollbar-width: thin;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.search-bar {
+	width: 85%;
+	border-radius: 10vh;
+	padding: 0 1vw;
+}
+
+.filter-section {
+	display: flex;
+	margin-top: 1vh;
+}
+
+.filter-item {
+	background-color: rgb(243, 180, 70);
+	margin: 0 .5vw;
+	padding: 0 .5vw;
+	border-radius: 10vw;
+	color: white;
+	font-size: 12px;
+}
+
+.filter-item:hover {
+	opacity: .8;
+}
+
+.project-info {
+	flex: 1;
+}
+
+.projects-selection {
+	margin-top: 1vh;
+}
+
+.project-card {
+	margin: 1vh 0 0 .5vw;
+	background: rgb(38, 54, 59);
+	color: white;
+	font-size: 12px;
+	padding: 1vh 1vw;
+	border-radius: .5vh;
+	border: .1vh solid var(--dark-stroke);
+}
+
+.project-card:hover {
+	scale: 1.1;
+}
+
+.categories {
+	display: flex;
+	overflow-x: scroll;
+	scrollbar-width: thin;
+}
+
+.project-info {
+	color: white;
+	padding: 2vh 2vw
+}
+
+</style>

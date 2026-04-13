@@ -1,8 +1,48 @@
 ---
 import type { IContentSection } from "./_IContentSection"
 
+type ProjectCategory = 'Web' | 'Game' | 'Tool';
+
+interface IProject {
+	title: string;
+	id: string;
+	categories: ProjectCategory[];
+	description: string;
+	technologies: string[];
+}
 
 interface IProjectProps extends IContentSection {};
+
+const projects: IProject[] = [
+	{
+		title: "Apollo Link",
+		id: "apollolink",
+		categories: ['Web'],
+		description: "",
+		technologies: []
+	},
+	{
+		title: "Med-O-Matic",
+		id: "medomatic",
+		categories: ['Web'],
+		description: "",
+		technologies: []
+	},
+	{
+		title: "Block Wars",
+		id: "blockwars",
+		categories: ['Web', 'Game'],
+		description: "",
+		technologies: []
+	},
+	{
+		title: "Code Racer",
+		id: "coderacer",
+		categories: ['Web', 'Game'],
+		description: "",
+		technologies: []
+	},
+]
 
 const props = Astro.props as IProjectProps
 ---
@@ -12,7 +52,7 @@ const props = Astro.props as IProjectProps
 		<h1>
 			Project List
 		</h1>
-		<input class="search-bar" placeholder="Search for project...">
+		<input class="search-bar" placeholder="Search for project..." id="project-search-bar">
 		<div class="filter-section">
 			<div class="filter-item">
 				Web
@@ -25,76 +65,25 @@ const props = Astro.props as IProjectProps
 			</div>
 		</div>
 		<div class="projects-selection">
-			<div class="project-card">
-				<h2>
-					Project 1
-				</h2>
-				
-				<div class="categories">
-					<div class="filter-item">
-						Vue
+			{
+				projects.map((p, i) => {
+					return <div class={"project-card " + (projects.length - 1 === i ? 'last ' : '') + (0 === i ? 'selected ' : '')}>
+						<h2>
+							{p.title}
+						</h2>
+						
+						<div class="categories">
+							{
+								p.categories.map(c => {
+									return <div class="filter-item">
+										{c}
+									</div>
+								})
+							}
+						</div>
 					</div>
-					<div class="filter-item">
-						Node
-					</div>
-					<div class="filter-item">
-						Game
-					</div>
-				</div>
-			</div>
-			<div class="project-card">
-				<h2>
-					Project 2
-				</h2>
-				
-				<div class="categories">
-					<div class="filter-item">
-						Web
-					</div>
-					<div class="filter-item">
-						React
-					</div>
-					<div class="filter-item">
-						Game
-					</div>
-				</div>
-			</div>
-
-			<div class="project-card">
-				<h2>
-					Project 1
-				</h2>
-				
-				<div class="categories">
-					<div class="filter-item">
-						Vue
-					</div>
-					<div class="filter-item">
-						Node
-					</div>
-					<div class="filter-item">
-						Game
-					</div>
-				</div>
-			</div>
-
-			<div class="project-card last">
-				<h2>
-					Project 1
-				</h2>
-				
-				<div class="categories">
-					<div class="filter-item">
-						Vue
-					</div>
-					<div class="filter-item">
-						Node
-					</div>
-					<div class="filter-item">
-						Game
-					</div>
-				</div>
-			</div>
+				})
+			}
 			
 		</div>
 	</div>
@@ -198,6 +187,10 @@ h2 {
 .project-info {
 	color: white;
 	padding: 2vh 2vw
+}
+
+.selected {
+	border-color: rgb(47, 255, 189);
 }
 
 </style>

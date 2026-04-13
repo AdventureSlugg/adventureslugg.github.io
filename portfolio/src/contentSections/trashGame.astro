@@ -1,0 +1,189 @@
+---
+
+---
+
+<script is:inline>
+	let started = false;
+	let score = 0;
+
+	function startGame() {
+		resetScore();
+		started = true;
+
+		// Hide start button
+		const startButton = document.getElementById('start-button');
+		startButton.classList.toggle('hidden');
+
+		const container = document.querySelector(".game-container");
+
+		// Spawn trash every ~500ms
+		const spawnInterval = setInterval(() => {
+			if (!started) return;
+
+			const trash = document.createElement("div");
+			trash.className = "trash";
+
+			// Trash style
+			trash.style.top = "0px";
+			trash.style.backgroundColor = 'lightgreen'
+			trash.style.height = '40px';
+			trash.style.width = '40px';
+			trash.style.borderRadius = '6vh';
+			trash.style.position = 'absolute';
+
+			// Set the x position of the trash object
+			trash.style.left = `${Math.random() * (window.innerWidth - 50)}px`;
+
+			// Add the trash to the top 
+			container.appendChild(trash);
+
+			fall(trash);
+		}, 500);
+
+		// Game will last for 30 seconds
+		setTimeout(() => {
+			started = false;
+			startButton.classList.toggle('hidden');
+
+			// End the trash spawn
+			clearInterval(spawnInterval);
+		}, 30000);
+	}
+
+	function incrementScore () {
+		const scoreElement = document.getElementById('score');
+		score++;
+		scoreElement.innerText = score.toString();
+	}
+
+	function resetScore () {
+		score = 0;
+	}
+
+	function fall(trash) {
+		const speed = 2 + Math.random() * 3;
+
+		function step() {
+			if (!started) {
+				trash.remove();
+				return;
+			}
+
+			const currentTop = parseFloat(trash.style.top);
+			trash.style.top = `${currentTop + speed}px`;
+
+			checkCollision(trash);
+
+			// Remove if off screen
+			if (currentTop > window.innerHeight) {
+				trash.remove();
+				return;
+			}
+			requestAnimationFrame(step);
+		}
+
+		requestAnimationFrame(step);
+	}
+
+	function checkCollision(trash) {
+		const bin = document.getElementById("trash-bin");
+		if (!bin) return;
+
+		const trashRect = trash.getBoundingClientRect();
+		const binRect = bin.getBoundingClientRect();
+
+		const isColliding = trashRect.bottom >= binRect.top && trashRect.left < binRect.right && trashRect.right > binRect.left;
+
+		// On collide, increment score and remove trash from the view
+		if (isColliding) {
+			trash.remove();
+			incrementScore();
+		}
+	}
+</script>
+
+<div class="trash-content">
+	<div class="game-container">
+		<p>Catch the trash as it falls!</p>
+		<p class="score">
+			<span>
+				Score: 
+			</span>
+			<span id="score">
+				0
+			</span>
+		</p>
+		<button id="start-button" onclick="startGame()">Start</button>
+		<img id="trash-bin" src="../../public/icons/trash-icon.png" alt="trash-bin" height="100vh" width="100vh">
+	</div>
+	
+</div>
+
+<script is:inline>
+	document.addEventListener("DOMContentLoaded", () => {
+		const binElement = document.getElementById("trash-bin");
+
+		function translateGameObject(e) {
+			if (!binElement) return;
+
+			const rect = binElement.getBoundingClientRect();
+			
+			const halfWidth = (rect.x) / 2;
+			
+			binElement.style.left = `${e.clientX - halfWidth}px`;
+		}
+
+		document.addEventListener("pointermove", translateGameObject);
+	});
+</script>
+
+<style>
+.hidden {
+	display: none;
+}
+.trash-content {
+	height: 100%;
+	width: 100%;
+	background-color: rgba(1,1,1,.6);
+	color: white;
+	text-align: center;
+}
+
+.game-container {
+	display: flex;
+	flex-direction: column;
+}
+
+#trash-bin {
+	position: absolute;
+	bottom: 0;
+}
+
+.score {
+	background-color: aquamarine;
+	width: fit-content;
+	position: absolute;
+	padding: 1vh 2vw;
+	border-radius: 1vh;
+	color: rgb(75, 75, 75);
+	left: 1vw;
+	border: solid .5vh rgb(199, 255, 236);
+	opacity: .8;
+}
+
+#start-button {
+	width: fit-content;
+	padding: 1vh 2vw;
+	position: absolute;
+	background-color: rgb(0, 149, 255);
+	border: none;
+	border-radius: 1vh;
+	color: white;
+	right: 3vw;
+	top: 5vh;
+}
+
+#start-button:hover {
+	scale: 1.4;
+}
+</style>

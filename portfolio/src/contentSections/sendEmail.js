@@ -21,6 +21,10 @@ function updateMessageBanner(successful) {
 formElement.addEventListener('submit', async (e) => {
 	e.preventDefault();
 
+	const confirmed = confirm('Just making sure... Are you ready to send your message?')
+
+	if (!confirmed) return;
+
 	const pubKey = '0G6BsIJ-HEwjOODlk';
 	const serviceID = 'service_khbbqpj';
 	const templateID = 'template_e5jpnav';

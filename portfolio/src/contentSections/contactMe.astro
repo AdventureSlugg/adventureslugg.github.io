@@ -1,3 +1,180 @@
-<div>
-	This is the contact section
+<div class="contact-section">
+	<div class="left-section">
+		<h1>
+			Let's Talk!
+		</h1>
+		<p>
+			Have a role you need to fill? Want to hear some of my crazy stories? Just want to chat?
+		</p>
+
+		<p> Feel free to shoot me a quick message and we can chat more! </p>
+
+		<a href="mailto:zoe@zoeb.dev"><img src="/public/icons/contact/email.png" width="40vh" height="40vh" alt="email icon"></a>
+
+		<a href="https://linkedin.com/in/zoe-bingham/" target="_blank"><img src="/public/icons/contact/linkedin.png" width="40vh" height="40vh" alt="linkedin icon"></a>
+	</div>
+	
+
+	<form 
+		id="email-form" 
+		class="email-form"
+	>
+		<h1>Message Me</h1>
+		<div class="sender-info">
+			<div>
+				<p>Name</p>
+				<input 
+					id="sender"
+					name="sender"
+					placeholder="Your name..."
+					required
+				>
+			</div>
+
+			<div style="margin-left: 1vw">
+				<p>Email</p>
+				<input 
+					id="replyTo"
+					name="replyTo"
+					type="email"
+					placeholder="your@email.com"
+					required
+				>
+			</div>
+			
+		</div>
+
+		<div>
+			<p> Subject </p>
+			<input 
+				id="subject"
+				name="subject"
+				placeholder="Subject"
+				class="full-width"
+				required
+			>
+		</div>
+		
+		<div class="message-section">
+			<p> Message </p>
+			<textarea 
+				id="message"
+				name="message"
+				placeholder="Write me a message..."
+				class="full-width message-content"
+				required
+			/>
+		</div>
+		
+		<button 
+			type="submit"
+			class="button"
+		> Send </button>
+
+		<div id="email-status-banner" class="invisible">
+		</div>
+	</form>
 </div>
+
+<style>
+	p {
+		margin-bottom: .5vh;
+	}
+
+	.invisible {
+		display: none;
+	}
+
+	#email-status-banner {
+		height: fit-content;
+		border-radius: .5vh;
+		padding: 2vh 2vw;
+		margin-right: 2vw;
+		position: absolute;
+		bottom: 2vh;
+	}
+
+	.success {
+		background-color: rgba(51, 255, 89, 0.8);
+		border: .2vh solid rgb(11, 170, 0);
+		color: rgb(6, 88, 0)
+	}
+
+	.failed {
+		background-color: rgba(255, 37, 37, 0.8);
+		border: .2vh solid rgb(201, 0, 0);
+		color: rgb(99, 0, 0);
+	}
+
+	.contact-section {
+		background-color: var(--dark-bg);
+		opacity: .7;
+		height: calc(100% - 2vh);
+		padding: 1vh 1vw;
+		color: white;
+		overflow-y: scroll;
+		background: linear-gradient(125deg,rgba(0, 162, 255) 0%, rgba(224, 83, 237, 1) 100%);
+		display: flex;
+	}
+
+	.left-section {
+		width: 40%;
+		padding: 1vh 1.5vw;
+	}
+
+	.email-form {
+		display: flex;
+		flex-direction: column;
+		background-color: rgba(255,255,255, .8);
+		border-radius: 1vh;
+		padding: 1vh 1vw;
+		width: 60%;
+		flex: 1;
+		height: calc(100% - 4vh);
+	}
+
+	.email-form p {
+		color: rgb(55, 55, 55);
+	}
+
+	.email-form h1 {
+		color: rgb(165, 0, 187);
+	}
+
+	h1 {
+		margin: 0;
+	}
+	.full-width {
+		width: 100%;
+	}
+	.message-content {
+		height: 50%
+	}
+	.message-section {
+		height: 100%
+	}
+
+	.button {
+		background-color: rgb(165, 0, 187);
+		color: white;
+		font-size: 2vh;
+		border-radius: 1vh;
+		border: none;
+		height: 8vh;
+	}
+
+	.button:hover {
+		opacity: .8;
+	}
+
+	.sender-info {
+		display: flex;
+		flex-direction: row;
+	}
+
+	#sender, #replyTo {
+		width: 100%;
+	}
+</style>
+
+<script src="./sendEmail.js"/>

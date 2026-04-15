@@ -1,5 +1,4 @@
 ---
-import { string } from "astro:schema";
 import ApplicationContainer from "../components/ApplicationContainer/applicationContainer.astro";
 import Toolbar from "../components/ToolBar/toolbar.astro";
 import AboutMe from "../contentSections/aboutMe.astro";
@@ -51,7 +50,8 @@ const sections: IContentSection[] = [
 		id: 'contact-me',
 		title: 'Contact Me',
 		icon: '/public/icons/contact-book-icon.png',
-		innerContent: ContactMe
+		innerContent: ContactMe,
+		initialDisplay: true
 	}
 ]
 
@@ -77,7 +77,7 @@ const noIcon = '/public/icons/contact-book-icon.png';
 			})
 		}
 
-		<ApplicationContainer id="trash-game-application-container" open={true}>
+		<ApplicationContainer id="trash-game-application-container">
 			<div slot="content" class="full-height full-width">
 				<TrashGame></TrashGame>
 			</div>

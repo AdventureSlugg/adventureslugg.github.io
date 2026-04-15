@@ -12,6 +12,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "astro": "^6.1.5"
   }
 }

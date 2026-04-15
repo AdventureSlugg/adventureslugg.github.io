@@ -138,6 +138,32 @@ const projects: IProject[] = [
 const props = Astro.props as IProjectProps
 ---
 
+<script is:inline>
+	let selectedProjectId = 'apollolink';
+
+	function selectProject(e) {
+		const id = e.currentTarget.id;
+
+		if (id === selectedProjectId) return 
+
+		// Change the project selection option
+		const oldProjectSelectionElement = document.getElementById(selectedProjectId);
+		oldProjectSelectionElement.classList.remove('selected');
+
+		const projectSelectionElement = document.getElementById(id);
+		projectSelectionElement.classList.add('selected');
+
+		// Change the project info visibility
+		const oldProjectContentElement = document.getElementById(`${selectedProjectId}-section`);
+		oldProjectContentElement.classList.add('invisible');
+
+		const projectContentElement = document.getElementById(`${id}-section`);
+		projectContentElement.classList.remove('invisible');
+
+		selectedProjectId = id;
+	}
+</script>
+
 <div id={props.id} class="project-section">
 	<div class="left-bar">
 		<h1>
@@ -158,21 +184,27 @@ const props = Astro.props as IProjectProps
 		<div class="projects-selection">
 			{
 				projects.map((p, i) => {
-					return <div class={"project-card " + (projects.length - 1 === i ? 'last ' : '') + (0 === i ? 'selected ' : '')}>
-						<h2>
-							{p.title}
-						</h2>
-						
-						<div class="categories">
-							{
-								p.categories.map(c => {
-									return <div class="filter-item">
-										{c}
-									</div>
-								})
-							}
+					return (
+						<div 
+							id={p.id}
+							class={"project-card " + (projects.length - 1 === i ? 'last ' : '') + (0 === i ? 'selected ' : '')}
+							onclick="selectProject(event)"
+						>
+							<h2>
+								{p.title}
+							</h2>
+							
+							<div class="categories">
+								{
+									p.categories.map(c => {
+										return <div class="filter-item">
+											{c}
+										</div>
+									})
+								}
+							</div>
 						</div>
-					</div>
+					)
 				})
 			}
 			
@@ -322,11 +354,6 @@ const props = Astro.props as IProjectProps
 <style>
 	.invisible {
 		display: none;
-	}
-
-	.visible {
-		display: flex;
-		flex-direction: column;
 	}
 
 	.problem, .solution {

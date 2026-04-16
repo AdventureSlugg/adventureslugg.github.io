@@ -32,7 +32,7 @@
 			trash.style.position = 'absolute';
 
 			// Set the x position of the trash object
-			trash.style.left = `${Math.random() * (window.innerWidth - 50)}px`;
+			trash.style.left = `${Math.random() * (container.getBoundingClientRect().width - 50)}px`;
 
 			// Add the trash to the top 
 			container.appendChild(trash);

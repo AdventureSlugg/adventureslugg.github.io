@@ -103,7 +103,7 @@
 </script>
 
 <div class="trash-content">
-	<div class="game-container">
+	<div class="game-container" id="game-container">
 		<p>Catch the trash as it falls!</p>
 		<p class="score">
 			<span>
@@ -126,11 +126,11 @@
 		function translateGameObject(e) {
 			if (!binElement) return;
 
-			const rect = binElement.getBoundingClientRect();
-			
-			const halfWidth = (rect.x) / 2;
-			
-			binElement.style.left = `${e.clientX - halfWidth}px`;
+			const gameContainerLeft = document.getElementById('game-container').getBoundingClientRect().left;
+			const binHalfWidth = binElement.getBoundingClientRect().width / 2;
+			const leftOffset = gameContainerLeft + binHalfWidth;
+
+			binElement.style.left = `${(e.clientX - leftOffset)}px`;
 		}
 
 		document.addEventListener("pointermove", translateGameObject);

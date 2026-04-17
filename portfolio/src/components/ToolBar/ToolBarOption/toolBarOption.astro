@@ -4,14 +4,16 @@ import type { IToolBarOption } from "./IToolBarOption";
 
 const props = Astro.props as IToolBarOption;
 ---
-
-<div class="icon-wrapper">
+<div class="icon-wrapper" id={props.id}>
 	<span class="hover-label">
 		<HoverLabel label={props.title}/>
 	</span>
 	<img
 		class="tool-bar-option" 
 		src={props.url}
+		onclick="toggleApplicationView"
+		data-applicationID={props.applicationId}
+		alt={props.title}
 	/>
 </div>
 
@@ -21,11 +23,6 @@ const props = Astro.props as IToolBarOption;
 			height: 10vh;
 			width: 10vh;
 			padding: .5vh;
-		}
-
-		.tool-bar-option:hover {
-			height: 11vh;
-			width: 11vh;
 		}
 
 		.hover-label {
@@ -44,11 +41,6 @@ const props = Astro.props as IToolBarOption;
 			padding: .25vh;
 		}
 
-		.tool-bar-option:hover {
-			height: 11vh;
-			width: 11vh;
-		}
-
 		.hover-label {
 			opacity: 0;
 		}
@@ -57,5 +49,8 @@ const props = Astro.props as IToolBarOption;
 			opacity: 1;
 		}
 	}
-	
+
+	.tool-bar-option:hover {
+		scale: 1.1;
+	}
 </style>

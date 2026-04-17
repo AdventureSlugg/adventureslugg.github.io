@@ -1,0 +1,47 @@
+---
+import type { IContentSection } from "./_IContentSection";
+
+interface IAboutMeProps extends IContentSection {}
+
+const props = Astro.props as IAboutMeProps;
+---
+
+<div id={props.id} class="about-app">
+	<div>
+		<p>
+			Zoe, here~
+		</p>
+
+		<p>
+			Just your friendly, neighborhood all-trick-pony.
+		</p>
+
+		<p>
+			Front, back, up, down, and all around.
+		</p>
+
+		<p>
+			You need it? I ship it!
+		</p>
+
+		<p>
+			Jokes aside, I'm a frontend-heavy, full-stack engineer with a focus on building delightful experiences. I've developed component libraries, designed UI systems, and built both APIs and the clients that consume them.
+		</p>
+
+		<p>
+			If that sounds like a fit, feel free to reach out!
+		</p>
+	</div>
+</div>
+
+<style>
+.about-app {
+	background-color: var(--dark-bg);
+	opacity: .90;
+	height: calc(100% - 2vh);
+	padding: 1vh 1vw;
+	color: white;
+	overflow-y: scroll;
+	background: linear-gradient(125deg,rgba(0, 162, 255) 0%, rgba(224, 83, 237, 1) 100%);
+}
+</style>

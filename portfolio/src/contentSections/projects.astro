@@ -1,0 +1,522 @@
+---
+import type { IContentSection } from "./_IContentSection"
+
+type ProjectCategory = 'Web' | 'Game' | 'Tool';
+type IconLink = {
+	link: string,
+	iconSrc: string,
+	alt: string,
+}
+type ProjectImage = {
+	imageSrc: string,
+	alt: string
+}
+
+interface IProject {
+	title: string;
+	tagline: string;
+	links: IconLink[];
+	id: string;
+	categories: ProjectCategory[];
+	overview: string;
+	technologies: {
+		frontend: string[],
+		backend: string[],
+		services: string[]
+	};
+	problem: string;
+	solution: string;
+	keyFeatures: string[];
+	projectImage?: ProjectImage;
+	technicalDeepDive?: string;
+}
+
+interface IProjectProps extends IContentSection {};
+
+const projects: IProject[] = [
+	{
+		title: "Apollo Link",
+		id: "apollolink",
+		categories: ['Web'],
+		overview: "Apollo Link links in to the user's wearable technologies, and runs an ai analysis on the patient's vitals throughout the day to detect early signs of potentially fatal complications. The patient's primary care provider has access to a dashboard of their patients and receives alerts when their vitals indicate potential health risk.",
+		tagline: "Detecting Health Issues in Real Time with AI",
+		links: [
+			{
+				link: "n/a",
+				iconSrc: "/project-images/icons/demo.png",
+				alt: "Demo",
+			},
+			{
+				link: "https://www.github.com",
+				iconSrc: "/project-images/icons/github.png",
+				alt: "Project Repository",
+			},
+			{
+				link: "https://www.devpost.com",
+				iconSrc: "/project-images/icons/devpost.png",
+				alt: "Devpost Post",
+			}
+		],
+		technologies: {
+			frontend: [
+				'AngularJS',
+				'TypeScript'
+			],
+			backend: [
+				'Node',
+				'ExpressJS'
+			],
+			services: [
+				'OpenAI',
+				'TerraAPI',
+				'Twilio'
+			]
+		},
+		problem: "blah blah blah",
+		solution: "yada yada yada",
+		keyFeatures: [
+			'Live Health Monitoring',
+			'Severity Triaging',
+			'Health Reminders and Alerts'
+		],
+		projectImage: {
+			imageSrc: "/project-images/ApolloLink.png",
+			alt: "Apollo Link Preview"
+		},
+		technicalDeepDive: "The user interface was designed in Figma. A frontend application with a custom component library. Our node server retrieved wearable device data from TerraAPI's server and the health data was reformatted and passed to OpenAI's API to detect any abnormalities. In the case that an issue were to be detected, an alert would be sent through Twilio to the patient's primary care provider, and the care provider would be prompted to schedule a visit with the patient"
+	},
+	{
+		title: "Med-O-Matic",
+		id: "medomatic",
+		categories: ['Web'],
+		overview: "",
+		tagline: "",
+		links: [],
+		technologies: {
+			frontend: [],
+			backend: [],
+			services: []
+		},
+		problem: "",
+		solution: "",
+		keyFeatures: []
+	},
+	{
+		title: "Block Wars",
+		id: "blockwars",
+		categories: ['Web', 'Game'],
+		overview: "",
+		tagline: "",
+		links: [],
+		technologies: {
+			frontend: [],
+			backend: [],
+			services: []
+		},
+		problem: "",
+		solution: "",
+		keyFeatures: []
+	},
+	{
+		title: "Code Racer",
+		id: "coderacer",
+		categories: ['Web', 'Game'],
+		tagline: "",
+		links: [],
+		overview: "",
+		technologies: {
+			frontend: [],
+			backend: [],
+			services: []
+		},
+		problem: "",
+		solution: "",
+		keyFeatures: []
+	},
+]
+
+const props = Astro.props as IProjectProps
+---
+
+<script is:inline>
+	let selectedProjectId = 'apollolink';
+
+	function selectProject(e) {
+		const id = e.currentTarget.id;
+
+		if (id === selectedProjectId) return 
+
+		// Change the project selection option
+		const oldProjectSelectionElement = document.getElementById(selectedProjectId);
+		oldProjectSelectionElement.classList.remove('selected');
+
+		const projectSelectionElement = document.getElementById(id);
+		projectSelectionElement.classList.add('selected');
+
+		// Change the project info visibility
+		const oldProjectContentElement = document.getElementById(`${selectedProjectId}-section`);
+		oldProjectContentElement.classList.add('invisible');
+
+		const projectContentElement = document.getElementById(`${id}-section`);
+		projectContentElement.classList.remove('invisible');
+
+		selectedProjectId = id;
+	}
+</script>
+
+<div id={props.id} class="project-section">
+	<div class="left-bar">
+		<h1>
+			Project List
+		</h1>
+		<input class="search-bar" placeholder="Search for project..." id="project-search-bar">
+		<div class="filter-section">
+			<div class="filter-item">
+				Web
+			</div>
+			<div class="filter-item">
+				Game
+			</div>
+			<div class="filter-item">
+				Tool
+			</div>
+		</div>
+		<div class="projects-selection">
+			{
+				projects.map((p, i) => {
+					return (
+						<div 
+							id={p.id}
+							class={"project-card " + (projects.length - 1 === i ? 'last ' : '') + (0 === i ? 'selected ' : '')}
+							onclick="selectProject(event)"
+						>
+							<h2>
+								{p.title}
+							</h2>
+							
+							<div class="categories">
+								{
+									p.categories.map(c => {
+										return <div class="filter-item">
+											{c}
+										</div>
+									})
+								}
+							</div>
+						</div>
+					)
+				})
+			}
+			
+		</div>
+	</div>
+
+	{
+		projects.map((p, i) => {
+			return (
+				<div 
+					id={`${p.id}-section`}
+					class={`project-info ${i ? 'invisible' : 'visible'}`}
+				>
+					<div class="badge-section"> 
+						{
+							p.links.map(l => {
+							 	return (
+									<a 
+										target="_blank" 
+										href={l.link}
+									>
+										<img class="icon" src={l.iconSrc}>
+									</a>
+								)
+							})
+						}
+					</div>
+
+					<h1> { p.title }</h1>
+
+					<p>
+						<i>{p.tagline}</i>
+					</p>
+
+					<div class="badge-section">
+						{
+							p.categories.map(c => {
+								return <div class="badge">
+									{
+										c
+									}
+								</div>
+							})
+						}
+					</div>
+
+					<img src={p.projectImage?.imageSrc} alt={p.projectImage?.alt} class="hero-image">
+
+					<h1>
+						Overview
+					</h1>
+					<p>
+						{
+							p.overview
+						}
+					</p>
+
+					<div class="project-solution-section">
+						
+						<div class="problem">
+							<h2>
+								Problem
+							</h2>
+							<p>
+								{p.problem}
+							</p>
+						</div>
+						
+						<div class="solution">
+							<h2>
+								Solution
+							</h2>
+							<p>
+								{p.solution}
+							</p>
+						</div>
+
+						
+					</div>
+					
+
+					<h2>
+						Technologies
+					</h2>
+					<h3>
+						Frontend
+					</h3>
+					<div class="badge-section">
+						{p.technologies.frontend.map(t => {
+							return <div class="badge">
+								{t}
+							</div>
+						})}
+					</div>
+
+					<h3>
+						Backend
+					</h3>
+					<div class="badge-section">
+						{p.technologies.backend.map(t => {
+							return <div class="badge">
+								{t}
+							</div>
+						})}
+					</div>
+
+					<h3>
+						Services
+					</h3>
+					<div class="badge-section">
+						{p.technologies.services.map(t => {
+							return <div class="badge">
+								{t}
+							</div>
+						})}
+					</div>
+
+					<h3>
+						Key Features
+					</h3>
+					<ul>
+						{
+							p.keyFeatures.map(f => {
+								return <li>
+									<p>{f}</p>
+								</li>
+							})
+						}
+					</ul>
+
+					<h2>
+						Technical Deep Dive
+					</h2>
+					<p>
+						{p.technicalDeepDive}
+					</p>
+
+
+					<br>
+					<br>
+				</div>
+			)
+		})
+	}
+</div>
+
+<style>
+	.invisible {
+		display: none;
+	}
+
+	.problem, .solution {
+		flex: 1;
+		padding: .1vh .5vw;
+	}
+
+	.solution {
+		border-left: dashed white .1vh;
+	}
+
+	.project-solution-section {
+		display: flex;
+		flex-direction: row;
+		background-color: rgba(100,100,100,.3);
+		padding: 1vh;
+		border-radius: 1vh;
+		border: solid rgb(255, 255, 255) .1vh;
+	}
+
+	.icon {
+		height: 3vh;
+		width: 3vh;
+		margin: 0vh .5vw;
+ 	}
+
+.badge-section {
+	display: flex;
+	flex-direction: row;
+}
+
+.badge {
+	background-color: rgb(73, 185, 255);
+	width: fit-content;
+	padding: .5vh 1vw;
+	border-radius: 1vw;
+	font-size: 9px;
+	margin: .5vh .5vw;
+}
+
+.hero-image {
+	width: 100%;
+	border-radius: 1vh;
+}
+
+h1 {
+	font-size: 18px;
+	font-weight: 100;
+	color: white;
+	margin-top: .5vh;
+	font-weight: bold;
+}
+
+h2 {
+	font-size: 15px;
+	font-weight: 100;
+	color: white;
+	margin-top: .5vh;
+	margin-bottom: .5vh;
+	font-weight: bold;
+}
+
+h3 {
+	font-size: 12px;
+	font-weight: 100;
+	color: white;
+	margin-top: .5vh;
+	margin-bottom: .5vh;
+	font-weight: bold;
+}
+
+p {
+	font-size: 10px;
+	font-weight: 100;
+	color: white;
+	margin-top: .5vh;
+	margin-bottom: .5vh;
+}
+
+.project-section {
+	background: var(--dark-bg-glass);
+	height: 100%;
+	display: flex;
+}
+
+.left-bar {
+	background-color: rgba(21,21,21, .3);
+	border: solid var(--dark-stroke);
+	border-width: 0 .1vh 0 0;
+	width: 30%;
+	padding: 1vh 1.5vw;
+	min-height: 100%;
+	scrollbar-width: thin;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.search-bar {
+	width: 85%;
+	border-radius: 10vh;
+	padding: 0 1vw;
+}
+
+.filter-section {
+	display: flex;
+	margin-top: 1vh;
+}
+
+.filter-item {
+	background-color: rgb(243, 180, 70);
+	margin: 0 .5vw;
+	padding: 0 .5vw;
+	border-radius: 10vw;
+	color: white;
+	font-size: 12px;
+}
+
+.filter-item:hover {
+	opacity: .8;
+}
+
+.project-info {
+	flex: 1;
+	overflow-y: scroll;
+}
+
+.projects-selection {
+	margin-top: 1vh;
+}
+
+.project-card {
+	margin: 1vh 0 0 .5vw;
+	background: rgb(38, 54, 59);
+	color: white;
+	font-size: 12px;
+	padding: 1vh 1vw;
+	border-radius: .5vh;
+	border: .1vh solid var(--dark-stroke);
+}
+
+.last {
+	margin-bottom: 6vh;
+}
+
+.project-card:hover {
+	scale: 1.1;
+}
+
+.categories {
+	display: flex;
+	overflow-x: scroll;
+	scrollbar-width: thin;
+}
+
+.project-info {
+	color: white;
+	padding: 2vh 2vw
+}
+
+.selected {
+	border-color: rgb(255, 255, 255);
+	background-color: rgba(96, 213, 255, 0.8);
+	box-shadow: 0vh 0vh 1vh rgba(169, 228, 255, 0.8);
+}
+
+</style>

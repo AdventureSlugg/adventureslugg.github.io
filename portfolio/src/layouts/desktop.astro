@@ -1,6 +1,62 @@
 ---
 import ApplicationContainer from "../components/ApplicationContainer/applicationContainer.astro";
 import Toolbar from "../components/ToolBar/toolbar.astro";
+import AboutMe from "../contentSections/aboutMe.astro";
+import Projects from "../contentSections/projects.astro";
+import WorkExperience from "../contentSections/workExperience.astro";
+import ContactMe from "../contentSections/contactMe.astro";
+import TrashGame from "../contentSections/trashGame.astro";
+import type { IToolBarOption } from "../components/ToolBar/ToolBarOption/IToolBarOption";
+
+interface IContentSection {
+	/** Used to reference the related components (ex: id-application-container and id-menu-option) */
+	id: string,
+
+	/** The title to be displayed on the icon hover and the Application Container interface */
+	title: string,
+
+	/** If the content section should be included in the tool bar at the bottom the screen, include the icon image url */
+	icon?: string,
+
+	/** A reference to another Astro component to be rendered in the application container interface */
+	innerContent: (_props: Record<string, any>) => any;
+
+	/** Determines whether or not the application should be "open" by default. */
+	initialDisplay?: boolean
+}
+
+const sections: IContentSection[] = [
+	{
+		id: 'projects',
+		title: 'Projects',
+		icon: '/public/icons/terminal-icon.png',
+		innerContent: Projects,
+		// initialDisplay: true
+	},
+	{
+		id: 'work-experience',
+		title: 'Work Experience',
+		icon: '/public/icons/calendar-icon.png',
+		innerContent: WorkExperience
+	},
+	{
+		id: 'about-me',
+		title: 'About Me',
+		icon: '/public/icons/books-icon.png',
+		innerContent: AboutMe,
+		// initialDisplay: true
+	},
+	{
+		id: 'contact-me',
+		title: 'Contact Me',
+		icon: '/public/icons/contact-book-icon.png',
+		innerContent: ContactMe,
+		// initialDisplay: true
+	}
+]
+
+const noIcon = '/public/icons/contact-book-icon.png';
+
 ---
 
 <div class="desktop">
@@ -8,7 +64,26 @@ import Toolbar from "../components/ToolBar/toolbar.astro";
 
 	</div>
 	<div class="main-content">
-		<ApplicationContainer id="message-notice">
+
+		{
+			sections.map(section => {
+				const InnerContent = section.innerContent;
+
+				return <ApplicationContainer id={section.id + '-application-container'} open={section.initialDisplay}>
+					<div slot="content" class="full-height full-width">
+						<InnerContent id={section.id + '-content'} title={section.title}></InnerContent>
+					</div>
+				</ApplicationContainer>
+			})
+		}
+
+		<ApplicationContainer id="trash-game-application-container">
+			<div slot="content" class="full-height full-width">
+				<TrashGame></TrashGame>
+			</div>
+		</ApplicationContainer>
+
+		<ApplicationContainer id="message-notice" open="true">
 			<div class="text content" slot="content">
 				<h1>
 					UPDATE:
@@ -28,14 +103,29 @@ import Toolbar from "../components/ToolBar/toolbar.astro";
 		</ApplicationContainer>
 	</div>
 	<div class="tool-bar">
-		<Toolbar></Toolbar>
+		{
+			() => {
+				const toolBarOptions: IToolBarOption[] = [];
+
+				sections.map(section => {
+					toolBarOptions.push({
+						id: section.id + '-menu-option',
+						title: section.title,
+						url: section.icon ? section.icon : noIcon,
+						applicationId: section.id + '-application-container',
+					});				
+				})
+
+				return <Toolbar menuOptions={toolBarOptions}/>
+			}
+		}
 	</div>
 </div>
 
 <style>
 	.desktop {
 		background-color: rgb(0, 0, 0);
-		background-image: url(/public/background/cat-background.png);
+		background-image: url(/public/background/cat-background.webp);
 		background-repeat: no-repeat;
 		background-size: cover;
 		min-width: 100vw;
@@ -94,5 +184,13 @@ import Toolbar from "../components/ToolBar/toolbar.astro";
 			box-shadow: var(--box-shadow);
 			min-width: 30vh;
 		}
+	}
+
+	.full-height {
+		height: 100%;
+	}
+
+	.full-width {
+		width: 100%;
 	}
 </style>

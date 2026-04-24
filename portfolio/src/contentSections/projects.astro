@@ -34,7 +34,8 @@ interface IProject {
 		frontend?: string[],
 		backend?: string[],
 		services?: string[],
-		storage?: string[]
+		storage?: string[],
+		tools?: string[]
 	};
 	problem?: string;
 	solution?: string;
@@ -310,6 +311,73 @@ const projects: IProject[] = [
 		},
 		problem: 'Travelers struggle to build engaging itineraries that align with their interests without spending significant time researching activities.',
 		solution: 'Developed a mobile app that generates location-specific “quests” based on user interests, turning exploration into a structured and gamified experience.'
+	},
+	{
+		id: "party-snail",
+		title: "Party Snail",
+		tagline: "Multiplayer Minigame Party Experience",
+		links: [
+			{
+				link: "https://horizon.meta.com/world/606604549211050/?locale=en_US",
+				iconSrc: DEMO_ICON_SRC,
+				alt: "Party Snail Live"
+			},
+			{
+				link: "https://github.com/AdventureSlugg/PartySnail/tree/latest",
+				iconSrc: GITHUB_ICON_SRC,
+				alt: "Party Snail Github Repository"
+			},
+			{
+				link: "https://devpost.com/software/partysnail",
+				iconSrc: DEVPOST_ICON_SRC,
+				alt: "Party Snail Devpost Submission"
+			}
+		],
+		categories: [
+			'Game'
+		],
+		overview: "PartySnail is a competitive multiplayer party game where players control snail companions racing toward a shared goal. Progress is earned through a sequence of fast-paced minigames, introducing tension and strategy despite the intentionally slow core movement mechanic.",
+		projectImage: {
+			imageSrc: "/project-images/PartySnail.png",
+			alt: "Party Snail Preview"
+		},
+		technicalDeepDive: [
+			{
+				title: 'Multiplayer System Design',
+				content: [
+					{
+						type: 'text',
+						text: 'Implemented a lobby system supporting both private party creation and public matchmaking. Maintained synchronized game state across players, including progression, scoring, and race positioning.'
+					}
+				]
+			},
+			{
+				title: '3D Asset Creation',
+				content: [
+					{
+						type: 'text',
+						text: 'Learned and applied Blender to create custom 3D assets for the game environment and characters. Integrated assets into the Meta Horizon environment to align with the intended visual style.'
+					}
+				]
+			},
+			{
+				title: 'UI and Interaction Design',
+				content: [
+					{
+						type: 'text',
+						text: 'Prototyped UI/UX flows in Figma before implementation. Designed interfaces for lobby management and minigames.'
+					}
+				]
+			}
+		],
+		keyFeatures: [
+			'Multiplayer party system with public and private lobbies',
+			'3D game environment with custom-modeled assets',
+			'Sequential minigame structure with persistent match progression'
+		],
+		technologies: {
+			tools: ['Meta Horizon API', 'Typescript', 'Blender'],
+		}
 	}
 ]
 
@@ -447,28 +515,31 @@ const props = Astro.props as IProjectProps
 
 					<br>
 
-					<div class="project-solution-section">
-						
-						<div class="problem">
-							<h2>
-								Problem
-							</h2>
-							<p>
-								{p.problem}
-							</p>
-						</div>
-						
-						<div class="solution">
-							<h2>
-								Solution
-							</h2>
-							<p>
-								{p.solution}
-							</p>
-						</div>
-					</div>
-					
-					<br>
+					{
+						p.problem ? 
+							<div class="project-solution-section">
+								<div class="problem">
+									<h2>
+										Problem
+									</h2>
+									<p>
+										{p.problem}
+									</p>
+								</div>
+								
+								<div class="solution">
+									<h2>
+										Solution
+									</h2>
+									<p>
+										{p.solution}
+									</p>
+								</div>
+							</div>
+							<br>
+						: 
+						<br>
+					}
 
 					<h2>
 						Technologies
@@ -486,7 +557,7 @@ const props = Astro.props as IProjectProps
 								})}
 							</div>
 						:
-						<br>
+						<span/>
 					}
 					
 
@@ -503,7 +574,7 @@ const props = Astro.props as IProjectProps
 								})}
 							</div>
 						:
-						<br>
+						<span/>
 					}
 
 					{
@@ -519,7 +590,7 @@ const props = Astro.props as IProjectProps
 								})}
 							</div>
 						:
-						<br>
+						<span/>
 					}
 					
 
@@ -536,8 +607,26 @@ const props = Astro.props as IProjectProps
 								})}
 							</div>
 						:
-						<br>
+						<span/>
 					}
+
+					{
+						p.technologies.tools ? 
+							<h3>
+								Tools
+							</h3>
+							<div class="badge-section">
+								{p.technologies.tools.map(t => {
+									return <div class="badge">
+										{t}
+									</div>
+								})}
+							</div>
+						:
+						<span/>
+					}
+
+					<br>
 					
 					<h3>
 						Key Features

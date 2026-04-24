@@ -33,7 +33,8 @@ interface IProject {
 	technologies: {
 		frontend?: string[],
 		backend?: string[],
-		services?: string[]
+		services?: string[],
+		storage?: string[]
 	};
 	problem?: string;
 	solution?: string;
@@ -241,6 +242,74 @@ const projects: IProject[] = [
 			backend: ['NodeJS', 'MongoDB'],
 			services: ['OpenAI API', 'Terra API', 'Twilio']
 		}
+	},
+	{
+		id: "travel-quest",
+		title: "Travel Quest",
+		tagline: "Quest-Based Adventure App",
+		links: [
+			{
+				link: "https://github.com/AdventureSlugg/travelquest",
+				iconSrc: GITHUB_ICON_SRC,
+				alt: "Travel Quest Github Repository"
+			}
+		],
+		categories: [
+			'Mobile'
+		],
+		overview: "Trip planning is often time-consuming and unstructured, especially when trying to balance personal interests with discovering new experiences. This project reframes travel planning as an interactive, goal-driven experience.",
+		projectImage: {
+			imageSrc: "/project-images/TravelQuest.png",
+			alt: "Travel Quest Preview"
+		},
+		technicalDeepDive: [
+			{
+				title: 'Frontend Architecture',
+				content: [
+					{
+						type: 'text',
+						text: 'Built a lightweight React Native application with a modular component structure to support reuse across quest views, progress tracking, and user interactions.'
+					}
+				]
+			},
+			{
+				title: 'State and Persistence',
+				content: [
+					{
+						type: 'text',
+						text: 'Used AsyncStorage to persist quest progress, XP, and badge data locally, allowing the app to function without a backend and maintain state across sessions.'
+					}
+				]
+			},
+			{
+				title: 'Quest System Design',
+				content: [
+					{
+						type: 'text',
+						text: 'Designed a flexible quest model that maps:'
+					},
+					{
+						type: 'bullets',
+						text: [
+							'User interests > activity categories',
+							'Location > contextual quest generation'
+						]
+					},
+				]
+			},
+		],
+		keyFeatures: [
+			'Interest-based quest generation',
+			'Location-aware activity suggestions',
+			'Gamification system with XP and badges',
+			'Local progress tracking for offline usability'
+		],
+		technologies: {
+			frontend: ['React Native'],
+			storage: ['AsyncStorage'],
+		},
+		problem: 'Travelers struggle to build engaging itineraries that align with their interests without spending significant time researching activities.',
+		solution: 'Developed a mobile app that generates location-specific “quests” based on user interests, turning exploration into a structured and gamified experience.'
 	}
 ]
 
@@ -428,6 +497,22 @@ const props = Astro.props as IProjectProps
 							</h3>
 							<div class="badge-section">
 								{p.technologies.backend.map(t => {
+									return <div class="badge">
+										{t}
+									</div>
+								})}
+							</div>
+						:
+						<br>
+					}
+
+					{
+						p.technologies.storage ? 
+							<h3>
+								Storage
+							</h3>
+							<div class="badge-section">
+								{p.technologies.storage.map(t => {
 									return <div class="badge">
 										{t}
 									</div>

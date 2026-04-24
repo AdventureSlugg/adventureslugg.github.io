@@ -1,0 +1,182 @@
+---
+import type { IBrowseBarProps } from "./IOptionBrowseBar";
+
+const props = Astro.props as IBrowseBarProps;
+---
+<script is:inline>
+	// Initially selected project and work-item
+	let selectedProjectId = 'code-racer';
+	let selectedExperienceId = 'honeywell';
+
+	function selectProject(e) {
+		const id = e.currentTarget.id;
+
+		if (id === selectedProjectId || id === selectedExperienceId) { return }
+
+		const isProject = e.currentTarget.classList.contains("projects-browser");
+		const selectedItem = isProject ? selectedProjectId : selectedExperienceId;
+
+		// Change the project selection option
+		const oldSelectionElement = document.getElementById(selectedItem);
+		oldSelectionElement.classList.remove('selected');
+
+		const projectSelectionElement = document.getElementById(id);
+		projectSelectionElement.classList.add('selected');
+
+		// Change the project info visibility
+		const oldProjectContentElement = document.getElementById(`${selectedItem}-section`);
+		oldProjectContentElement.classList.add('invisible');
+
+		const projectContentElement = document.getElementById(`${id}-section`);
+		projectContentElement.classList.remove('invisible');
+
+		if (isProject) {
+			selectedProjectId = id;
+		} else {
+			selectedExperienceId = id;
+		}
+		
+	}
+</script>
+
+<div class="left-bar" id={props.browserId}>
+	<h1>
+		{props.title}
+	</h1>
+
+	<input class="search-bar" placeholder="Search..." id="project-search-bar">
+
+	<div class="filter-section">
+		{
+			props.filters.map(f => {
+				return (
+					<div class="filter-item">
+						{f}
+					</div>
+				)
+			})
+		}
+	</div>
+
+	<div class="projects-selection">
+		{
+			props.searchObjects.map((p, i) => {
+				return (
+					<div 
+						id={p.id}
+						class={"project-card " + `${props.browserId} ` + (props.searchObjects.length - 1 === i ? 'last ' : '') + (0 === i ? 'selected ' : '')}
+						onclick="selectProject(event)"
+					>
+						<h2>
+							{p.title}
+						</h2>
+						
+						<div class="categories">
+							{
+								p.categories.map(c => {
+									return <div class="filter-item">
+										{c}
+									</div>
+								})
+							}
+						</div>
+					</div>
+				)
+			})
+		}
+		<br>
+		<br>
+	</div>
+</div>
+
+<style>
+	h1 {
+		font-size: 18px;
+		font-weight: 100;
+		color: white;
+		margin-top: .5vh;
+		font-weight: bold;
+	}
+
+	h2 {
+		font-size: 15px;
+		font-weight: 100;
+		color: white;
+		margin-top: .5vh;
+		margin-bottom: .5vh;
+		font-weight: bold;
+	}
+
+	h3 {
+		font-size: 12px;
+		font-weight: 100;
+		color: white;
+		margin-top: .5vh;
+		margin-bottom: .5vh;
+		font-weight: bold;
+	}
+
+	p {
+		font-size: 10px;
+		font-weight: 100;
+		color: white;
+		margin-top: .5vh;
+		margin-bottom: .5vh;
+	}
+	.left-bar {
+		height: 100%;
+	}
+	.categories {
+		display: flex;
+		overflow-x: scroll;
+		scrollbar-width: thin;
+	}
+	.projects-selection {
+		margin-top: 1vh;
+	}
+	.search-bar {
+		width: 85%;
+		border-radius: 10vh;
+		padding: 0 1vw;
+	}
+	.filter-section {
+		display: flex;
+		margin-top: 1vh;
+		overflow-x: scroll;
+		scrollbar-width: none;
+	}
+	.project-card {
+		margin: 1vh 0 0 .5vw;
+		background: rgb(38, 54, 59);
+		color: white;
+		font-size: 12px;
+		padding: 1vh 1vw;
+		border-radius: .5vh;
+		border: .1vh solid var(--dark-stroke);
+	}
+
+	.project-card:hover {
+		scale: 1.1;
+	}
+
+	.last {
+		margin-bottom: 6vh;
+	}
+	.selected {
+		border-color: rgb(255, 255, 255);
+		background-color: rgba(96, 213, 255, 0.8);
+		box-shadow: 0vh 0vh 1vh rgba(169, 228, 255, 0.8);
+	}
+	.filter-item {
+		background-color: rgb(243, 180, 70);
+		margin: 0 .5vw;
+		padding: 0 .5vw;
+		border-radius: 10vw;
+		color: white;
+		font-size: 12px;
+	}
+
+	.filter-item:hover {
+		opacity: .8;
+	}
+</style>

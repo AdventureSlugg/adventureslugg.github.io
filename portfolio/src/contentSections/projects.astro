@@ -1,7 +1,11 @@
 ---
+import LeftBrowseLayout from "../components/LeftBrowseLayout/leftBrowseLayout.astro";
+import type { IBrowseBarProps } from "../components/OptionBrowseBar/IOptionBrowseBar";
+import type { ISearchObject } from "../components/OptionBrowseBar/IOptionBrowseBar";
+import OptionBrowseBar from "../components/OptionBrowseBar/optionBrowseBar.astro";
 import type { IContentSection } from "./_IContentSection"
 
-type ProjectCategory = 'Web' | 'Game' | 'Tool';
+type ProjectCategory = 'Web' | 'Game' | 'Mobile';
 type IconLink = {
 	link: string,
 	iconSrc: string,
@@ -11,347 +15,621 @@ type ProjectImage = {
 	imageSrc: string,
 	alt: string
 }
+type Content = {
+	type: 'text' | 'bullets',
+	text: string | string[]
+}
+type ContentSection = {
+	title: string,
+	content: Content[]
+}
 
-interface IProject {
+interface IProject extends ISearchObject {
+	id: string;
 	title: string;
 	tagline: string;
 	links: IconLink[];
-	id: string;
 	categories: ProjectCategory[];
 	overview: string;
-	technologies: {
-		frontend: string[],
-		backend: string[],
-		services: string[]
-	};
-	problem: string;
-	solution: string;
+	projectImage: ProjectImage;
+	technicalDeepDive: ContentSection[];
 	keyFeatures: string[];
-	projectImage?: ProjectImage;
-	technicalDeepDive?: string;
+	technologies: {
+		frontend?: string[],
+		backend?: string[],
+		services?: string[],
+		storage?: string[],
+		tools?: string[]
+	};
+	problem?: string;
+	solution?: string;
+	
 }
 
 interface IProjectProps extends IContentSection {};
 
+const DEMO_ICON_SRC = '/project-images/icons/demo.png';
+const GITHUB_ICON_SRC = '/project-images/icons/github.png';
+const DEVPOST_ICON_SRC = '/project-images/icons/devpost.png';
+
 const projects: IProject[] = [
 	{
-		title: "Apollo Link",
-		id: "apollolink",
-		categories: ['Web'],
-		overview: "Apollo Link links in to the user's wearable technologies, and runs an ai analysis on the patient's vitals throughout the day to detect early signs of potentially fatal complications. The patient's primary care provider has access to a dashboard of their patients and receives alerts when their vitals indicate potential health risk.",
-		tagline: "Detecting Health Issues in Real Time with AI",
+		title: "Code Racers",
+		tagline: "Web-based Coding & Typing Training Game",
 		links: [
 			{
-				link: "n/a",
-				iconSrc: "/project-images/icons/demo.png",
-				alt: "Demo",
+				link: "https://www.youtube.com/watch?v=FmKnIfjPMwE&t=3s",
+				iconSrc: DEMO_ICON_SRC,
+				alt: "CodeRacers Youtube Demo"
 			},
 			{
-				link: "https://www.github.com",
-				iconSrc: "/project-images/icons/github.png",
-				alt: "Project Repository",
+				link: "https://github.com/AdventureSlugg/CodeRacer/tree/main",
+				iconSrc: GITHUB_ICON_SRC,
+				alt: "CodeRacers Github Repository"
 			},
 			{
-				link: "https://www.devpost.com",
-				iconSrc: "/project-images/icons/devpost.png",
-				alt: "Devpost Post",
+				link: "https://devpost.com/software/coderacer-95i1d2",
+				iconSrc: DEVPOST_ICON_SRC,
+				alt: "CodeRacers Devpost Submission"
 			}
 		],
+		id: "code-racer",
+		categories: [
+			'Web',
+			'Game'
+		],
+		overview: "Early-stage programming students often fall behind during live coding exercises due to slow typing speed and unfamiliarity with syntax. This project addresses both issues in a single, interactive environment.",
 		technologies: {
 			frontend: [
-				'AngularJS',
-				'TypeScript'
+				'Vue',
+				'Typescript'
 			],
 			backend: [
 				'Node',
-				'ExpressJS'
+				'Express',
+				'Socket.io'
 			],
-			services: [
-				'OpenAI',
-				'TerraAPI',
-				'Twilio'
-			]
 		},
-		problem: "blah blah blah",
-		solution: "yada yada yada",
+		problem: "First-year CS and software engineering students struggled to keep pace with in-class coding activities, limiting comprehension and engagement.",
+		solution: "Developed an interactive platform that combines typing practice with real coding exercises, allowing students to build speed while reinforcing language syntax through repetition and competition.",
 		keyFeatures: [
-			'Live Health Monitoring',
-			'Severity Triaging',
-			'Health Reminders and Alerts'
+			'Structured curricula for Python, Java, and JavaScript',
+			'Real-time multiplayer “code racing” mode',
+			'Live WPM and accuracy tracking',
+			'Language-switchable exercises for comparative learning'
 		],
+		projectImage: {
+			imageSrc: "/public/project-images/CodeRacers.png",
+			alt: "Code Racers Preview"
+		},
+		technicalDeepDive: [
+			{
+				title: 'Component Architecture',
+				content: [
+					{
+						type: 'text',
+						text: 'Designed a modular Vue 3 frontend using a clear separation of pages, layouts, and reusable components. Leveraged slots to create flexible layouts, enabling consistent UI reuse while supporting varied content.'
+					}
+				]
+			},
+			{
+				title: 'Dynamic Content System',
+				content: [
+					{
+						type: 'text',
+						text: 'Implemented a centralized “course sections” data model as a single source of truth. This powered both navigation and exercise rendering, allowing dynamic switching between languages and topics without duplicating logic.'
+					}
+				]
+			},
+			{
+				title: 'Real-Time Multiplayer System',
+				content: [
+					{
+						type: 'text',
+						text: 'Built a race session manager using Socket.IO to handle:'
+					},
+					{
+						type: 'bullets',
+						text: [
+							'Player connections/disconnections',
+							'Session state synchronization',
+							'Real-time progress updates across clients'
+						]
+					},
+					{
+						type: 'text',
+						text: 'On the frontend, clients subscribe to session events and render live race progress using percentage-based completion tracking.'
+					}
+				]
+			},
+			{
+				title: 'User Experience Decisions',
+				content: [
+					{
+						type: 'bullets',
+						text: [
+							'Left-side navigation for quick curriculum access',
+							'Tabbed interface for switching languages within the same exercise',
+							'Clear separation between Practice and Race modes to support different learning styles'
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		id: "apollo-link",
+		title: "Apollo Link",
+		tagline: "Real-Time Health Monitoring & Clinical Alerting Platform",
+		links: [
+			{
+				link: "https://github.com/awb8593/HackHarvard",
+				iconSrc: GITHUB_ICON_SRC,
+				alt: "Apollo Link Github Repository"
+			},
+			{
+				link: "https://devpost.com/software/hackharvard-2023",
+				iconSrc: DEVPOST_ICON_SRC,
+				alt: "Apollo Link Devpost Submission"
+			}
+		],
+		categories: ['Web'],
+		overview: "Consumer wearables continuously generate health data, but most of it is underutilized in clinical decision-making. This project explores how real-time vitals can be aggregated, analyzed, and surfaced to providers as actionable insights.",
+		problem: 'Health issues are often identified only after symptoms escalate, partly due to limited continuous monitoring and delayed interpretation of patient data.',
+		solution: 'Built a system that ingests real-time biometric data from wearable devices, analyzes trends using AI-assisted evaluation, and surfaces risk signals to healthcare providers for review and follow-up.',
 		projectImage: {
 			imageSrc: "/project-images/ApolloLink.png",
 			alt: "Apollo Link Preview"
 		},
-		technicalDeepDive: "The user interface was designed in Figma. A frontend application with a custom component library. Our node server retrieved wearable device data from TerraAPI's server and the health data was reformatted and passed to OpenAI's API to detect any abnormalities. In the case that an issue were to be detected, an alert would be sent through Twilio to the patient's primary care provider, and the care provider would be prompted to schedule a visit with the patient"
+		technicalDeepDive: [
+			{
+				title: "Frontend Architecture",
+				content: [
+					{
+						type: 'text',
+						text: 'Developed a modular Angular application with reusable components for patient data tables, alert views, and modal workflows. Structured the UI to support quick triage and prioritization of patients.'
+					}
+				]
+			},
+			{
+				title: 'Data Ingestion Pipeline',
+				content: [
+					{
+						type: 'text',
+						text: 'Integrated with Terra API to aggregate biometric data (e.g., heart rate, activity, glucose where available) from multiple wearable sources into a unified backend stream.'
+					}
+				]
+			},
+			{
+				title: 'AI-Assisted Analysis Layer',
+				content: [
+					{
+						type: 'text',
+						text: 'Processed incoming health data using the OpenAI API to evaluate deviations from patient-specific baselines. Instead of deterministic thresholds, prompts were designed to identify anomalies relative to historical averages and patterns of the given patient.'
+					}
+				]
+			},
+			{
+				title: 'Alerting System',
+				content: [
+					{
+						type: "text",
+						text: "Implemented a prioritization system where:"
+					},
+					{
+						type: "bullets",
+						text: [
+							'Patient “risk scores” are dynamically updated',
+							'High-risk signals trigger alerts in the provider dashboard',
+							'Critical cases generate real-time notifications via Twilio'
+						]
+					},
+				]
+			},
+			{
+				title: 'Data Persistence Strategy',
+				content: [
+					{
+						type: 'text',
+						text: 'Stored both latest and historical vital metrics in MongoDB, enabling longitudinal analysis and improving context for future AI evaluations.'
+					}
+				]
+			}
+		],
+		keyFeatures: [
+			'AI-assisted health signal analysis based on real-time vitals',
+			'Provider alerting system for abnormal patterns',
+			'Patient dashboard with historical and current health metrics',
+			'Continuous ingestion of wearable device data'
+		],
+		technologies: {
+			frontend: ['AngularJS', 'Typescript'],
+			backend: ['NodeJS', 'MongoDB'],
+			services: ['OpenAI API', 'Terra API', 'Twilio']
+		}
 	},
 	{
-		title: "Med-O-Matic",
-		id: "medomatic",
-		categories: ['Web'],
-		overview: "",
-		tagline: "",
-		links: [],
-		technologies: {
-			frontend: [],
-			backend: [],
-			services: []
+		id: "travel-quest",
+		title: "Travel Quest",
+		tagline: "Quest-Based Adventure App",
+		links: [
+			{
+				link: "https://github.com/AdventureSlugg/travelquest",
+				iconSrc: GITHUB_ICON_SRC,
+				alt: "Travel Quest Github Repository"
+			}
+		],
+		categories: [
+			'Mobile'
+		],
+		overview: "Trip planning is often time-consuming and unstructured, especially when trying to balance personal interests with discovering new experiences. This project reframes travel planning as an interactive, goal-driven experience.",
+		projectImage: {
+			imageSrc: "/project-images/TravelQuest.png",
+			alt: "Travel Quest Preview"
 		},
-		problem: "",
-		solution: "",
-		keyFeatures: []
+		technicalDeepDive: [
+			{
+				title: 'Frontend Architecture',
+				content: [
+					{
+						type: 'text',
+						text: 'Built a lightweight React Native application with a modular component structure to support reuse across quest views, progress tracking, and user interactions.'
+					}
+				]
+			},
+			{
+				title: 'State and Persistence',
+				content: [
+					{
+						type: 'text',
+						text: 'Used AsyncStorage to persist quest progress, XP, and badge data locally, allowing the app to function without a backend and maintain state across sessions.'
+					}
+				]
+			},
+			{
+				title: 'Quest System Design',
+				content: [
+					{
+						type: 'text',
+						text: 'Designed a flexible quest model that maps:'
+					},
+					{
+						type: 'bullets',
+						text: [
+							'User interests > activity categories',
+							'Location > contextual quest generation'
+						]
+					},
+				]
+			},
+		],
+		keyFeatures: [
+			'Interest-based quest generation',
+			'Location-aware activity suggestions',
+			'Gamification system with XP and badges',
+			'Local progress tracking for offline usability'
+		],
+		technologies: {
+			frontend: ['React Native'],
+			storage: ['AsyncStorage'],
+		},
+		problem: 'Travelers struggle to build engaging itineraries that align with their interests without spending significant time researching activities.',
+		solution: 'Developed a mobile app that generates location-specific “quests” based on user interests, turning exploration into a structured and gamified experience.'
 	},
 	{
-		title: "Block Wars",
-		id: "blockwars",
-		categories: ['Web', 'Game'],
-		overview: "",
-		tagline: "",
-		links: [],
-		technologies: {
-			frontend: [],
-			backend: [],
-			services: []
+		id: "party-snail",
+		title: "Party Snail",
+		tagline: "Multiplayer Minigame Party Experience",
+		links: [
+			{
+				link: "https://horizon.meta.com/world/606604549211050/?locale=en_US",
+				iconSrc: DEMO_ICON_SRC,
+				alt: "Party Snail Live"
+			},
+			{
+				link: "https://github.com/AdventureSlugg/PartySnail/tree/latest",
+				iconSrc: GITHUB_ICON_SRC,
+				alt: "Party Snail Github Repository"
+			},
+			{
+				link: "https://devpost.com/software/partysnail",
+				iconSrc: DEVPOST_ICON_SRC,
+				alt: "Party Snail Devpost Submission"
+			}
+		],
+		categories: [
+			'Game'
+		],
+		overview: "PartySnail is a competitive multiplayer party game where players control snail companions racing toward a shared goal. Progress is earned through a sequence of fast-paced minigames, introducing tension and strategy despite the intentionally slow core movement mechanic.",
+		projectImage: {
+			imageSrc: "/project-images/PartySnail.png",
+			alt: "Party Snail Preview"
 		},
-		problem: "",
-		solution: "",
-		keyFeatures: []
-	},
-	{
-		title: "Code Racer",
-		id: "coderacer",
-		categories: ['Web', 'Game'],
-		tagline: "",
-		links: [],
-		overview: "",
+		technicalDeepDive: [
+			{
+				title: 'Multiplayer System Design',
+				content: [
+					{
+						type: 'text',
+						text: 'Implemented a lobby system supporting both private party creation and public matchmaking. Maintained synchronized game state across players, including progression, scoring, and race positioning.'
+					}
+				]
+			},
+			{
+				title: '3D Asset Creation',
+				content: [
+					{
+						type: 'text',
+						text: 'Learned and applied Blender to create custom 3D assets for the game environment and characters. Integrated assets into the Meta Horizon environment to align with the intended visual style.'
+					}
+				]
+			},
+			{
+				title: 'UI and Interaction Design',
+				content: [
+					{
+						type: 'text',
+						text: 'Prototyped UI/UX flows in Figma before implementation. Designed interfaces for lobby management and minigames.'
+					}
+				]
+			}
+		],
+		keyFeatures: [
+			'Multiplayer party system with public and private lobbies',
+			'3D game environment with custom-modeled assets',
+			'Sequential minigame structure with persistent match progression'
+		],
 		technologies: {
-			frontend: [],
-			backend: [],
-			services: []
-		},
-		problem: "",
-		solution: "",
-		keyFeatures: []
-	},
+			tools: ['Meta Horizon API', 'Typescript', 'Blender'],
+		}
+	}
 ]
 
 const props = Astro.props as IProjectProps
 ---
 
-<script is:inline>
-	let selectedProjectId = 'apollolink';
-
-	function selectProject(e) {
-		const id = e.currentTarget.id;
-
-		if (id === selectedProjectId) return 
-
-		// Change the project selection option
-		const oldProjectSelectionElement = document.getElementById(selectedProjectId);
-		oldProjectSelectionElement.classList.remove('selected');
-
-		const projectSelectionElement = document.getElementById(id);
-		projectSelectionElement.classList.add('selected');
-
-		// Change the project info visibility
-		const oldProjectContentElement = document.getElementById(`${selectedProjectId}-section`);
-		oldProjectContentElement.classList.add('invisible');
-
-		const projectContentElement = document.getElementById(`${id}-section`);
-		projectContentElement.classList.remove('invisible');
-
-		selectedProjectId = id;
-	}
-</script>
-
 <div id={props.id} class="project-section">
-	<div class="left-bar">
-		<h1>
-			Project List
-		</h1>
-		<input class="search-bar" placeholder="Search for project..." id="project-search-bar">
-		<div class="filter-section">
-			<div class="filter-item">
-				Web
-			</div>
-			<div class="filter-item">
-				Game
-			</div>
-			<div class="filter-item">
-				Tool
-			</div>
+	<LeftBrowseLayout>
+		<div slot="left-bar" class="full-width">
+			{
+				() => {
+					const projectBrowserObject: IBrowseBarProps = {
+						browserId: "projects-browser",
+						title: "Project List",
+						filters: ['Web', 'Mobile', 'Game'],
+						searchObjects: (projects as ISearchObject[])
+					}
+					return <OptionBrowseBar {...projectBrowserObject}></OptionBrowseBar>
+				}
+			}
 		</div>
-		<div class="projects-selection">
+
+		<div slot="main-content" class="full-height">
 			{
 				projects.map((p, i) => {
 					return (
 						<div 
-							id={p.id}
-							class={"project-card " + (projects.length - 1 === i ? 'last ' : '') + (0 === i ? 'selected ' : '')}
-							onclick="selectProject(event)"
+							id={`${p.id}-section`}
+							class={`project-info ${i ? 'invisible' : 'visible'}`}
 						>
-							<h2>
-								{p.title}
-							</h2>
-							
-							<div class="categories">
+							<div class="badge-section"> 
+								{
+									p.links.map(l => {
+										return (
+											<a 
+												target="_blank" 
+												href={l.link}
+											>
+												<img class="icon" src={l.iconSrc} alt={l.alt}>
+											</a>
+										)
+									})
+								}
+							</div>
+
+							<h1> { p.title }</h1>
+
+							<p>
+								<i>{p.tagline}</i>
+							</p>
+
+							<div class="badge-section">
 								{
 									p.categories.map(c => {
-										return <div class="filter-item">
-											{c}
+										return <div class="badge">
+											{
+												c
+											}
 										</div>
 									})
 								}
 							</div>
+
+							{
+								p.projectImage ? 
+									<img src={p.projectImage?.imageSrc} alt={p.projectImage?.alt} class="hero-image">
+								:
+								<br/>
+							}
+
+							<h1>
+								Overview
+							</h1>
+							<p>
+								{
+									p.overview
+								}
+							</p>
+
+							<br>
+
+							{
+								p.problem ? 
+									<div class="project-solution-section">
+										<div class="problem">
+											<h2>
+												Problem
+											</h2>
+											<p>
+												{p.problem}
+											</p>
+										</div>
+										
+										<div class="solution">
+											<h2>
+												Solution
+											</h2>
+											<p>
+												{p.solution}
+											</p>
+										</div>
+									</div>
+									<br>
+								: 
+								<br>
+							}
+
+							<h2>
+								Technologies
+							</h2>
+							{
+								p.technologies.frontend ?
+									<h3>
+										Frontend
+									</h3>
+									<div class="badge-section">
+										{p.technologies.frontend.map(t => {
+											return <div class="badge">
+												{t}
+											</div>
+										})}
+									</div>
+								:
+								<span/>
+							}
+							
+
+							{
+								p.technologies.backend ? 
+									<h3>
+										Backend
+									</h3>
+									<div class="badge-section">
+										{p.technologies.backend.map(t => {
+											return <div class="badge">
+												{t}
+											</div>
+										})}
+									</div>
+								:
+								<span/>
+							}
+
+							{
+								p.technologies.storage ? 
+									<h3>
+										Storage
+									</h3>
+									<div class="badge-section">
+										{p.technologies.storage.map(t => {
+											return <div class="badge">
+												{t}
+											</div>
+										})}
+									</div>
+								:
+								<span/>
+							}
+							
+
+							{
+								p.technologies.services ? 
+									<h3>
+										Services
+									</h3>
+									<div class="badge-section">
+										{p.technologies.services.map(t => {
+											return <div class="badge">
+												{t}
+											</div>
+										})}
+									</div>
+								:
+								<span/>
+							}
+
+							{
+								p.technologies.tools ? 
+									<h3>
+										Tools
+									</h3>
+									<div class="badge-section">
+										{p.technologies.tools.map(t => {
+											return <div class="badge">
+												{t}
+											</div>
+										})}
+									</div>
+								:
+								<span/>
+							}
+
+							<br>
+							
+							<h3>
+								Key Features
+							</h3>
+							<ul>
+								{
+									p.keyFeatures.map(f => {
+										return <li>
+											<p>{f}</p>
+										</li>
+									})
+								}
+							</ul>
+
+							<h2>
+								Technical Deep Dive
+							</h2>
+							{
+								p.technicalDeepDive.map(s => {
+									return (
+										<div>
+											<h3>
+												{s.title}
+											</h3>
+											{
+												s.content.map(c => {
+													if (c.type === 'text') {
+														return <p> {c.text} </p>
+													} else {
+														return (<ul>
+															{
+																(c.text as string[]).map(t => <li><p>{t}</p></li>
+															)}
+														</ul>)
+														
+													}
+												})
+											}
+											<br>
+										</div>
+									)
+								})
+							}
+							<br>
+							<br>
 						</div>
 					)
 				})
 			}
-			
 		</div>
-	</div>
-
-	{
-		projects.map((p, i) => {
-			return (
-				<div 
-					id={`${p.id}-section`}
-					class={`project-info ${i ? 'invisible' : 'visible'}`}
-				>
-					<div class="badge-section"> 
-						{
-							p.links.map(l => {
-							 	return (
-									<a 
-										target="_blank" 
-										href={l.link}
-									>
-										<img class="icon" src={l.iconSrc}>
-									</a>
-								)
-							})
-						}
-					</div>
-
-					<h1> { p.title }</h1>
-
-					<p>
-						<i>{p.tagline}</i>
-					</p>
-
-					<div class="badge-section">
-						{
-							p.categories.map(c => {
-								return <div class="badge">
-									{
-										c
-									}
-								</div>
-							})
-						}
-					</div>
-
-					<img src={p.projectImage?.imageSrc} alt={p.projectImage?.alt} class="hero-image">
-
-					<h1>
-						Overview
-					</h1>
-					<p>
-						{
-							p.overview
-						}
-					</p>
-
-					<div class="project-solution-section">
-						
-						<div class="problem">
-							<h2>
-								Problem
-							</h2>
-							<p>
-								{p.problem}
-							</p>
-						</div>
-						
-						<div class="solution">
-							<h2>
-								Solution
-							</h2>
-							<p>
-								{p.solution}
-							</p>
-						</div>
-
-						
-					</div>
-					
-
-					<h2>
-						Technologies
-					</h2>
-					<h3>
-						Frontend
-					</h3>
-					<div class="badge-section">
-						{p.technologies.frontend.map(t => {
-							return <div class="badge">
-								{t}
-							</div>
-						})}
-					</div>
-
-					<h3>
-						Backend
-					</h3>
-					<div class="badge-section">
-						{p.technologies.backend.map(t => {
-							return <div class="badge">
-								{t}
-							</div>
-						})}
-					</div>
-
-					<h3>
-						Services
-					</h3>
-					<div class="badge-section">
-						{p.technologies.services.map(t => {
-							return <div class="badge">
-								{t}
-							</div>
-						})}
-					</div>
-
-					<h3>
-						Key Features
-					</h3>
-					<ul>
-						{
-							p.keyFeatures.map(f => {
-								return <li>
-									<p>{f}</p>
-								</li>
-							})
-						}
-					</ul>
-
-					<h2>
-						Technical Deep Dive
-					</h2>
-					<p>
-						{p.technicalDeepDive}
-					</p>
-
-
-					<br>
-					<br>
-				</div>
-			)
-		})
-	}
+	</LeftBrowseLayout>
 </div>
 
 <style>
+	
 	.invisible {
 		display: none;
 	}
@@ -380,24 +658,24 @@ const props = Astro.props as IProjectProps
 		margin: 0vh .5vw;
  	}
 
-.badge-section {
-	display: flex;
-	flex-direction: row;
-}
+	.badge-section {
+		display: flex;
+		flex-direction: row;
+	}
 
-.badge {
-	background-color: rgb(73, 185, 255);
-	width: fit-content;
-	padding: .5vh 1vw;
-	border-radius: 1vw;
-	font-size: 9px;
-	margin: .5vh .5vw;
-}
+	.badge {
+		background-color: rgb(73, 185, 255);
+		width: fit-content;
+		padding: .5vh 1vw;
+		border-radius: 1vw;
+		font-size: 9px;
+		margin: .5vh .5vw;
+	}
 
-.hero-image {
-	width: 100%;
-	border-radius: 1vh;
-}
+	.hero-image {
+		width:100%;
+		border-radius: 1vh;
+	}
 
 h1 {
 	font-size: 18px;
@@ -433,73 +711,26 @@ p {
 	margin-bottom: .5vh;
 }
 
-.project-section {
-	background: var(--dark-bg-glass);
-	height: 100%;
-	display: flex;
-}
-
-.left-bar {
-	background-color: rgba(21,21,21, .3);
-	border: solid var(--dark-stroke);
-	border-width: 0 .1vh 0 0;
-	width: 30%;
-	padding: 1vh 1.5vw;
-	min-height: 100%;
-	scrollbar-width: thin;
-	overflow-y: scroll;
-	overflow-x: hidden;
-}
-
-.search-bar {
-	width: 85%;
-	border-radius: 10vh;
-	padding: 0 1vw;
-}
-
-.filter-section {
-	display: flex;
-	margin-top: 1vh;
-}
-
-.filter-item {
-	background-color: rgb(243, 180, 70);
-	margin: 0 .5vw;
-	padding: 0 .5vw;
-	border-radius: 10vw;
-	color: white;
-	font-size: 12px;
-}
-
-.filter-item:hover {
-	opacity: .8;
-}
+	.project-section {
+		background: var(--dark-bg-glass);
+		height: 100%;
+		display: flex;
+		flex-direction: row;
+	}
 
 .project-info {
 	flex: 1;
 	overflow-y: scroll;
+	max-width: 25vw;
+	height: 100%;
+}
+
+.full-height {
+	height: 100%
 }
 
 .projects-selection {
 	margin-top: 1vh;
-}
-
-.project-card {
-	margin: 1vh 0 0 .5vw;
-	background: rgb(38, 54, 59);
-	color: white;
-	font-size: 12px;
-	padding: 1vh 1vw;
-	border-radius: .5vh;
-	border: .1vh solid var(--dark-stroke);
-}
-
-.last {
-	margin-bottom: 6vh;
-}
-
-.project-card:hover {
-	scale: 1.1;
 }
 
 .categories {
@@ -511,12 +742,6 @@ p {
 .project-info {
 	color: white;
 	padding: 2vh 2vw
-}
-
-.selected {
-	border-color: rgb(255, 255, 255);
-	background-color: rgba(96, 213, 255, 0.8);
-	box-shadow: 0vh 0vh 1vh rgba(169, 228, 255, 0.8);
 }
 
 </style>

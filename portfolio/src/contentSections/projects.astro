@@ -151,6 +151,97 @@ const projects: IProject[] = [
 			}
 		]
 	},
+	{
+		id: "apollo-link",
+		title: "Apollo Link",
+		tagline: "Real-Time Health Monitoring & Clinical Alerting Platform",
+		links: [
+			{
+				link: "https://github.com/awb8593/HackHarvard",
+				iconSrc: GITHUB_ICON_SRC,
+				alt: "Apollo Link Github Repository"
+			},
+			{
+				link: "https://devpost.com/software/hackharvard-2023",
+				iconSrc: DEVPOST_ICON_SRC,
+				alt: "Apollo Link Devpost Submission"
+			}
+		],
+		categories: ['Web'],
+		overview: "Consumer wearables continuously generate health data, but most of it is underutilized in clinical decision-making. This project explores how real-time vitals can be aggregated, analyzed, and surfaced to providers as actionable insights.",
+		problem: 'Health issues are often identified only after symptoms escalate, partly due to limited continuous monitoring and delayed interpretation of patient data.',
+		solution: 'Built a system that ingests real-time biometric data from wearable devices, analyzes trends using AI-assisted evaluation, and surfaces risk signals to healthcare providers for review and follow-up.',
+		projectImage: {
+			imageSrc: "/project-images/ApolloLink.png",
+			alt: "Apollo Link Preview"
+		},
+		technicalDeepDive: [
+			{
+				title: "Frontend Architecture",
+				content: [
+					{
+						type: 'text',
+						text: 'Developed a modular Angular application with reusable components for patient data tables, alert views, and modal workflows. Structured the UI to support quick triage and prioritization of patients.'
+					}
+				]
+			},
+			{
+				title: 'Data Ingestion Pipeline',
+				content: [
+					{
+						type: 'text',
+						text: 'Integrated with Terra API to aggregate biometric data (e.g., heart rate, activity, glucose where available) from multiple wearable sources into a unified backend stream.'
+					}
+				]
+			},
+			{
+				title: 'AI-Assisted Analysis Layer',
+				content: [
+					{
+						type: 'text',
+						text: 'Processed incoming health data using the OpenAI API to evaluate deviations from patient-specific baselines. Instead of deterministic thresholds, prompts were designed to identify anomalies relative to historical averages and patterns of the given patient.'
+					}
+				]
+			},
+			{
+				title: 'Alerting System',
+				content: [
+					{
+						type: "text",
+						text: "Implemented a prioritization system where:"
+					},
+					{
+						type: "bullets",
+						text: [
+							'Patient “risk scores” are dynamically updated',
+							'High-risk signals trigger alerts in the provider dashboard',
+							'Critical cases generate real-time notifications via Twilio'
+						]
+					},
+				]
+			},
+			{
+				title: 'Data Persistence Strategy',
+				content: [
+					{
+						type: 'text',
+						text: 'Stored both latest and historical vital metrics in MongoDB, enabling longitudinal analysis and improving context for future AI evaluations.'
+					}
+				]
+			}
+		],
+		keyFeatures: [
+			'AI-assisted health signal analysis based on real-time vitals',
+			'Provider alerting system for abnormal patterns',
+			'Patient dashboard with historical and current health metrics',
+			'Continuous ingestion of wearable device data'
+		],
+		technologies: {
+			frontend: ['AngularJS', 'Typescript'],
+			backend: ['NodeJS', 'MongoDB'],
+			services: ['OpenAI API', 'Terra API', 'Twilio']
+		}
+	}
 ]
 
 const props = Astro.props as IProjectProps
@@ -285,6 +376,8 @@ const props = Astro.props as IProjectProps
 						}
 					</p>
 
+					<br>
+
 					<div class="project-solution-section">
 						
 						<div class="problem">
@@ -304,10 +397,9 @@ const props = Astro.props as IProjectProps
 								{p.solution}
 							</p>
 						</div>
-
-						
 					</div>
 					
+					<br>
 
 					<h2>
 						Technologies

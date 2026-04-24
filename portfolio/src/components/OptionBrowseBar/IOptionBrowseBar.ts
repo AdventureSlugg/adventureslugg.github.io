@@ -1,7 +1,8 @@
 export interface ISearchObject {
 	id: string,
 	title: string,
-	categories: string[]
+	categories: string[],
+	desc?: string
 }
 
 export interface IBrowseBarProps {

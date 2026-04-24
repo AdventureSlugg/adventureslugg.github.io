@@ -1,4 +1,8 @@
 ---
+import LeftBrowseLayout from "../components/LeftBrowseLayout/leftBrowseLayout.astro";
+import type { IBrowseBarProps } from "../components/OptionBrowseBar/IOptionBrowseBar";
+import type { ISearchObject } from "../components/OptionBrowseBar/IOptionBrowseBar";
+import OptionBrowseBar from "../components/OptionBrowseBar/optionBrowseBar.astro";
 import type { IContentSection } from "./_IContentSection"
 
 type ProjectCategory = 'Web' | 'Game' | 'Mobile';
@@ -20,7 +24,7 @@ type ContentSection = {
 	content: Content[]
 }
 
-interface IProject {
+interface IProject extends ISearchObject {
 	id: string;
 	title: string;
 	tagline: string;
@@ -384,301 +388,248 @@ const projects: IProject[] = [
 const props = Astro.props as IProjectProps
 ---
 
-<script is:inline>
-	let selectedProjectId = 'code-racer';
-
-	function selectProject(e) {
-		const id = e.currentTarget.id;
-
-		if (id === selectedProjectId) return 
-
-		// Change the project selection option
-		const oldProjectSelectionElement = document.getElementById(selectedProjectId);
-		oldProjectSelectionElement.classList.remove('selected');
-
-		const projectSelectionElement = document.getElementById(id);
-		projectSelectionElement.classList.add('selected');
-
-		// Change the project info visibility
-		const oldProjectContentElement = document.getElementById(`${selectedProjectId}-section`);
-		oldProjectContentElement.classList.add('invisible');
-
-		const projectContentElement = document.getElementById(`${id}-section`);
-		projectContentElement.classList.remove('invisible');
-
-		selectedProjectId = id;
-	}
-</script>
-
 <div id={props.id} class="project-section">
-	<div class="left-bar">
-		<h1>
-			Project List
-		</h1>
-		<input class="search-bar" placeholder="Search for project..." id="project-search-bar">
-		<div class="filter-section">
-			<div class="filter-item">
-				Web
-			</div>
-			<div class="filter-item">
-				Game
-			</div>
-			<div class="filter-item">
-				Mobile
-			</div>
+	<LeftBrowseLayout>
+		<div slot="left-bar" class="full-width">
+			{
+				() => {
+					const projectBrowserObject: IBrowseBarProps = {
+						browserId: "projects-browser",
+						title: "Project List",
+						filters: ['Web', 'Mobile', 'Game'],
+						searchObjects: (projects as ISearchObject[])
+					}
+					return <OptionBrowseBar {...projectBrowserObject}></OptionBrowseBar>
+				}
+			}
 		</div>
-		<div class="projects-selection">
+
+		<div slot="main-content" class="full-height">
 			{
 				projects.map((p, i) => {
 					return (
 						<div 
-							id={p.id}
-							class={"project-card " + (projects.length - 1 === i ? 'last ' : '') + (0 === i ? 'selected ' : '')}
-							onclick="selectProject(event)"
+							id={`${p.id}-section`}
+							class={`project-info ${i ? 'invisible' : 'visible'}`}
 						>
-							<h2>
-								{p.title}
-							</h2>
-							
-							<div class="categories">
+							<div class="badge-section"> 
+								{
+									p.links.map(l => {
+										return (
+											<a 
+												target="_blank" 
+												href={l.link}
+											>
+												<img class="icon" src={l.iconSrc} alt={l.alt}>
+											</a>
+										)
+									})
+								}
+							</div>
+
+							<h1> { p.title }</h1>
+
+							<p>
+								<i>{p.tagline}</i>
+							</p>
+
+							<div class="badge-section">
 								{
 									p.categories.map(c => {
-										return <div class="filter-item">
-											{c}
+										return <div class="badge">
+											{
+												c
+											}
 										</div>
 									})
 								}
 							</div>
+
+							{
+								p.projectImage ? 
+									<img src={p.projectImage?.imageSrc} alt={p.projectImage?.alt} class="hero-image">
+								:
+								<br/>
+							}
+
+							<h1>
+								Overview
+							</h1>
+							<p>
+								{
+									p.overview
+								}
+							</p>
+
+							<br>
+
+							{
+								p.problem ? 
+									<div class="project-solution-section">
+										<div class="problem">
+											<h2>
+												Problem
+											</h2>
+											<p>
+												{p.problem}
+											</p>
+										</div>
+										
+										<div class="solution">
+											<h2>
+												Solution
+											</h2>
+											<p>
+												{p.solution}
+											</p>
+										</div>
+									</div>
+									<br>
+								: 
+								<br>
+							}
+
+							<h2>
+								Technologies
+							</h2>
+							{
+								p.technologies.frontend ?
+									<h3>
+										Frontend
+									</h3>
+									<div class="badge-section">
+										{p.technologies.frontend.map(t => {
+											return <div class="badge">
+												{t}
+											</div>
+										})}
+									</div>
+								:
+								<span/>
+							}
+							
+
+							{
+								p.technologies.backend ? 
+									<h3>
+										Backend
+									</h3>
+									<div class="badge-section">
+										{p.technologies.backend.map(t => {
+											return <div class="badge">
+												{t}
+											</div>
+										})}
+									</div>
+								:
+								<span/>
+							}
+
+							{
+								p.technologies.storage ? 
+									<h3>
+										Storage
+									</h3>
+									<div class="badge-section">
+										{p.technologies.storage.map(t => {
+											return <div class="badge">
+												{t}
+											</div>
+										})}
+									</div>
+								:
+								<span/>
+							}
+							
+
+							{
+								p.technologies.services ? 
+									<h3>
+										Services
+									</h3>
+									<div class="badge-section">
+										{p.technologies.services.map(t => {
+											return <div class="badge">
+												{t}
+											</div>
+										})}
+									</div>
+								:
+								<span/>
+							}
+
+							{
+								p.technologies.tools ? 
+									<h3>
+										Tools
+									</h3>
+									<div class="badge-section">
+										{p.technologies.tools.map(t => {
+											return <div class="badge">
+												{t}
+											</div>
+										})}
+									</div>
+								:
+								<span/>
+							}
+
+							<br>
+							
+							<h3>
+								Key Features
+							</h3>
+							<ul>
+								{
+									p.keyFeatures.map(f => {
+										return <li>
+											<p>{f}</p>
+										</li>
+									})
+								}
+							</ul>
+
+							<h2>
+								Technical Deep Dive
+							</h2>
+							{
+								p.technicalDeepDive.map(s => {
+									return (
+										<div>
+											<h3>
+												{s.title}
+											</h3>
+											{
+												s.content.map(c => {
+													if (c.type === 'text') {
+														return <p> {c.text} </p>
+													} else {
+														return (<ul>
+															{
+																(c.text as string[]).map(t => <li><p>{t}</p></li>
+															)}
+														</ul>)
+														
+													}
+												})
+											}
+											<br>
+										</div>
+									)
+								})
+							}
+							<br>
+							<br>
 						</div>
 					)
 				})
 			}
-			
 		</div>
-	</div>
-
-	{
-		projects.map((p, i) => {
-			return (
-				<div 
-					id={`${p.id}-section`}
-					class={`project-info ${i ? 'invisible' : 'visible'}`}
-				>
-					<div class="badge-section"> 
-						{
-							p.links.map(l => {
-							 	return (
-									<a 
-										target="_blank" 
-										href={l.link}
-									>
-										<img class="icon" src={l.iconSrc} alt={l.alt}>
-									</a>
-								)
-							})
-						}
-					</div>
-
-					<h1> { p.title }</h1>
-
-					<p>
-						<i>{p.tagline}</i>
-					</p>
-
-					<div class="badge-section">
-						{
-							p.categories.map(c => {
-								return <div class="badge">
-									{
-										c
-									}
-								</div>
-							})
-						}
-					</div>
-
-					{
-						p.projectImage ? 
-							<img src={p.projectImage?.imageSrc} alt={p.projectImage?.alt} class="hero-image">
-						:
-						<br/>
-					}
-
-					<h1>
-						Overview
-					</h1>
-					<p>
-						{
-							p.overview
-						}
-					</p>
-
-					<br>
-
-					{
-						p.problem ? 
-							<div class="project-solution-section">
-								<div class="problem">
-									<h2>
-										Problem
-									</h2>
-									<p>
-										{p.problem}
-									</p>
-								</div>
-								
-								<div class="solution">
-									<h2>
-										Solution
-									</h2>
-									<p>
-										{p.solution}
-									</p>
-								</div>
-							</div>
-							<br>
-						: 
-						<br>
-					}
-
-					<h2>
-						Technologies
-					</h2>
-					{
-						p.technologies.frontend ?
-							<h3>
-								Frontend
-							</h3>
-							<div class="badge-section">
-								{p.technologies.frontend.map(t => {
-									return <div class="badge">
-										{t}
-									</div>
-								})}
-							</div>
-						:
-						<span/>
-					}
-					
-
-					{
-						p.technologies.backend ? 
-							<h3>
-								Backend
-							</h3>
-							<div class="badge-section">
-								{p.technologies.backend.map(t => {
-									return <div class="badge">
-										{t}
-									</div>
-								})}
-							</div>
-						:
-						<span/>
-					}
-
-					{
-						p.technologies.storage ? 
-							<h3>
-								Storage
-							</h3>
-							<div class="badge-section">
-								{p.technologies.storage.map(t => {
-									return <div class="badge">
-										{t}
-									</div>
-								})}
-							</div>
-						:
-						<span/>
-					}
-					
-
-					{
-						p.technologies.services ? 
-							<h3>
-								Services
-							</h3>
-							<div class="badge-section">
-								{p.technologies.services.map(t => {
-									return <div class="badge">
-										{t}
-									</div>
-								})}
-							</div>
-						:
-						<span/>
-					}
-
-					{
-						p.technologies.tools ? 
-							<h3>
-								Tools
-							</h3>
-							<div class="badge-section">
-								{p.technologies.tools.map(t => {
-									return <div class="badge">
-										{t}
-									</div>
-								})}
-							</div>
-						:
-						<span/>
-					}
-
-					<br>
-					
-					<h3>
-						Key Features
-					</h3>
-					<ul>
-						{
-							p.keyFeatures.map(f => {
-								return <li>
-									<p>{f}</p>
-								</li>
-							})
-						}
-					</ul>
-
-					<h2>
-						Technical Deep Dive
-					</h2>
-					{
-						p.technicalDeepDive.map(s => {
-							return (
-								<div>
-									<h3>
-										{s.title}
-									</h3>
-									{
-										s.content.map(c => {
-											if (c.type === 'text') {
-												return <p> {c.text} </p>
-											} else {
-												return (<ul>
-													{
-														(c.text as string[]).map(t => <li><p>{t}</p></li>
-													)}
-												</ul>)
-												
-											}
-										})
-									}
-									<br>
-								</div>
-							)
-						})
-					}
-					<br>
-					<br>
-				</div>
-			)
-		})
-	}
+	</LeftBrowseLayout>
 </div>
 
 <style>
+	
 	.invisible {
 		display: none;
 	}
@@ -707,24 +658,24 @@ const props = Astro.props as IProjectProps
 		margin: 0vh .5vw;
  	}
 
-.badge-section {
-	display: flex;
-	flex-direction: row;
-}
+	.badge-section {
+		display: flex;
+		flex-direction: row;
+	}
 
-.badge {
-	background-color: rgb(73, 185, 255);
-	width: fit-content;
-	padding: .5vh 1vw;
-	border-radius: 1vw;
-	font-size: 9px;
-	margin: .5vh .5vw;
-}
+	.badge {
+		background-color: rgb(73, 185, 255);
+		width: fit-content;
+		padding: .5vh 1vw;
+		border-radius: 1vw;
+		font-size: 9px;
+		margin: .5vh .5vw;
+	}
 
-.hero-image {
-	width: 100%;
-	border-radius: 1vh;
-}
+	.hero-image {
+		width:100%;
+		border-radius: 1vh;
+	}
 
 h1 {
 	font-size: 18px;
@@ -760,73 +711,26 @@ p {
 	margin-bottom: .5vh;
 }
 
-.project-section {
-	background: var(--dark-bg-glass);
-	height: 100%;
-	display: flex;
-}
-
-.left-bar {
-	background-color: rgba(21,21,21, .3);
-	border: solid var(--dark-stroke);
-	border-width: 0 .1vh 0 0;
-	width: 30%;
-	padding: 1vh 1.5vw;
-	min-height: 100%;
-	scrollbar-width: thin;
-	overflow-y: scroll;
-	overflow-x: hidden;
-}
-
-.search-bar {
-	width: 85%;
-	border-radius: 10vh;
-	padding: 0 1vw;
-}
-
-.filter-section {
-	display: flex;
-	margin-top: 1vh;
-}
-
-.filter-item {
-	background-color: rgb(243, 180, 70);
-	margin: 0 .5vw;
-	padding: 0 .5vw;
-	border-radius: 10vw;
-	color: white;
-	font-size: 12px;
-}
-
-.filter-item:hover {
-	opacity: .8;
-}
+	.project-section {
+		background: var(--dark-bg-glass);
+		height: 100%;
+		display: flex;
+		flex-direction: row;
+	}
 
 .project-info {
 	flex: 1;
 	overflow-y: scroll;
+	max-width: 25vw;
+	height: 100%;
+}
+
+.full-height {
+	height: 100%
 }
 
 .projects-selection {
 	margin-top: 1vh;
-}
-
-.project-card {
-	margin: 1vh 0 0 .5vw;
-	background: rgb(38, 54, 59);
-	color: white;
-	font-size: 12px;
-	padding: 1vh 1vw;
-	border-radius: .5vh;
-	border: .1vh solid var(--dark-stroke);
-}
-
-.last {
-	margin-bottom: 6vh;
-}
-
-.project-card:hover {
-	scale: 1.1;
 }
 
 .categories {
@@ -838,12 +742,6 @@ p {
 .project-info {
 	color: white;
 	padding: 2vh 2vw
-}
-
-.selected {
-	border-color: rgb(255, 255, 255);
-	background-color: rgba(96, 213, 255, 0.8);
-	box-shadow: 0vh 0vh 1vh rgba(169, 228, 255, 0.8);
 }
 
 </style>

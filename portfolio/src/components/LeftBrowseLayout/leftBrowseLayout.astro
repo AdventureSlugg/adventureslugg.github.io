@@ -1,0 +1,32 @@
+
+<div class="container">
+	<div class="left-bar">
+		<slot name="left-bar"></slot>
+	</div>
+	
+	<div class="main-content">
+		<slot name="main-content"></slot>
+	</div>
+</div>
+
+<style>
+	.container {
+		display: flex;
+		flex-direction: row;
+		height: 100%;
+	}
+	.left-bar {
+		background-color: rgba(21,21,21, .3);
+		border: solid var(--dark-stroke);
+		border-width: 0 .1vh 0 0;
+		width: 30%;
+		padding: 1vh 1.5vw;
+		min-height: 100%;
+		scrollbar-width: thin;
+		overflow-y: scroll;
+		overflow-x: hidden;
+	}
+	.main-content {
+
+	}
+</style>

@@ -1,11 +1,67 @@
+---
+import LeftBrowseLayout from "../components/LeftBrowseLayout/leftBrowseLayout.astro";
+import type { IBrowseBarProps } from "../components/OptionBrowseBar/IOptionBrowseBar";
+import OptionBrowseBar from "../components/OptionBrowseBar/optionBrowseBar.astro";
+
+const browser: IBrowseBarProps = {
+	browserId: "work-experience-browser",
+	title: "Work Experience",
+	filters: ['Migration', 'Automation', 'Documentation'],
+	searchObjects: [
+		{
+			id: "honeywell",
+			title: "Honeywell (01/2024 - 01/2025)",
+			categories: []
+		},
+		{
+			id: "poseidon1",
+			title: "Poseidon Systems (08/2023 - 01/2024)",
+			categories: []
+		},
+		{
+			id: "carrier",
+			title: "Carrier (01/2023 - 08/2023)",
+			categories: []
+		},
+		{
+			id: "poseidon0",
+			title: "Poseidon Systems (08/2022 - 01/2023)",
+			categories: []
+		},
+		{
+			id: "rit",
+			title: "Rochester Institute of Technology (08/2021 - 08/2022)",
+			categories: []
+		},
+	]
+}
+---
+
 <div class="work-experience">
-	Work Experience Section in the Works...
+	<LeftBrowseLayout>
+		<div slot="left-bar" class="full-height">
+			<OptionBrowseBar {...browser}/>
+		</div>
+		<div slot="main-content">
+			{
+				browser.searchObjects.map(o => {
+					return (
+						<div id={o.id + '-section'}></div>
+					)
+				})
+			}
+		</div>
+	</LeftBrowseLayout>
 </div>
 
 <style>
 	.work-experience {
 		height: 100%;
 		width: 100%;
-		background-color: rgba(58, 127, 255, 0.8);
+		background-color: rgba(25, 85, 82, 0.8);
+	}
+
+	.full-height {
+		height: 100%;
 	}
 </style>

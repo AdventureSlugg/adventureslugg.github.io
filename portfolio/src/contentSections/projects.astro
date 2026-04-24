@@ -1,7 +1,7 @@
 ---
 import type { IContentSection } from "./_IContentSection"
 
-type ProjectCategory = 'Web' | 'Game' | 'Tool';
+type ProjectCategory = 'Web' | 'Game' | 'Mobile';
 type IconLink = {
 	link: string,
 	iconSrc: string,
@@ -11,127 +11,145 @@ type ProjectImage = {
 	imageSrc: string,
 	alt: string
 }
+type Content = {
+	type: 'text' | 'bullets',
+	text: string | string[]
+}
+type ContentSection = {
+	title: string,
+	content: Content[]
+}
 
 interface IProject {
+	id: string;
 	title: string;
 	tagline: string;
 	links: IconLink[];
-	id: string;
 	categories: ProjectCategory[];
 	overview: string;
-	technologies: {
-		frontend: string[],
-		backend: string[],
-		services: string[]
-	};
-	problem: string;
-	solution: string;
+	projectImage: ProjectImage;
+	technicalDeepDive: ContentSection[];
 	keyFeatures: string[];
-	projectImage?: ProjectImage;
-	technicalDeepDive?: string;
+	technologies: {
+		frontend?: string[],
+		backend?: string[],
+		services?: string[]
+	};
+	problem?: string;
+	solution?: string;
+	
 }
 
 interface IProjectProps extends IContentSection {};
 
+const DEMO_ICON_SRC = '/project-images/icons/demo.png';
+const GITHUB_ICON_SRC = '/project-images/icons/github.png';
+const DEVPOST_ICON_SRC = '/project-images/icons/devpost.png';
+
 const projects: IProject[] = [
 	{
-		title: "Apollo Link",
-		id: "apollolink",
-		categories: ['Web'],
-		overview: "Apollo Link links in to the user's wearable technologies, and runs an ai analysis on the patient's vitals throughout the day to detect early signs of potentially fatal complications. The patient's primary care provider has access to a dashboard of their patients and receives alerts when their vitals indicate potential health risk.",
-		tagline: "Detecting Health Issues in Real Time with AI",
+		title: "Code Racers",
+		tagline: "Web-based Coding & Typing Training Game",
 		links: [
 			{
-				link: "n/a",
-				iconSrc: "/project-images/icons/demo.png",
-				alt: "Demo",
+				link: "https://www.youtube.com/watch?v=FmKnIfjPMwE&t=3s",
+				iconSrc: DEMO_ICON_SRC,
+				alt: "CodeRacers Youtube Demo"
 			},
 			{
-				link: "https://www.github.com",
-				iconSrc: "/project-images/icons/github.png",
-				alt: "Project Repository",
+				link: "https://github.com/AdventureSlugg/CodeRacer/tree/main",
+				iconSrc: GITHUB_ICON_SRC,
+				alt: "CodeRacers Github Repository"
 			},
 			{
-				link: "https://www.devpost.com",
-				iconSrc: "/project-images/icons/devpost.png",
-				alt: "Devpost Post",
+				link: "https://devpost.com/software/coderacer-95i1d2",
+				iconSrc: DEVPOST_ICON_SRC,
+				alt: "CodeRacers Devpost Submission"
 			}
 		],
+		id: "code-racer",
+		categories: [
+			'Web',
+			'Game'
+		],
+		overview: "Early-stage programming students often fall behind during live coding exercises due to slow typing speed and unfamiliarity with syntax. This project addresses both issues in a single, interactive environment.",
 		technologies: {
 			frontend: [
-				'AngularJS',
-				'TypeScript'
+				'Vue',
+				'Typescript'
 			],
 			backend: [
 				'Node',
-				'ExpressJS'
+				'Express',
+				'Socket.io'
 			],
-			services: [
-				'OpenAI',
-				'TerraAPI',
-				'Twilio'
-			]
 		},
-		problem: "blah blah blah",
-		solution: "yada yada yada",
+		problem: "First-year CS and software engineering students struggled to keep pace with in-class coding activities, limiting comprehension and engagement.",
+		solution: "Developed an interactive platform that combines typing practice with real coding exercises, allowing students to build speed while reinforcing language syntax through repetition and competition.",
 		keyFeatures: [
-			'Live Health Monitoring',
-			'Severity Triaging',
-			'Health Reminders and Alerts'
+			'Structured curricula for Python, Java, and JavaScript',
+			'Real-time multiplayer “code racing” mode',
+			'Live WPM and accuracy tracking',
+			'Language-switchable exercises for comparative learning'
 		],
 		projectImage: {
-			imageSrc: "/project-images/ApolloLink.png",
-			alt: "Apollo Link Preview"
+			imageSrc: "/public/project-images/CodeRacers.png",
+			alt: "Code Racers Preview"
 		},
-		technicalDeepDive: "The user interface was designed in Figma. A frontend application with a custom component library. Our node server retrieved wearable device data from TerraAPI's server and the health data was reformatted and passed to OpenAI's API to detect any abnormalities. In the case that an issue were to be detected, an alert would be sent through Twilio to the patient's primary care provider, and the care provider would be prompted to schedule a visit with the patient"
-	},
-	{
-		title: "Med-O-Matic",
-		id: "medomatic",
-		categories: ['Web'],
-		overview: "",
-		tagline: "",
-		links: [],
-		technologies: {
-			frontend: [],
-			backend: [],
-			services: []
-		},
-		problem: "",
-		solution: "",
-		keyFeatures: []
-	},
-	{
-		title: "Block Wars",
-		id: "blockwars",
-		categories: ['Web', 'Game'],
-		overview: "",
-		tagline: "",
-		links: [],
-		technologies: {
-			frontend: [],
-			backend: [],
-			services: []
-		},
-		problem: "",
-		solution: "",
-		keyFeatures: []
-	},
-	{
-		title: "Code Racer",
-		id: "coderacer",
-		categories: ['Web', 'Game'],
-		tagline: "",
-		links: [],
-		overview: "",
-		technologies: {
-			frontend: [],
-			backend: [],
-			services: []
-		},
-		problem: "",
-		solution: "",
-		keyFeatures: []
+		technicalDeepDive: [
+			{
+				title: 'Component Architecture',
+				content: [
+					{
+						type: 'text',
+						text: 'Designed a modular Vue 3 frontend using a clear separation of pages, layouts, and reusable components. Leveraged slots to create flexible layouts, enabling consistent UI reuse while supporting varied content.'
+					}
+				]
+			},
+			{
+				title: 'Dynamic Content System',
+				content: [
+					{
+						type: 'text',
+						text: 'Implemented a centralized “course sections” data model as a single source of truth. This powered both navigation and exercise rendering, allowing dynamic switching between languages and topics without duplicating logic.'
+					}
+				]
+			},
+			{
+				title: 'Real-Time Multiplayer System',
+				content: [
+					{
+						type: 'text',
+						text: 'Built a race session manager using Socket.IO to handle:'
+					},
+					{
+						type: 'bullets',
+						text: [
+							'Player connections/disconnections',
+							'Session state synchronization',
+							'Real-time progress updates across clients'
+						]
+					},
+					{
+						type: 'text',
+						text: 'On the frontend, clients subscribe to session events and render live race progress using percentage-based completion tracking.'
+					}
+				]
+			},
+			{
+				title: 'User Experience Decisions',
+				content: [
+					{
+						type: 'bullets',
+						text: [
+							'Left-side navigation for quick curriculum access',
+							'Tabbed interface for switching languages within the same exercise',
+							'Clear separation between Practice and Race modes to support different learning styles'
+						]
+					}
+				]
+			}
+		]
 	},
 ]
 
@@ -139,7 +157,7 @@ const props = Astro.props as IProjectProps
 ---
 
 <script is:inline>
-	let selectedProjectId = 'apollolink';
+	let selectedProjectId = 'code-racer';
 
 	function selectProject(e) {
 		const id = e.currentTarget.id;
@@ -178,7 +196,7 @@ const props = Astro.props as IProjectProps
 				Game
 			</div>
 			<div class="filter-item">
-				Tool
+				Mobile
 			</div>
 		</div>
 		<div class="projects-selection">
@@ -226,7 +244,7 @@ const props = Astro.props as IProjectProps
 										target="_blank" 
 										href={l.link}
 									>
-										<img class="icon" src={l.iconSrc}>
+										<img class="icon" src={l.iconSrc} alt={l.alt}>
 									</a>
 								)
 							})
@@ -251,7 +269,12 @@ const props = Astro.props as IProjectProps
 						}
 					</div>
 
-					<img src={p.projectImage?.imageSrc} alt={p.projectImage?.alt} class="hero-image">
+					{
+						p.projectImage ? 
+							<img src={p.projectImage?.imageSrc} alt={p.projectImage?.alt} class="hero-image">
+						:
+						<br/>
+					}
 
 					<h1>
 						Overview
@@ -289,39 +312,56 @@ const props = Astro.props as IProjectProps
 					<h2>
 						Technologies
 					</h2>
-					<h3>
-						Frontend
-					</h3>
-					<div class="badge-section">
-						{p.technologies.frontend.map(t => {
-							return <div class="badge">
-								{t}
+					{
+						p.technologies.frontend ?
+							<h3>
+								Frontend
+							</h3>
+							<div class="badge-section">
+								{p.technologies.frontend.map(t => {
+									return <div class="badge">
+										{t}
+									</div>
+								})}
 							</div>
-						})}
-					</div>
+						:
+						<br>
+					}
+					
 
-					<h3>
-						Backend
-					</h3>
-					<div class="badge-section">
-						{p.technologies.backend.map(t => {
-							return <div class="badge">
-								{t}
+					{
+						p.technologies.backend ? 
+							<h3>
+								Backend
+							</h3>
+							<div class="badge-section">
+								{p.technologies.backend.map(t => {
+									return <div class="badge">
+										{t}
+									</div>
+								})}
 							</div>
-						})}
-					</div>
+						:
+						<br>
+					}
+					
 
-					<h3>
-						Services
-					</h3>
-					<div class="badge-section">
-						{p.technologies.services.map(t => {
-							return <div class="badge">
-								{t}
+					{
+						p.technologies.services ? 
+							<h3>
+								Services
+							</h3>
+							<div class="badge-section">
+								{p.technologies.services.map(t => {
+									return <div class="badge">
+										{t}
+									</div>
+								})}
 							</div>
-						})}
-					</div>
-
+						:
+						<br>
+					}
+					
 					<h3>
 						Key Features
 					</h3>
@@ -338,11 +378,32 @@ const props = Astro.props as IProjectProps
 					<h2>
 						Technical Deep Dive
 					</h2>
-					<p>
-						{p.technicalDeepDive}
-					</p>
-
-
+					{
+						p.technicalDeepDive.map(s => {
+							return (
+								<div>
+									<h3>
+										{s.title}
+									</h3>
+									{
+										s.content.map(c => {
+											if (c.type === 'text') {
+												return <p> {c.text} </p>
+											} else {
+												return (<ul>
+													{
+														(c.text as string[]).map(t => <li><p>{t}</p></li>
+													)}
+												</ul>)
+												
+											}
+										})
+									}
+									<br>
+								</div>
+							)
+						})
+					}
 					<br>
 					<br>
 				</div>

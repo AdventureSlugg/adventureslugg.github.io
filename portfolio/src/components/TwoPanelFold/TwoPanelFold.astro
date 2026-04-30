@@ -1,0 +1,66 @@
+---
+
+interface ISection {
+	title: string;
+	description: string
+}
+
+interface TwoFoldProps {
+	left: ISection;
+	right: ISection;
+}
+
+const props = Astro.props as TwoFoldProps;
+
+---
+<div class="fold-container">
+	<div class="fold">
+		<h2>
+			{props.left.title}
+		</h2>
+		<p>
+			{props.left.description}
+		</p>
+	</div>
+	
+	<div class="fold" style="border-left: dashed white .1vh;">
+		<h2>
+			{props.right.title}
+		</h2>
+		<p>
+			{props.right.description}
+		</p>
+	</div>
+</div>
+
+<style>
+	.fold {
+		flex: 1;
+		padding: .1vh .5vw;
+	}
+
+	.fold-container {
+		display: flex;
+		flex-direction: row;
+		background-color: rgba(100,100,100,.3);
+		padding: 1vh;
+		border-radius: 1vh;
+		border: solid rgb(255, 255, 255) .1vh;
+	}
+	h2 {
+		font-size: 15px;
+		font-weight: 100;
+		color: white;
+		margin-top: .5vh;
+		margin-bottom: .5vh;
+		font-weight: bold;
+	}
+
+	p {
+		font-size: 10px;
+		font-weight: 100;
+		color: white;
+		margin-top: .5vh;
+		margin-bottom: .5vh;
+	}
+</style>

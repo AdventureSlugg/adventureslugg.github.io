@@ -3,6 +3,7 @@ import LeftBrowseLayout from "../components/LeftBrowseLayout/leftBrowseLayout.as
 import type { IBrowseBarProps } from "../components/OptionBrowseBar/IOptionBrowseBar";
 import type { ISearchObject } from "../components/OptionBrowseBar/IOptionBrowseBar";
 import OptionBrowseBar from "../components/OptionBrowseBar/optionBrowseBar.astro";
+import TwoPanelFold from "../components/TwoPanelFold/TwoPanelFold.astro";
 import type { IContentSection } from "./_IContentSection"
 
 type ProjectCategory = 'Web' | 'Game' | 'Mobile';
@@ -464,29 +465,22 @@ const props = Astro.props as IProjectProps
 							<br>
 
 							{
-								p.problem ? 
-									<div class="project-solution-section">
-										<div class="problem">
-											<h2>
-												Problem
-											</h2>
-											<p>
-												{p.problem}
-											</p>
-										</div>
-										
-										<div class="solution">
-											<h2>
-												Solution
-											</h2>
-											<p>
-												{p.solution}
-											</p>
-										</div>
-									</div>
-									<br>
-								: 
-								<br>
+							
+								() => {
+									if (!p.problem) { return <br/> }
+									
+									const left = {
+										title: "Problem",
+										description: p.problem
+									}
+									const right = {
+										title: "Solution",
+										description: p.solution
+									}
+
+									return <TwoPanelFold left={left} right={right}></TwoPanelFold>
+								}
+							
 							}
 
 							<h2>

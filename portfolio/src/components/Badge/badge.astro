@@ -2,8 +2,8 @@
 interface IBadgeProps {
 	id: string;
 	text: string;
-	color: string;
-	hoverable: boolean;
+	color?: string;
+	hoverable?: boolean;
 }
 
 const props = Astro.props as IBadgeProps;
@@ -12,7 +12,7 @@ const props = Astro.props as IBadgeProps;
 <div 
 	id={`${props.id}-badge`}
 	class={`badge ${props.hoverable && 'hoverable'}`}
-	style={`background-color: ${props.color}`}
+	style={`background-color: ${props.color ? props.color : 'rgb(73, 185, 255)'}`}
 >
 	{
 		props.text

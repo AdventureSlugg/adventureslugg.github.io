@@ -438,7 +438,7 @@ const props = Astro.props as IProjectProps
 							<div class="badge-section">
 								{
 									p.categories.map(c => {
-										return <Badge text={c}/>
+										return <Badge text={c} id={p.id + c}/>
 									})
 								}
 							</div>
@@ -490,7 +490,7 @@ const props = Astro.props as IProjectProps
 									</h3>
 									<div class="badge-section">
 										{
-											p.technologies.frontend.map(t => <Badge text={t}/>)
+											p.technologies.frontend.map(t => <Badge text={t} id={p.id + t}/>)
 										}
 									</div>
 								:
@@ -505,7 +505,7 @@ const props = Astro.props as IProjectProps
 									</h3>
 									<div class="badge-section">
 										{
-											p.technologies.backend.map(t => <Badge text={t}/>)
+											p.technologies.backend.map(t => <Badge text={t} id={p.id + t}/>)
 										}
 									</div>
 								:
@@ -519,7 +519,7 @@ const props = Astro.props as IProjectProps
 									</h3>
 									<div class="badge-section">
 										{
-											p.technologies.storage.map(t => <Badge text={t}/>)
+											p.technologies.storage.map(t => <Badge text={t} id={p.id + t}/>)
 										}
 									</div>
 								:
@@ -534,7 +534,7 @@ const props = Astro.props as IProjectProps
 									</h3>
 									<div class="badge-section">
 										{
-											p.technologies.services.map(t => <Badge text={t}/>)
+											p.technologies.services.map(t => <Badge text={t} id={p.id + t}/>)
 										}
 									</div>
 								:
@@ -548,7 +548,7 @@ const props = Astro.props as IProjectProps
 									</h3>
 									<div class="badge-section">
 										{
-											p.technologies.tools.map(t => <Badge text={t}/>)
+											p.technologies.tools.map(t => <Badge text={t} id={p.id + t}/>)
 										}
 									</div>
 								:

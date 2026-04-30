@@ -195,7 +195,7 @@ const toolTypes: ToolType[] = ['process', 'development', 'design']
 									<div class="badges">
 										{
 											w.categories.map(c => {
-												return <Badge text={c}></Badge>
+												return <Badge text={c} id={w.id + c}></Badge>
 											})
 										}
 									</div>
@@ -242,7 +242,7 @@ const toolTypes: ToolType[] = ['process', 'development', 'design']
 														<div class="badges">
 															{
 																w.tools[t].map(tool => {
-																	return <Badge text={tool}/>
+																	return <Badge text={tool} id={w.id + tool}/>
 																})
 															}
 														</div>

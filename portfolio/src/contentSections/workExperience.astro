@@ -19,11 +19,13 @@ interface IWorkItem extends ISearchObject {
 	metrics: string[];
 	banner: string;
 	projects: IProject[];
-	tools: { development: string[]; process: string[], design: string[]}
+	tools: { development: string[]; process: string[], design: string[]},
+	companyLink: string;
 }
 
 const workItems: IWorkItem[] = [
 	{
+		companyLink: "https://buildings.honeywell.com/us/en/brands/our-brands/lenels2",
 		id: "honeywell",
 		title: "Honeywell",
 		categories: ['Migration', 'Automation', 'Architecture'],
@@ -64,6 +66,7 @@ const workItems: IWorkItem[] = [
 		}
 	},
 	{
+		companyLink: 'https://www.poseidonsys.com/',
 		id: "poseidon",
 		title: "Poseidon Systems",
 		categories: ['Dashboard', 'Data Visualization', 'Localization'],
@@ -104,6 +107,7 @@ const workItems: IWorkItem[] = [
 		}
 	},
 	{
+		companyLink: 'https://www.rit.edu/academicsuccesscenter/supplemental-instruction',
 		id: "rit-si",
 		title: "Rochester Institute of Technology",
 		categories: ['Education', 'Mentorship', 'Curriculum Design'],
@@ -173,7 +177,7 @@ const toolTypes: ToolType[] = ['process', 'development', 'design']
 								<div class="overlay">
 									
 									<h3>
-										<a href="/">{w.title}</a>
+										<a href={w.companyLink} target="_blank">{w.title}</a>
 									</h3>
 									
 									<h1>

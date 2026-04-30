@@ -1,4 +1,5 @@
 ---
+import Badge from "../components/badge/badge.astro";
 import LeftBrowseLayout from "../components/LeftBrowseLayout/leftBrowseLayout.astro";
 import type { IBrowseBarProps } from "../components/OptionBrowseBar/IOptionBrowseBar";
 import type { ISearchObject } from "../components/OptionBrowseBar/IOptionBrowseBar";
@@ -437,11 +438,7 @@ const props = Astro.props as IProjectProps
 							<div class="badge-section">
 								{
 									p.categories.map(c => {
-										return <div class="badge">
-											{
-												c
-											}
-										</div>
+										return <Badge text={c}/>
 									})
 								}
 							</div>
@@ -468,7 +465,7 @@ const props = Astro.props as IProjectProps
 							
 								() => {
 									if (!p.problem) { return <br/> }
-									
+
 									const left = {
 										title: "Problem",
 										description: p.problem
@@ -492,11 +489,9 @@ const props = Astro.props as IProjectProps
 										Frontend
 									</h3>
 									<div class="badge-section">
-										{p.technologies.frontend.map(t => {
-											return <div class="badge">
-												{t}
-											</div>
-										})}
+										{
+											p.technologies.frontend.map(t => <Badge text={t}/>)
+										}
 									</div>
 								:
 								<span/>
@@ -509,11 +504,9 @@ const props = Astro.props as IProjectProps
 										Backend
 									</h3>
 									<div class="badge-section">
-										{p.technologies.backend.map(t => {
-											return <div class="badge">
-												{t}
-											</div>
-										})}
+										{
+											p.technologies.backend.map(t => <Badge text={t}/>)
+										}
 									</div>
 								:
 								<span/>
@@ -525,11 +518,9 @@ const props = Astro.props as IProjectProps
 										Storage
 									</h3>
 									<div class="badge-section">
-										{p.technologies.storage.map(t => {
-											return <div class="badge">
-												{t}
-											</div>
-										})}
+										{
+											p.technologies.storage.map(t => <Badge text={t}/>)
+										}
 									</div>
 								:
 								<span/>
@@ -542,11 +533,9 @@ const props = Astro.props as IProjectProps
 										Services
 									</h3>
 									<div class="badge-section">
-										{p.technologies.services.map(t => {
-											return <div class="badge">
-												{t}
-											</div>
-										})}
+										{
+											p.technologies.services.map(t => <Badge text={t}/>)
+										}
 									</div>
 								:
 								<span/>
@@ -558,11 +547,9 @@ const props = Astro.props as IProjectProps
 										Tools
 									</h3>
 									<div class="badge-section">
-										{p.technologies.tools.map(t => {
-											return <div class="badge">
-												{t}
-											</div>
-										})}
+										{
+											p.technologies.tools.map(t => <Badge text={t}/>)
+										}
 									</div>
 								:
 								<span/>
@@ -613,7 +600,7 @@ const props = Astro.props as IProjectProps
 								})
 							}
 							<br>
-							<br>
+							<br class="bottom-spacing">
 						</div>
 					)
 				})
@@ -623,6 +610,9 @@ const props = Astro.props as IProjectProps
 </div>
 
 <style>
+	.bottom-spacing {
+		margin-bottom: 5vh;
+	}
 	
 	.invisible {
 		display: none;
@@ -671,39 +661,26 @@ const props = Astro.props as IProjectProps
 		border-radius: 1vh;
 	}
 
-h1 {
-	font-size: 18px;
-	font-weight: 100;
-	color: white;
-	margin-top: .5vh;
-	font-weight: bold;
-}
-
-h2 {
-	font-size: 15px;
-	font-weight: 100;
-	color: white;
-	margin-top: .5vh;
-	margin-bottom: .5vh;
-	font-weight: bold;
-}
-
-h3 {
-	font-size: 12px;
-	font-weight: 100;
-	color: white;
-	margin-top: .5vh;
-	margin-bottom: .5vh;
-	font-weight: bold;
-}
-
-p {
-	font-size: 10px;
-	font-weight: 100;
-	color: white;
-	margin-top: .5vh;
-	margin-bottom: .5vh;
-}
+	h1 {
+		font-size: 3vh;
+		font-weight: 500;
+	}
+	h2 {
+		font-size: 2vh;
+		font-weight: 200;
+	}
+	h3 {
+		font-size: 1.75vh;
+		font-weight: 800;
+	}
+	h4 {
+		font-size: 1.5vh;
+		font-weight: 800;
+	}
+	p {
+		font-size: 1.5vh;
+		font-weight: 100;
+	}
 
 	.project-section {
 		background: var(--dark-bg-glass);

@@ -158,9 +158,9 @@ const toolTypes: ToolType[] = ['process', 'development', 'design']
 		</div>
 		<div slot="main-content" class="main-content">
 			{
-				workItems.map(w => {
+				workItems.map((w, i) => {
 					return (
-						<div class="work-info" id={w.id + '-section'}>
+						<div class={`work-info ${i ? 'invisible' : 'visible'}`}id={w.id + '-section'}>
 							<div 
 								class="top-fold"
 								style={`background-image: url(${w.banner});`}
@@ -384,5 +384,9 @@ const toolTypes: ToolType[] = ['process', 'development', 'design']
 
 	.indent {
 		padding-left: 1vw;
+	}
+
+	.invisible {
+		display: none;
 	}
 </style>

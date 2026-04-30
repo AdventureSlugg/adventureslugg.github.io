@@ -1,45 +1,113 @@
 ---
+import Badge from "../components/badge/badge.astro";
 import LeftBrowseLayout from "../components/LeftBrowseLayout/leftBrowseLayout.astro";
-import type { IBrowseBarProps } from "../components/OptionBrowseBar/IOptionBrowseBar";
+import type { IBrowseBarProps, ISearchObject } from "../components/OptionBrowseBar/IOptionBrowseBar";
 import OptionBrowseBar from "../components/OptionBrowseBar/optionBrowseBar.astro";
+
+interface IProject {
+	title: string;
+	problem: string;
+	solution: string;
+	overview: string;
+}
+
+interface IWorkItem extends ISearchObject {
+	role: string;
+	dates?: string;
+	overview?: string;
+	metrics?: string[];
+	banner: string;
+	projects: IProject[];
+	tools: { development: string[]; process: string[], design: string[]}
+}
+
+const workItems: IWorkItem[] = [
+	{
+		id: "honeywell",
+		title: "Honeywell",
+		categories: ['Migration', 'Automation', 'Architecture'],
+		desc: 'Fullstack Software Engineer (01/2024 - 01/2025 & 01/2023 - 08/2024)',
+		role: "Fullstack Software Engineer",
+		dates: '01/2024 - 01/2025 & 01/2023 - 08/2023',
+		overview: 'Worked on an access-control platform, contributing across both frontend and backend systems. Focused on improving developer experience, modernizing the frontend stack, and resolving user-impacting issues.',
+		metrics: [
+			'800+ API Endpoints Documented',
+			'90+ Stories Completed',
+			'15+ Vue Components Implemented'
+		],
+		banner: 'company-images/honeywell.png',
+		projects: [
+			{
+				title: 'Vue 3 Migration',
+				problem: "",
+				solution: "",
+				overview: "Technical debt, blah blah blah..."
+			},
+			{
+				title: 'API Documentation',
+				problem: "",
+				solution: "",
+				overview: ""
+			},
+			{
+				title: 'i18n Localization',
+				problem: "",
+				solution: "",
+				overview: ""
+			},
+		],
+		tools: {
+			development: ["Vue 3", "Vue 2", "Angular", "ASP", "Javascript", "Typescript", "Java", "Python", "Spring"],
+			process: ["Rally", "Git", "Confluence"],
+			design: ["Figma"]
+		}
+	},
+	{
+		id: "poseidon",
+		title: "Poseidon Systems",
+		categories: ["Testing", "Localization", "Design"],
+		desc: 'Fullstack Web Engineer (08/2023 - 01/2024 & 08/2022 - 01/2023)',
+		role: "Fullstack Web Engineer",
+		metrics: [
+			"80+ Issues Resolved",
+			"Developed 3 Customer Requested Features",
+			"Created Onboarding Guide"
+		],
+		banner: 'company-images/poseidon.png',
+		projects: [],
+		tools: {
+			development: [],
+			process: [],
+			design: []
+		}
+	},
+	{
+		id: "rit",
+		title: "Rochester Institute of Technology",
+		categories: ["Mentoring", "Education", "Communication"],
+		desc: 'Supplemental Instruction Leader (08/2021 - 08/2022)',
+		role: "Supplemental Instruction Leader",
+		metrics: ["Developed 40 Programming Lessons", "Mentored 15+ students", "Created 8 Study Guides"],
+		banner: 'company-images/rit.png',
+		projects: [],
+		tools: {
+			development: [],
+			process: [],
+			design: []
+		}
+	}
+]
 
 const browser: IBrowseBarProps = {
 	browserId: "work-experience-browser",
 	title: "Work Experience",
 	filters: ['Migration', 'Automation', 'Documentation'],
-	searchObjects: [
-		{
-			id: "honeywell",
-			title: "Honeywell",
-			categories: [],
-			desc: 'Fullstack Software Engineer (01/2024 - 01/2025)'
-		},
-		{
-			id: "poseidon1",
-			title: "Poseidon Systems",
-			categories: [],
-			desc: 'Fullstack Web Engineer (08/2023 - 01/2024)'
-		},
-		{
-			id: "carrier",
-			title: "Carrier",
-			categories: [],
-			desc: 'Fullstack Software Engineer (01/2023 - 08/2023)'
-		},
-		{
-			id: "poseidon0",
-			title: "Poseidon Systems",
-			categories: [],
-			desc: 'Fullstack Web Engineer (08/2022 - 01/2023)'
-		},
-		{
-			id: "rit",
-			title: "Rochester Institute of Technology",
-			categories: [],
-			desc: 'Supplemental Instruction Leader (08/2021 - 08/2022)'
-		},
-	]
+	searchObjects: workItems as ISearchObject[]
 }
+
+type ToolType = 'design' | 'process' | 'development';
+const toolTypes: ToolType[] = ['process', 'development', 'design']
+
 ---
 
 <div class="work-experience">
@@ -47,11 +115,118 @@ const browser: IBrowseBarProps = {
 		<div slot="left-bar" class="full-height">
 			<OptionBrowseBar {...browser}/>
 		</div>
-		<div slot="main-content">
+		<div slot="main-content" class="main-content">
 			{
-				browser.searchObjects.map(o => {
+				workItems.map(w => {
 					return (
-						<div id={o.id + '-section'}>Currently working on this</div>
+						<div class="work-info" id={w.id + '-section'}>
+							<div 
+								class="top-fold"
+								style={`background-image: url(${w.banner});`}
+							>
+								
+								<div class="overlay">
+									
+									<h3>
+										<a href="/">{w.title}</a>
+									</h3>
+									
+									<h1>
+										{
+											w.role
+										}
+									</h1>
+									
+									<p>
+										{
+											w.dates
+										}
+									</p>
+
+									<div class="badges">
+										{
+											w.categories.map(c => {
+												return <Badge text={c}></Badge>
+											})
+										}
+									</div>
+
+									<div class="highlights">
+										{
+											w.metrics!.map(m => {
+												return <div class="highlight">
+															<p>
+																{m}
+															</p>
+														</div>
+											})
+										}
+									</div>
+								</div>
+							</div>
+							
+							<div class="work-content indent">
+								<h3>
+									Overview
+								</h3>
+								<p class="indent">
+									{ 
+										w.overview 
+									}
+								</p>
+								<br>
+
+								<h3>
+									Tools & Technologies
+								</h3>
+								<div class="indent">
+									{
+										toolTypes.map(t => {
+											if (w.tools[t].length) {
+												return (
+													<div>
+														<h4>
+															{Array.from(t).map((c, i) => {
+																return i === 0 ? c.toUpperCase() : c;
+															})}
+														</h4>
+														<div class="badges">
+															{
+																w.tools[t].map(tool => {
+																	return <Badge text={tool}/>
+																})
+															}
+														</div>
+														
+													</div>
+												)
+											}
+										})
+									}
+									
+								</div>
+								<br>
+								
+								<h3>
+									Project Highlights
+								</h3>
+								{
+									w.projects.map(p => {
+										return (<div class="indent">
+											<h4>
+												{ p.title }
+											</h4>
+											<p class="indent">
+												{ p.overview }
+											</p>
+											<br>
+										</div>)
+									})
+								}
+								<br>
+							</div>
+							
+						</div>
 					)
 				})
 			}
@@ -60,6 +235,34 @@ const browser: IBrowseBarProps = {
 </div>
 
 <style>
+	a {
+		color:rgb(127, 255, 212);
+	}
+
+	h1 {
+		font-size: 3vh;
+		font-weight: 500;
+	}
+	h2 {
+		font-size: 2vh;
+		font-weight: 200;
+	}
+	h3 {
+		font-size: 1.75vh;
+		font-weight: 800;
+	}
+	h4 {
+		font-size: 1.5vh;
+		font-weight: 800;
+	}
+	p {
+		font-size: 1.5vh;
+		font-weight: 100;
+	}
+	.work-info {
+		color: white;
+	}
+
 	.work-experience {
 		height: 100%;
 		width: 100%;
@@ -68,5 +271,62 @@ const browser: IBrowseBarProps = {
 
 	.full-height {
 		height: 100%;
+	}
+
+	.overlay {
+		background-color: rgba(34, 69, 100, 0.7);
+		padding: 1vh 1vw;
+	}
+
+	.top-fold {
+		background-size: cover;
+	}
+
+	.main-content {
+		overflow-y: scroll;
+		height: 100%;
+		flex: 1;
+	}
+
+	.highlights {
+		background-color: rgba(13, 53, 51, 0.8);
+		border-radius: 1vw;
+		border: solid 1px rgb(89, 151, 135);
+		height: fit-content;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+		padding: 1vh;
+	}
+
+	.highlight {
+		background-color: rgb(255, 188, 55);
+		border-radius: 1vw;
+		border: solid 1px rgb(255, 157, 0);
+		width: 25%;
+		min-height: 100%;
+		padding: .5vw;
+		text-align: center;
+	}
+
+	.banner {
+		width: 100%;
+		border-radius: 1vh;
+		opacity: .9;
+	}
+
+	.work-content {
+		padding: 1vh 1vw;
+	}
+
+	.badges {
+		display: flex;
+		flex-direction: row;
+		margin-bottom: 1vh;
+		flex-wrap: wrap;
+	}
+
+	.indent {
+		padding-left: 1vw;
 	}
 </style>

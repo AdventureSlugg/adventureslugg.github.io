@@ -134,9 +134,11 @@ const props = Astro.props as IBrowseBarProps;
 		display: flex;
 		overflow-x: scroll;
 		scrollbar-width: thin;
+		user-select: none;
 	}
 	.projects-selection {
 		margin-top: 1vh;
+		user-select: none;
 	}
 	.search-bar {
 		width: 85%;
@@ -178,6 +180,7 @@ const props = Astro.props as IBrowseBarProps;
 		border-radius: 10vw;
 		color: white;
 		font-size: 12px;
+		user-select: none;
 	}
 
 	.filter-item:hover {

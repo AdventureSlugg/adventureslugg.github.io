@@ -1,57 +1,296 @@
 ---
+import Badge from "../components/badge/badge.astro";
 import LeftBrowseLayout from "../components/LeftBrowseLayout/leftBrowseLayout.astro";
-import type { IBrowseBarProps } from "../components/OptionBrowseBar/IOptionBrowseBar";
+import type { IBrowseBarProps, ISearchObject } from "../components/OptionBrowseBar/IOptionBrowseBar";
 import OptionBrowseBar from "../components/OptionBrowseBar/optionBrowseBar.astro";
+import TwoPanelFold from "../components/TwoPanelFold/TwoPanelFold.astro";
 
-const browser: IBrowseBarProps = {
-	browserId: "work-experience-browser",
-	title: "Work Experience",
-	filters: ['Migration', 'Automation', 'Documentation'],
-	searchObjects: [
-		{
-			id: "honeywell",
-			title: "Honeywell",
-			categories: [],
-			desc: 'Fullstack Software Engineer (01/2024 - 01/2025)'
-		},
-		{
-			id: "poseidon1",
-			title: "Poseidon Systems",
-			categories: [],
-			desc: 'Fullstack Web Engineer (08/2023 - 01/2024)'
-		},
-		{
-			id: "carrier",
-			title: "Carrier",
-			categories: [],
-			desc: 'Fullstack Software Engineer (01/2023 - 08/2023)'
-		},
-		{
-			id: "poseidon0",
-			title: "Poseidon Systems",
-			categories: [],
-			desc: 'Fullstack Web Engineer (08/2022 - 01/2023)'
-		},
-		{
-			id: "rit",
-			title: "Rochester Institute of Technology",
-			categories: [],
-			desc: 'Supplemental Instruction Leader (08/2021 - 08/2022)'
-		},
-	]
+interface IProject {
+	title: string;
+	problem: string;
+	solution: string;
+	overview: string;
 }
+
+interface IWorkItem extends ISearchObject {
+	role: string;
+	dates: string;
+	overview: string;
+	metrics: string[];
+	banner: string;
+	projects: IProject[];
+	tools: { development: string[]; process: string[], design: string[]},
+	companyLink: string;
+}
+
+const workItems: IWorkItem[] = [
+	{
+		companyLink: "https://buildings.honeywell.com/us/en/brands/our-brands/lenels2",
+		id: "honeywell",
+		title: "Honeywell",
+		categories: ['Migration', 'Automation', 'Architecture'],
+		desc: 'Fullstack Software Engineer (01/2024 - 01/2025 & 01/2023 - 09/2023)',
+		role: "Fullstack Software Engineer",
+		dates: '01/2024 - 01/2025 & 01/2023 - 09/2023',
+		overview: 'Contributed to an access-control platform across frontend and backend systems. Focused on modernizing the frontend stack, improving developer workflows, and resolving user-facing issues, while providing support to interns',
+		metrics: [
+			'800+ API Endpoints Documented',
+			'90+ Stories Completed',
+			'10+ Reusable Vue Components'
+		],
+		banner: 'company-images/honeywell.png',
+		projects: [
+			{
+				title: 'Vue 3 Migration',
+				problem: 'Legacy frontend architecture slowed development and made components difficult to maintain.',
+				solution: 'Led migration to Vue 3, introducing reusable components and modern state management patterns.',
+				overview: 'Delivered 10+ reusable components and 4 new pages, improving maintainability and development speed.'
+			},
+			{
+				title: 'API Documentation Automation',
+				problem: 'API documentation was inconsistent, outdated, and time-consuming to maintain manually.',
+				solution: 'Built a script to parse API files and generate structured HTML documentation.',
+				overview: 'Standardized documentation for 800+ endpoints, improving developer efficiency and accuracy.'
+			},
+			{
+				title: 'Developer Guides & Onboarding',
+				problem: 'New engineers faced friction understanding environment setup and recurring issues.',
+				solution: 'Authored targeted guides covering setup, networking issues, and common pitfalls.',
+				overview: 'Reduced onboarding friction and support overhead; guides reached 250+ views within 6 months.'
+			}
+		],
+		tools: {
+			development: ["Vue 3", "Vue 2", "Angular", "Typescript", "Javascript", "Pinia", "Python", "Java", "Springboot", "MySQL"],
+			process: ["GitHub", "Rally", "Confluence", "Scrum"],
+			design: []
+		}
+	},
+	{
+		companyLink: 'https://www.poseidonsys.com/',
+		id: "poseidon",
+		title: "Poseidon Systems",
+		categories: ['Dashboard', 'Data Visualization', 'Localization'],
+		desc: 'Fullstack Software Engineer (08/2023 - 01/2024 & 08/2022 - 01/2023)',
+		role: "Fullstack Software Engineer",
+		dates: '08/2023 - 01/2024 & 08/2022 - 01/2023',
+		overview: 'Delivered features for an industrial condition monitoring platform, including oil analytics dashboards, localization support, and high-priority customer issue resolution. Worked across the full stack with rapid iteration cycles and contributed to onboarding improvements and intern mentorship',
+		metrics: [
+			'80+ Issues Resolved',
+			'Integrated i18n Support Across 50+ Frontend Components',
+			'7-Day Dashboard Delivery',
+		],
+		banner: 'company-images/poseidon.png',
+		projects: [
+			{
+				title: 'Oil Quality Dashboard',
+				problem: 'Customers lacked a clear way to interpret oil condition data for maintenance decisions.',
+				solution: 'Designed and implemented a full dashboard with graphs and indicators to visualize oil quality trends.',
+				overview: 'Delivered a complete dashboard in 7 days, improving customer ability to make timely maintenance decisions.'
+			},
+			{
+				title: 'Localization (i18n)',
+				problem: 'Application lacked support for multiple languages, limiting usability for global users.',
+				solution: 'Implemented localization support across the frontend using structured translation files.',
+				overview: 'Expanded accessibility of the platform for international users.'
+			},
+			{
+				title: 'Developer Product Guide',
+				problem: 'New developers struggled to understand system architecture and workflows.',
+				solution: 'Authored a structured onboarding and product guide.',
+				overview: 'Improved onboarding speed and reduced dependency on senior engineers.'
+			}
+		],
+		tools: {
+			development: ["Angular", "React", "Node", "Express", "GraphQL", "Typescript", "Javascript"],
+			process: ["GitLab", "Kanban Task-Tracking"],
+			design: ["Figma"]
+		}
+	},
+	{
+		companyLink: 'https://www.rit.edu/academicsuccesscenter/supplemental-instruction',
+		id: "rit-si",
+		title: "Rochester Institute of Technology",
+		categories: ['Education', 'Mentorship', 'Curriculum Design'],
+		desc: 'Supplemental Instruction Leader (08/2021 - 08/2022)',
+		role: "Supplemental Instruction Leader",
+		dates: '08/2021 - 08/2022',
+		overview: 'Led programming support sessions for students in Python and Java, focusing on improving comprehension, problem-solving, and study habits.',
+		metrics: [
+			'40+ Lessons Developed',
+			'25% Adoption by SI Leaders',
+			'15+ Students per Session'
+		],
+		banner: 'company-images/rit.png',
+		projects: [
+			{
+				title: 'Weekly Coding Curriculum',
+				problem: 'Students lacked structured practice outside lectures.',
+				solution: 'Developed weekly lessons covering core programming concepts and advanced topics.',
+				overview: 'Created over 40 lessons used by multiple SI leaders across semesters.'
+			},
+			{
+				title: 'Interactive Study Sessions',
+				problem: 'Students struggled with engagement and retention.',
+				solution: 'Led collaborative problem-solving sessions and guided discussions.',
+				overview: 'Improved student understanding and participation.'
+			}
+		],
+		tools: {
+			development: ["Java", "Python"],
+			process: ["Git"],
+			design: ["Google Slides"]
+		}
+	}
+]
+
+type ToolType = 'design' | 'process' | 'development';
+const toolTypes: ToolType[] = ['process', 'development', 'design']
+
 ---
 
 <div class="work-experience">
 	<LeftBrowseLayout>
 		<div slot="left-bar" class="full-height">
-			<OptionBrowseBar {...browser}/>
-		</div>
-		<div slot="main-content">
 			{
-				browser.searchObjects.map(o => {
+				() => {
+					const browser: IBrowseBarProps = {
+						browserId: "work-experience-browser",
+						title: "Work Experience",
+						filters: ['Migration', 'Automation', 'Documentation'],
+						searchObjects: workItems as ISearchObject[]
+					}
+					return <OptionBrowseBar {...browser}/>
+				}
+			}
+			
+		</div>
+		<div slot="main-content" class="main-content">
+			{
+				workItems.map((w, i) => {
 					return (
-						<div id={o.id + '-section'}>Currently working on this</div>
+						<div class={`work-info ${i ? 'invisible' : 'visible'}`}id={w.id + '-section'}>
+							<div 
+								class="top-fold"
+								style={`background-image: url(${w.banner});`}
+							>
+								
+								<div class="overlay">
+									
+									<h3>
+										<a href={w.companyLink} target="_blank">{w.title}</a>
+									</h3>
+									
+									<h1>
+										{
+											w.role
+										}
+									</h1>
+									
+									<p>
+										{
+											w.dates
+										}
+									</p>
+
+									<div class="badges">
+										{
+											w.categories.map(c => {
+												return <Badge text={c}></Badge>
+											})
+										}
+									</div>
+
+									<div class="highlights">
+										{
+											w.metrics!.map(m => {
+												return <div class="highlight">
+															<p>
+																{m}
+															</p>
+														</div>
+											})
+										}
+									</div>
+								</div>
+							</div>
+							
+							<div class="work-content indent">
+								<h3>
+									Overview
+								</h3>
+								<p class="indent">
+									{ 
+										w.overview 
+									}
+								</p>
+								<br>
+
+								<h3>
+									Tools & Technologies
+								</h3>
+								<div class="indent">
+									{
+										toolTypes.map(t => {
+											if (w.tools[t].length) {
+												return (
+													<div>
+														<h4>
+															{Array.from(t).map((c, i) => {
+																return i === 0 ? c.toUpperCase() : c;
+															})}
+														</h4>
+														<div class="badges">
+															{
+																w.tools[t].map(tool => {
+																	return <Badge text={tool}/>
+																})
+															}
+														</div>
+														
+													</div>
+												)
+											}
+										})
+									}
+									
+								</div>
+								<br>
+								
+								<h3>
+									Project Highlights
+								</h3>
+								{
+									w.projects.map(p => {
+										return (<div class="indent">
+											<h4>
+												{ p.title }
+											</h4>
+											<p class="indent">
+												{ p.overview }
+											</p>
+
+											{
+												() => {
+													const left = {
+														title: "Problem",
+														description: p.problem
+													}
+													const right = {
+														title: "Solution",
+														description: p.solution
+													}
+
+													return <TwoPanelFold left={left} right={right}></TwoPanelFold>
+												}
+											}
+											<br>
+										</div>)
+									})
+								}
+								<br class="bottom-spacing">
+							</div>
+							
+						</div>
 					)
 				})
 			}
@@ -60,6 +299,39 @@ const browser: IBrowseBarProps = {
 </div>
 
 <style>
+	a {
+		color:rgb(127, 255, 212);
+	}
+
+	h1 {
+		font-size: 3vh;
+		font-weight: 500;
+	}
+	h2 {
+		font-size: 2vh;
+		font-weight: 200;
+	}
+	h3 {
+		font-size: 1.75vh;
+		font-weight: 800;
+	}
+	h4 {
+		font-size: 1.5vh;
+		font-weight: 800;
+	}
+	p {
+		font-size: 1.5vh;
+		font-weight: 100;
+	}
+
+	.bottom-spacing {
+		margin-bottom: 5vh;
+	}
+
+	.work-info {
+		color: white;
+	}
+
 	.work-experience {
 		height: 100%;
 		width: 100%;
@@ -68,5 +340,66 @@ const browser: IBrowseBarProps = {
 
 	.full-height {
 		height: 100%;
+	}
+
+	.overlay {
+		background-color: rgba(34, 69, 100, 0.7);
+		padding: 1vh 1vw;
+	}
+
+	.top-fold {
+		background-size: cover;
+	}
+
+	.main-content {
+		overflow-y: scroll;
+		height: 100%;
+		flex: 1;
+	}
+
+	.highlights {
+		background-color: rgba(13, 53, 51, 0.8);
+		border-radius: 1vw;
+		border: solid 1px rgb(89, 151, 135);
+		height: fit-content;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+		padding: 1vh;
+	}
+
+	.highlight {
+		background-color: rgb(255, 188, 55);
+		border-radius: 1vw;
+		border: solid 1px rgb(255, 157, 0);
+		width: 25%;
+		min-height: 100%;
+		padding: .5vw;
+		text-align: center;
+	}
+
+	.banner {
+		width: 100%;
+		border-radius: 1vh;
+		opacity: .9;
+	}
+
+	.work-content {
+		padding: 1vh 1vw;
+	}
+
+	.badges {
+		display: flex;
+		flex-direction: row;
+		margin-bottom: 1vh;
+		flex-wrap: wrap;
+	}
+
+	.indent {
+		padding-left: 1vw;
+	}
+
+	.invisible {
+		display: none;
 	}
 </style>

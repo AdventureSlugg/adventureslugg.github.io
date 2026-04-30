@@ -35,7 +35,31 @@ const props = Astro.props as IBrowseBarProps;
 		} else {
 			selectedExperienceId = id;
 		}
+	}
+
+	// Search Functionality
+
+	function search(e, id) {
+		console.log("Searching...");
+		const searchTerm = e.target.value;
 		
+		const browser = id.split('project-search-bar-')[1];
+
+		if (browser) {
+			const items = document.querySelectorAll(`.${browser}`);
+			items.forEach(i => {
+				
+				const match = i.dataset.query.toLowerCase().includes(searchTerm.toLowerCase());
+				
+				if (!match) {
+					i.classList.add('invisible');
+				} else {
+					i.classList.remove('invisible')
+				}
+			})
+			
+		}
+			
 	}
 </script>
 
@@ -44,7 +68,7 @@ const props = Astro.props as IBrowseBarProps;
 		{props.title}
 	</h1>
 
-	<input class="search-bar" placeholder="Search..." id="project-search-bar">
+	<input class="search-bar" placeholder="Search..." id={"project-search-bar-" + props.browserId} >
 
 	<div class="filter-section">
 		{
@@ -64,8 +88,9 @@ const props = Astro.props as IBrowseBarProps;
 				return (
 					<div 
 						id={p.id}
-						class={"project-card " + `${props.browserId} ` + (props.searchObjects.length - 1 === i ? 'last ' : '') + (0 === i ? 'selected ' : '')}
+						class={"project-card " + `${props.browserId} ` + (props.searchObjects.length - 1 === i ? 'last ' : '') + (0 === i ? 'selected ' : '') + props.browserId}
 						onclick="selectProject(event)"
+						data-query={p.id + p.title + p.categories.toString() + p.desc}
 					>
 						<h2>
 							{p.title}
@@ -93,9 +118,20 @@ const props = Astro.props as IBrowseBarProps;
 	</div>
 </div>
 
+<script is:inline>
+window.addEventListener("DOMContentLoaded", () => {
+	const searchBars = document.querySelectorAll(".search-bar");
+
+	searchBars.forEach(el => {
+		el.addEventListener("input", e => search(e, el.id));
+	});
+});
+
+</script>
+
 <style>
 	h1 {
-		font-size: 18px;
+		font-size: 1.8vh;
 		font-weight: 100;
 		color: white;
 		margin-top: .5vh;
@@ -103,7 +139,7 @@ const props = Astro.props as IBrowseBarProps;
 	}
 
 	h2 {
-		font-size: 15px;
+		font-size: 1.5vh;
 		font-weight: 100;
 		color: white;
 		margin-top: .5vh;
@@ -112,7 +148,7 @@ const props = Astro.props as IBrowseBarProps;
 	}
 
 	h3 {
-		font-size: 12px;
+		font-size: 1.2vh;
 		font-weight: 100;
 		color: white;
 		margin-top: .5vh;
@@ -121,11 +157,14 @@ const props = Astro.props as IBrowseBarProps;
 	}
 
 	p {
-		font-size: 10px;
+		font-size: 1vh;
 		font-weight: 100;
 		color: white;
 		margin-top: .5vh;
 		margin-bottom: .5vh;
+	}
+	.invisible {
+		display: none;
 	}
 	.left-bar {
 		height: 100%;
@@ -134,14 +173,19 @@ const props = Astro.props as IBrowseBarProps;
 		display: flex;
 		overflow-x: scroll;
 		scrollbar-width: thin;
+		user-select: none;
 	}
 	.projects-selection {
 		margin-top: 1vh;
+		user-select: none;
 	}
 	.search-bar {
-		width: 85%;
+		width: calc(100% - 3vw);
 		border-radius: 10vh;
 		padding: 0 1vw;
+		height: 3vh;
+		margin: 0 .5vw;
+		font-size: 1.5vh;
 	}
 	.filter-section {
 		display: flex;
@@ -153,7 +197,7 @@ const props = Astro.props as IBrowseBarProps;
 		margin: 1vh 0 0 .5vw;
 		background: rgb(38, 54, 59);
 		color: white;
-		font-size: 12px;
+		font-size: 1.2vh;
 		padding: 1vh 1vw;
 		border-radius: .5vh;
 		border: .1vh solid var(--dark-stroke);
@@ -173,11 +217,15 @@ const props = Astro.props as IBrowseBarProps;
 	}
 	.filter-item {
 		background-color: rgb(243, 180, 70);
-		margin: 0 .5vw;
-		padding: 0 .5vw;
+		margin: .5vh .5vw;
+		padding: .5vh .5vw;
 		border-radius: 10vw;
 		color: white;
-		font-size: 12px;
+		font-size: 1.2vh;
+		user-select: none;
+		min-width: fit-content;
+		text-align: center;
+
 	}
 
 	.filter-item:hover {

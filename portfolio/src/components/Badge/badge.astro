@@ -1,0 +1,36 @@
+---
+interface IBadgeProps {
+	id: string;
+	text: string;
+	color: string;
+	hoverable: boolean;
+}
+
+const props = Astro.props as IBadgeProps;
+---
+
+<div 
+	id={`${props.id}-badge`}
+	class={`badge ${props.hoverable && 'hoverable'}`}
+	style={`background-color: ${props.color}`}
+>
+	{
+		props.text
+	}
+</div>
+
+<style>
+	.badge {
+		background-color: rgb(73, 185, 255);
+		width: fit-content;
+		padding: .5vh 1vw;
+		border-radius: 1vw;
+		font-size: 1.25vh;
+		margin: .5vh .5vw;
+		user-select: none;
+	}
+
+	.hoverable:hover {
+		opacity: .8;
+	}
+</style>

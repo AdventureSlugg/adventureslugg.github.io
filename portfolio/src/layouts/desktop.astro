@@ -31,14 +31,14 @@ const sections: IContentSection[] = [
 		title: 'Projects',
 		icon: '/icons/terminal-icon.png',
 		innerContent: Projects,
-		// initialDisplay: true
+		initialDisplay: true
 	},
 	{
 		id: 'work-experience',
 		title: 'Work Experience',
 		icon: '/icons/calendar-icon.png',
 		innerContent: WorkExperience,
-		initialDisplay: true
+		// initialDisplay: true
 	},
 	{
 		id: 'about-me',
@@ -84,24 +84,27 @@ const noIcon = '/icons/contact-book-icon.png';
 			</div>
 		</ApplicationContainer>
 
-		<ApplicationContainer id="message-notice">
-			<div class="text content" slot="content">
-				<h1>
-					UPDATE:
-				</h1>
-				<p>
-					Thanks for stopping by! My portfolio is currently under reconstruction.
-				</p>
+		<div class="mobile-update">
+			<ApplicationContainer id="message-notice" open="true">
+				<div class="text content" slot="content">
+					<h1>
+						UPDATE:
+					</h1>
+					<p>
+						This page is not yet set up properly for mobile experience.
+					</p>
 
-				<p>
-					Updates will continue gradually over the next couple of weeks. 
-				</p>
+					<p>
+						Updates will continue gradually over the next couple of weeks. 
+					</p>
 
-				<p>
-					Hope to see you again soon!
-				</p>
-			</div>
-		</ApplicationContainer>
+					<p>
+						Please check back soon!
+					</p>
+				</div>
+			</ApplicationContainer>
+		</div>
+		
 	</div>
 	<div class="tool-bar">
 		{
@@ -143,9 +146,17 @@ const noIcon = '/icons/contact-book-icon.png';
 		height: 97vh;
 	}
 
+	h1 {
+		font-size: 3vh;
+	}
+
+	p {
+		font-size: 2vh;
+	}
+
 	.content {
-		background-color: var(--dark-bg);
-		opacity: .8;
+		background-color: rgba(0, 0, 0, .9);
+		opacity: 1;
 		flex: 1;
 		overflow-y: scroll;
 	}
@@ -168,6 +179,9 @@ const noIcon = '/icons/contact-book-icon.png';
 			border: solid .1vw var(--dark-stroke);
 			box-shadow: var(--box-shadow);
 			min-width: 60vh;
+		}
+		.mobile-update {
+			display: none;
 		}
 	}
 
@@ -194,4 +208,5 @@ const noIcon = '/icons/contact-book-icon.png';
 	.full-width {
 		width: 100%;
 	}
+
 </style>

@@ -35,7 +35,31 @@ const props = Astro.props as IBrowseBarProps;
 		} else {
 			selectedExperienceId = id;
 		}
+	}
+
+	// Search Functionality
+
+	function search(e, id) {
+		console.log("Searching...");
+		const searchTerm = e.target.value;
 		
+		const browser = id.split('project-search-bar-')[1];
+
+		if (browser) {
+			const items = document.querySelectorAll(`.${browser}`);
+			items.forEach(i => {
+				
+				const match = i.dataset.query.toLowerCase().includes(searchTerm.toLowerCase());
+				
+				if (!match) {
+					i.classList.add('invisible');
+				} else {
+					i.classList.remove('invisible')
+				}
+			})
+			
+		}
+			
 	}
 </script>
 
@@ -44,7 +68,7 @@ const props = Astro.props as IBrowseBarProps;
 		{props.title}
 	</h1>
 
-	<input class="search-bar" placeholder="Search..." id="project-search-bar">
+	<input class="search-bar" placeholder="Search..." id={"project-search-bar-" + props.browserId} >
 
 	<div class="filter-section">
 		{
@@ -64,8 +88,9 @@ const props = Astro.props as IBrowseBarProps;
 				return (
 					<div 
 						id={p.id}
-						class={"project-card " + `${props.browserId} ` + (props.searchObjects.length - 1 === i ? 'last ' : '') + (0 === i ? 'selected ' : '')}
+						class={"project-card " + `${props.browserId} ` + (props.searchObjects.length - 1 === i ? 'last ' : '') + (0 === i ? 'selected ' : '') + props.browserId}
 						onclick="selectProject(event)"
+						data-query={p.id + p.title + p.categories.toString() + p.desc}
 					>
 						<h2>
 							{p.title}
@@ -92,6 +117,17 @@ const props = Astro.props as IBrowseBarProps;
 		<br>
 	</div>
 </div>
+
+<script is:inline>
+window.addEventListener("DOMContentLoaded", () => {
+	const searchBars = document.querySelectorAll(".search-bar");
+
+	searchBars.forEach(el => {
+		el.addEventListener("input", e => search(e, el.id));
+	});
+});
+
+</script>
 
 <style>
 	h1 {
@@ -126,6 +162,9 @@ const props = Astro.props as IBrowseBarProps;
 		color: white;
 		margin-top: .5vh;
 		margin-bottom: .5vh;
+	}
+	.invisible {
+		display: none;
 	}
 	.left-bar {
 		height: 100%;

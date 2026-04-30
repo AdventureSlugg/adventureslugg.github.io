@@ -139,13 +139,6 @@ const workItems: IWorkItem[] = [
 	}
 ]
 
-const browser: IBrowseBarProps = {
-	browserId: "work-experience-browser",
-	title: "Work Experience",
-	filters: ['Migration', 'Automation', 'Documentation'],
-	searchObjects: workItems as ISearchObject[]
-}
-
 type ToolType = 'design' | 'process' | 'development';
 const toolTypes: ToolType[] = ['process', 'development', 'design']
 
@@ -154,7 +147,18 @@ const toolTypes: ToolType[] = ['process', 'development', 'design']
 <div class="work-experience">
 	<LeftBrowseLayout>
 		<div slot="left-bar" class="full-height">
-			<OptionBrowseBar {...browser}/>
+			{
+				() => {
+					const browser: IBrowseBarProps = {
+						browserId: "work-experience-browser",
+						title: "Work Experience",
+						filters: ['Migration', 'Automation', 'Documentation'],
+						searchObjects: workItems as ISearchObject[]
+					}
+					return <OptionBrowseBar {...browser}/>
+				}
+			}
+			
 		</div>
 		<div slot="main-content" class="main-content">
 			{

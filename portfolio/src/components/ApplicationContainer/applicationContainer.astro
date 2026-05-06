@@ -94,14 +94,36 @@ const props = Astro.props as IApplicationProps;
 			left: 30vw;
 		}
 
+		/** Top bar is only active on desktop view */
+		.top-bar {
+			background-color: var(--dark-bg);
+			display: flex;
+			height: 3vh;
+		}
+
+		.top-bar:hover {
+			cursor: grab;
+		}
+
+		.top-bar:active {
+			cursor: grabbing;
+		}
+
 	}
 	@media (max-width: 1000px) {
 		.application-container {
-			height: 60vh;
-			width: 75vw;
-			top: 10vh;
-			left: 15vw;
+			height: 100%;
+			width: 100%;
+			top: 0;
+			left: 0;
+			background-color: black;
 		}
+
+		/** Top bar should not show on mobile and tablet */
+		.top-bar {
+			display: none;
+		}
+
 		h1 {
 			font-size: 5vh;
 		}
@@ -133,20 +155,6 @@ const props = Astro.props as IApplicationProps;
 		overflow: hidden;
 		display: flex;
 		flex-direction: column;
-	}
-
-	.top-bar {
-		background-color: var(--dark-bg);
-		display: flex;
-		height: 3vh;
-	}
-
-	.top-bar:hover {
-		cursor: grab;
-	}
-
-	.top-bar:active {
-		cursor: grabbing;
 	}
 
 	.option-container {

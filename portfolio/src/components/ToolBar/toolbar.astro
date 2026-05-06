@@ -15,13 +15,36 @@ const props = Astro.props as IToolBarProps;
 
 		const applicationElement = document.getElementById(e.target.dataset.applicationid);
 
-		// Flip the visibility
-		applicationElement.classList.toggle('visible')
-		applicationElement.classList.toggle('hidden')
+		// Toggle the focus
+		Array.from(document.getElementsByClassName('focused')).forEach(e => e.classList.remove('focused'))
+		applicationElement.classList.toggle('focused')
+
+		// If it's already open, just bring it to the front without toggling
+		if (applicationElement.classList.contains('visible')) {
+			if (applicationElement.style.zIndex == topZ) {
+				topZ -= 1;
+				// Flip the visibility
+				applicationElement.classList.toggle('visible')
+				applicationElement.classList.toggle('hidden')
+			} else {
+				// Set the element to the top index
+				topZ += 1;
+				applicationElement.style.zIndex = topZ;
+			}
+		} else {
+			// Flip the visibility
+			applicationElement.classList.toggle('visible')
+			applicationElement.classList.toggle('hidden')
+
+			// Set the element to the top index
+			topZ += 1;
+			applicationElement.style.zIndex = topZ;
+		}
+			
 	}
 </script>
 
-<div class="tool-bar">
+<div class="tool-bar" id="tool-bar">
 	{
 		props.menuOptions.map(o => {
 			if (o.leftOption) {

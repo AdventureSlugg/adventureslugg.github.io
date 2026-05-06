@@ -60,6 +60,9 @@ const sections: IContentSection[] = [
 const noIcon = '/icons/contact-book-icon.png';
 
 ---
+<script is:inline>
+	let topZ = 0;
+</script>
 
 <div class="desktop">
 	<div class="menu-bar">
@@ -228,6 +231,7 @@ const noIcon = '/icons/contact-book-icon.png';
 
 		.tool-bar {
 			position: absolute;
+			z-index: 999 !important;
 			width: 60vw;
 			height: 11vh;
 			border-radius: 1vw;
@@ -266,6 +270,7 @@ const noIcon = '/icons/contact-book-icon.png';
 			border: solid .1vw var(--dark-stroke);
 			box-shadow: var(--box-shadow);
 			min-width: 30vh;
+			z-index: 999 !important;
 		}
 	}
 

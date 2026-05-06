@@ -68,6 +68,7 @@ const props = Astro.props as IToolBarProps;
 	height: auto;
 	margin: 10px 0;
 	background-color: rgb(172, 172, 172);
+	color: rgba(0,0,0,0)
 }
 
 </style>
@@ -76,7 +77,6 @@ const props = Astro.props as IToolBarProps;
 	// Add all the click event listeners for the ToolBar
 	const toolBarOptionElements = document.getElementsByClassName("tool-bar-option");
 	Array.from(toolBarOptionElements).forEach(option => {
-		console.log("Adding event listener")
 		option.addEventListener("click", toggleApplicationView)
 	})
 </script>

@@ -138,6 +138,19 @@
 </script>
 
 <style>
+
+@media (min-width: 1001px) {
+	#trash-bin {
+		position: absolute;
+		bottom: 0;
+	}
+}
+@media (max-width: 1000px) {
+	#trash-bin {
+		position: absolute;
+		bottom: 12vh;
+	}
+}
 .hidden {
 	display: none;
 }
@@ -153,11 +166,6 @@
 .game-container {
 	display: flex;
 	flex-direction: column;
-}
-
-#trash-bin {
-	position: absolute;
-	bottom: 0;
 }
 
 .score {

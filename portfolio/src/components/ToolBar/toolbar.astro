@@ -6,13 +6,6 @@ interface IToolBarProps {
 	menuOptions: IToolBarOption[]
 }
 
-const trashOption: IToolBarOption = {
-	title: 'Trash',
-	url: '/icons/trash-icon.png',
-	id: 'trash-game',
-	applicationId: 'trash-game-application-container'
-}
-
 const props = Astro.props as IToolBarProps;
 ---
 
@@ -30,12 +23,15 @@ const props = Astro.props as IToolBarProps;
 
 <div class="tool-bar">
 	{
-		props.menuOptions.map(o => <ToolBarOption {...o}/>)
+		props.menuOptions.map(o => {
+			if (o.leftOption) {
+				return <span class="vertical-bar">|</span><ToolBarOption {...o}/>			
+			}
+			return <ToolBarOption {...o}/>
+		})
 	}
 
-	<div class="vertical-line"/>
-
-	<ToolBarOption {...trashOption}/>
+	
 </div>
 
 <style>
@@ -44,18 +40,20 @@ const props = Astro.props as IToolBarProps;
 	justify-content: space-around;
 }
 
-.vertical-line {
-	height: 9vh;
-	width: .1vw;
-	background-color: var(--dark-stroke);
-	margin-top: 1vh;
+.vertical-bar {
+	width: .1vh;
+	height: auto;
+	margin: 10px 0;
+	background-color: rgb(172, 172, 172);
 }
+
 </style>
 
 <script is:inline>
 	// Add all the click event listeners for the ToolBar
 	const toolBarOptionElements = document.getElementsByClassName("tool-bar-option");
 	Array.from(toolBarOptionElements).forEach(option => {
+		console.log("Adding event listener")
 		option.addEventListener("click", toggleApplicationView)
 	})
 </script>

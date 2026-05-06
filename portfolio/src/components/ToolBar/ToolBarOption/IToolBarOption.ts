@@ -3,4 +3,6 @@ export interface IToolBarOption {
 	url: string;
 	id: string;
 	applicationId: string;
+	iconSize?: 'large' | 'medium' | 'small',
+	leftOption?: boolean;
 }

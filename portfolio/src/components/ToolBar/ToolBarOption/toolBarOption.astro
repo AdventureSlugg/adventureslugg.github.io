@@ -9,8 +9,8 @@ const props = Astro.props as IToolBarOption;
 		<HoverLabel label={props.title}/>
 	</span>
 	<img
-		class="tool-bar-option" 
-		src={props.url}
+		class={`tool-bar-option ${props.iconSize}`}
+		src={props.url} 
 		onclick="toggleApplicationView"
 		data-applicationID={props.applicationId}
 		alt={props.title}
@@ -18,7 +18,7 @@ const props = Astro.props as IToolBarOption;
 </div>
 
 <style>
-	@media (min-width: 585px) {
+	@media (min-width: 1001px) {
 		.tool-bar-option {
 			height: 10vh;
 			width: 10vh;
@@ -34,7 +34,7 @@ const props = Astro.props as IToolBarOption;
 		}
 	}
 
-	@media (max-width: 584px) {
+	@media (max-width: 1000px) {
 		.tool-bar-option {
 			height: 5vh;
 			width: 5vh;
@@ -48,9 +48,25 @@ const props = Astro.props as IToolBarOption;
 		.icon-wrapper:hover .hover-label {
 			opacity: 1;
 		}
+		.small {
+			height: 5vh !important;
+			width: 5vh !important;
+			padding: .25vh !important;
+		}
+		.large {
+			height: 10vh !important;
+			width: 10vh !important;
+			padding: .5vh !important;
+		}
 	}
 
 	.tool-bar-option:hover {
 		scale: 1.1;
 	}
+
+	.icon-wrapper {
+		text-align: center !important;
+	}
+
+
 </style>

@@ -7,6 +7,7 @@ import WorkExperience from "../contentSections/workExperience.astro";
 import ContactMe from "../contentSections/contactMe.astro";
 import TrashGame from "../contentSections/trashGame.astro";
 import type { IToolBarOption } from "../components/ToolBar/ToolBarOption/IToolBarOption";
+import ToolBarOption from "../components/ToolBar/ToolBarOption/toolBarOption.astro";
 
 interface IContentSection {
 	/** Used to reference the related components (ex: id-application-container and id-menu-option) */
@@ -59,13 +60,33 @@ const sections: IContentSection[] = [
 const noIcon = '/icons/contact-book-icon.png';
 
 ---
+<script is:inline>
+	let topZ = 0;
+
+	const mobileSetup = (event) => {
+		if (window.innerWidth < 1000) {
+			Array.from(document.getElementsByClassName('initial-visible')).forEach(e => {
+				e.classList.remove('visible');
+				e.classList.add('hidden')
+			})
+		} else {
+			Array.from(document.getElementsByClassName('initial-visible')).forEach(e => {
+				e.classList.remove('hidden');
+				e.classList.add('visible')
+			})
+		}
+	}
+
+	addEventListener("DOMContentLoaded", mobileSetup);
+	addEventListener("resize", mobileSetup);
+</script>
 
 <div class="desktop">
 	<div class="menu-bar">
 
 	</div>
-	<div class="main-content">
 
+	<div class="main-content">
 		{
 			sections.map(section => {
 				const InnerContent = section.innerContent;
@@ -77,35 +98,51 @@ const noIcon = '/icons/contact-book-icon.png';
 				</ApplicationContainer>
 			})
 		}
-
 		<ApplicationContainer id="trash-game-application-container">
 			<div slot="content" class="full-height full-width">
 				<TrashGame></TrashGame>
 			</div>
 		</ApplicationContainer>
-
-		<div class="mobile-update">
-			<ApplicationContainer id="message-notice" open="true">
-				<div class="text content" slot="content">
-					<h1>
-						UPDATE:
-					</h1>
-					<p>
-						This page is not yet set up properly for mobile experience.
-					</p>
-
-					<p>
-						Updates will continue gradually over the next couple of weeks. 
-					</p>
-
-					<p>
-						Please check back soon!
-					</p>
-				</div>
-			</ApplicationContainer>
-		</div>
-		
 	</div>
+
+	<div class="mobile-content">
+		<div class="top-banner">
+			<h1>
+				Welcome to Zoe's Playground!
+			</h1>
+
+			<p>Update:</p>
+
+			<p>
+				Currently working on Mobile Interactions. Please check back again soon!
+			</p>
+		</div>
+
+		<div class="app-icons">
+			{
+				() => {
+					return sections.map(section => {
+						return (
+							<div class="mobile-icon">
+								<ToolBarOption 
+									id={section.id + '-menu-option'}
+									title={section.title}
+									url={section.icon ? section.icon : noIcon}
+									applicationId={section.id + '-application-container'}
+									iconSize="large"
+								/>	
+								<p class="mobile-icon-text">
+									{section.title}
+								</p>
+							</div>
+							
+						)		
+					})
+				}
+			}
+		</div>
+	</div>
+
 	<div class="tool-bar">
 		{
 			() => {
@@ -117,7 +154,17 @@ const noIcon = '/icons/contact-book-icon.png';
 						title: section.title,
 						url: section.icon ? section.icon : noIcon,
 						applicationId: section.id + '-application-container',
+						iconSize: 'small'
 					});				
+				})
+
+				toolBarOptions.push({
+					title: 'Trash',
+					url: '/icons/trash-icon.png',
+					id: 'trash-game',
+					applicationId: 'trash-game-application-container',
+					iconSize: 'small',
+					leftOption: true
 				})
 
 				return <Toolbar menuOptions={toolBarOptions}/>
@@ -127,6 +174,34 @@ const noIcon = '/icons/contact-book-icon.png';
 </div>
 
 <style>
+	.mobile-icon {
+		margin-bottom: 3vh;
+	}
+
+	.mobile-icon-text {
+		margin: auto;
+		color: white;
+		width: fit-content;
+		text-align: center;
+	}
+	.app-icons {
+		flex: 1;
+		padding: 0vh 8vw;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	.top-banner {
+		background-color: rgba(24, 24, 24, 0.9);
+		height: 25%;
+		margin: 3vh 8vw;
+		min-width: calc(100% - 26vw);
+		border-radius: 3vw;
+		padding: 2vh 5vw;
+		color: white;
+		text-align: center;
+	}
+
 	.desktop {
 		background-color: rgb(0, 0, 0);
 		background-image: url(/public/background/cat-background.webp);
@@ -140,10 +215,6 @@ const noIcon = '/icons/contact-book-icon.png';
 		background-color: black;
 		min-width: 100vw;
 		min-height: 3vh;
-	}
-
-	.main-content {
-		height: 97vh;
 	}
 
 	h1 {
@@ -166,14 +237,25 @@ const noIcon = '/icons/contact-book-icon.png';
 		padding: 1vw;
 	}
 
-	@media (min-width: 585px) {
+	.tool-bar {
+		background-color: rgba(54, 54, 54, .8);
+	}
+
+	@media (min-width: 1001px) {
+		.desktop-content {
+			display: inherit;
+		}
+
+		.mobile-content {
+			display: none;
+		}
+
 		.tool-bar {
 			position: absolute;
+			z-index: 999 !important;
 			width: 60vw;
 			height: 11vh;
 			border-radius: 1vw;
-			background-color: var(--dark-bg);
-			opacity: 80%;
 			bottom: 0;
 			margin: 1vh 20vw;
 			border: solid .1vw var(--dark-stroke);
@@ -185,19 +267,27 @@ const noIcon = '/icons/contact-book-icon.png';
 		}
 	}
 
-	@media (max-width: 584px) {
+	@media (max-width: 1000px) {
+		.desktop-content {
+			display: none;
+		}
+
+		.mobile-content {
+			display: flex;
+			flex-direction: column;
+		}
+
 		.tool-bar {
 			position: absolute;
 			width: 70vw;
 			height: 6vh;
 			border-radius: 1vw;
-			background-color: var(--dark-bg);
-			opacity: 80%;
 			bottom: 0;
 			margin: 15vh 15vw;
 			border: solid .1vw var(--dark-stroke);
 			box-shadow: var(--box-shadow);
 			min-width: 30vh;
+			z-index: 999 !important;
 		}
 	}
 

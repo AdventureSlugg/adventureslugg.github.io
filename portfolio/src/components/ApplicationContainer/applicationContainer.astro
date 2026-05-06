@@ -76,7 +76,7 @@ const props = Astro.props as IApplicationProps;
 	}
 </script>
 
-<div id={props.id} class={`application-container ${props.open ? ' visible' : ' hidden'}`}>
+<div id={props.id} class={`application-container ${props.open ? ' visible initial-visible' : ' hidden'}`}>
 	<div class="top-bar" onpointerdown="down(event)">
 		<div class="option-container">
 			<div class="red circle" onclick=""/>

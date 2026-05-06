@@ -62,6 +62,23 @@ const noIcon = '/icons/contact-book-icon.png';
 ---
 <script is:inline>
 	let topZ = 0;
+
+	const mobileSetup = (event) => {
+		if (window.innerWidth < 1000) {
+			Array.from(document.getElementsByClassName('initial-visible')).forEach(e => {
+				e.classList.remove('visible');
+				e.classList.add('hidden')
+			})
+		} else {
+			Array.from(document.getElementsByClassName('initial-visible')).forEach(e => {
+				e.classList.remove('hidden');
+				e.classList.add('visible')
+			})
+		}
+	}
+
+	addEventListener("DOMContentLoaded", mobileSetup);
+	addEventListener("resize", mobileSetup);
 </script>
 
 <div class="desktop">

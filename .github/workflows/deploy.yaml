@@ -20,6 +20,8 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v5
+      - name: Enable Corepack to Use pnpm
+        run: corepack enable
       - name: Approve pnpm Builds
         run: pnpm approve-builds
         working-directory: ./portfolio

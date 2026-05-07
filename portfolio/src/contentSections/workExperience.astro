@@ -299,6 +299,32 @@ const toolTypes: ToolType[] = ['process', 'development', 'design']
 </div>
 
 <style>
+
+	@media (min-width: 1001px) {
+		.overlay {
+			padding: 1vh 1vw;
+		}
+
+		.work-content {
+			padding: 1vh 1vw;
+		}
+
+		.indent {
+			padding-left: 1vw;
+		}
+	}
+
+	@media (max-width: 1000px) {
+		.overlay {
+			padding: 5vh 12vw;
+		}
+
+		.work-content {
+			padding: 5vh 12vw;
+		}
+
+	}
+
 	a {
 		color:rgb(127, 255, 212);
 	}
@@ -344,7 +370,6 @@ const toolTypes: ToolType[] = ['process', 'development', 'design']
 
 	.overlay {
 		background-color: rgba(34, 69, 100, 0.7);
-		padding: 1vh 1vw;
 	}
 
 	.top-fold {
@@ -384,19 +409,11 @@ const toolTypes: ToolType[] = ['process', 'development', 'design']
 		opacity: .9;
 	}
 
-	.work-content {
-		padding: 1vh 1vw;
-	}
-
 	.badges {
 		display: flex;
 		flex-direction: row;
 		margin-bottom: 1vh;
 		flex-wrap: wrap;
-	}
-
-	.indent {
-		padding-left: 1vw;
 	}
 
 	.invisible {

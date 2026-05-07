@@ -10,23 +10,38 @@
 </div>
 
 <style>
+
+	@media (max-width: 1000px) {
+		.left-bar {
+			display: none;
+		}
+
+		.main-content {
+			padding-bottom: 10vh;
+		}
+	}
+
+	@media (min-width: 1001px) {
+			.left-bar {
+				background-color: rgba(21,21,21, .3);
+				border: solid var(--dark-stroke);
+				border-width: 0 .1vh 0 0;
+				min-width: 30%;
+				max-width: 30%;
+				padding: 1vh 1.5vw;
+				min-height: 100%;
+				scrollbar-width: thin;
+				overflow-y: scroll;
+				overflow-x: hidden;
+			}
+	}
+	
 	.container {
 		display: flex;
 		flex-direction: row;
 		height: 100%;
 	}
-	.left-bar {
-		background-color: rgba(21,21,21, .3);
-		border: solid var(--dark-stroke);
-		border-width: 0 .1vh 0 0;
-		min-width: 30%;
-		max-width: 30%;
-		padding: 1vh 1.5vw;
-		min-height: 100%;
-		scrollbar-width: thin;
-		overflow-y: scroll;
-		overflow-x: hidden;
-	}
+
 	.main-content {
 		width: 100%;
 	}

@@ -5,6 +5,7 @@
 <script is:inline>
 	let started = false;
 	let score = 0;
+	let trashCount = 0;
 
 	function startGame() {
 		resetScore();
@@ -18,6 +19,8 @@
 
 		// Spawn trash every ~500ms
 		const spawnInterval = setInterval(() => {
+			if (trashCount > 59) return;
+
 			if (!started) return;
 
 			const trash = document.createElement("div");
@@ -36,6 +39,7 @@
 
 			// Add the trash to the top 
 			container.appendChild(trash);
+			trashCount += 1;
 
 			fall(trash);
 		}, 500);
@@ -47,7 +51,7 @@
 
 			// End the trash spawn
 			clearInterval(spawnInterval);
-		}, 30000);
+		}, 40000);
 	}
 
 	function incrementScore () {
@@ -138,6 +142,19 @@
 </script>
 
 <style>
+
+@media (min-width: 1001px) {
+	#trash-bin {
+		position: absolute;
+		bottom: 0;
+	}
+}
+@media (max-width: 1000px) {
+	#trash-bin {
+		position: absolute;
+		bottom: 12vh;
+	}
+}
 .hidden {
 	display: none;
 }
@@ -153,11 +170,6 @@
 .game-container {
 	display: flex;
 	flex-direction: column;
-}
-
-#trash-bin {
-	position: absolute;
-	bottom: 0;
 }
 
 .score {

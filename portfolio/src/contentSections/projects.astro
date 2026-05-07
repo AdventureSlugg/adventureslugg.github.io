@@ -610,6 +610,17 @@ const props = Astro.props as IProjectProps
 </div>
 
 <style>
+	@media (min-width: 1001px) {
+		.project-info {
+			padding: 2vh 2vw
+		}
+	}
+
+	@media (max-width: 1000px) {
+		.project-info {
+			padding: 5vh 12vw;
+		}
+	}
 	.bottom-spacing {
 		margin-bottom: 5vh;
 	}
@@ -711,7 +722,6 @@ const props = Astro.props as IProjectProps
 
 .project-info {
 	color: white;
-	padding: 2vh 2vw
 }
 
 </style>

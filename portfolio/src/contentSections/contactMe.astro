@@ -9,9 +9,10 @@
 
 		<p> Feel free to shoot me a quick message and we can chat more! </p>
 
-		<a href="mailto:zoe@zoeb.dev"><img src="/icons/contact/email.png" class="icon" alt="email icon"></a>
-
-		<a href="https://linkedin.com/in/zoe-bingham/" target="_blank"><img src="/icons/contact/linkedin.png" class="icon" alt="linkedin icon"></a>
+		<div class="socials">
+			<a href="mailto:zoe@zoeb.dev"><img src="/icons/contact/email.png" class="icon" alt="email icon"></a>
+			<a href="https://linkedin.com/in/zoe-bingham/" target="_blank"><img src="/icons/contact/linkedin.png" class="icon" alt="linkedin icon"></a>
+		</div>
 	</div>
 	
 
@@ -19,10 +20,10 @@
 		id="email-form" 
 		class="email-form"
 	>
-		<h1>Message Me</h1>
+		<h1 class="form-title">Message Me</h1>
 		<div class="sender-info">
-			<div>
-				<p>Name</p>
+			<div class="field">
+				<p>Name * </p>
 				<input 
 					id="sender"
 					name="sender"
@@ -31,8 +32,8 @@
 				>
 			</div>
 
-			<div style="margin-left: 1vw">
-				<p>Email</p>
+			<div class="field" style="margin-left: 1vw">
+				<p>Email * </p>
 				<input 
 					id="replyTo"
 					name="replyTo"
@@ -44,8 +45,8 @@
 			
 		</div>
 
-		<div>
-			<p> Subject </p>
+		<div class="field">
+			<p> Subject * </p>
 			<input 
 				id="subject"
 				name="subject"
@@ -55,8 +56,8 @@
 			>
 		</div>
 		
-		<div class="message-section">
-			<p> Message </p>
+		<div class="field message-section">
+			<p> Message * </p>
 			<textarea 
 				id="message"
 				name="message"
@@ -71,15 +72,98 @@
 			class="button"
 		> Send </button>
 
-		<div id="email-status-banner" class="invisible">
-		</div>
+		<div id="email-status-banner" class="invisible"></div>
 	</form>
 </div>
 
 <style>
+	@media (min-width: 1001px) {
+		.left-section {
+			width: 40%;
+			padding: 1vh 1.5vw;
+		}
+		.email-form {
+			width: 60%;
+			height: calc(100% - 4vh);
+		}
+		.full-width {
+			width: 100%;
+		}
+		.message-content {
+			height: 50%
+		}
+		#email-status-banner {
+			bottom: 2vh;
+		}
+	}
+
+	@media (max-width: 1000px) {
+		.contact-section {
+			flex-direction: column;
+		}
+
+		.left-section {
+			padding: 5vh 12vw;
+		}
+
+		.email-form {
+			margin: 0 12vw;
+			margin-bottom: 15vh;
+		}
+		input {
+			height: 4vh;
+			border-radius: .5vh;
+			padding: 0 2vw;
+		}
+
+		textarea {
+			border-radius: .5vh;
+			margin-bottom: 3vh;
+			padding: 1vh 2vw;
+		}
+
+		.form-title {
+			font-size: 3vh;
+			padding: 1vh 3vw;
+		}
+
+		.field {
+			padding: 0 3vw;
+		}
+
+		.button {
+			margin: 0 3vw;
+		}
+
+		.message-section {
+			height: -webkit-fill-available;
+		}
+
+		.message-content {
+			height: -webkit-fill-available;
+  			margin-bottom: 7vh;
+		}
+
+		.socials {
+			padding-top: 3vh;
+			margin: auto;
+			width: fit-content;
+		}
+
+		.icon {
+			padding: 0 2vw;
+		}
+
+		#email-status-banner {
+			top: 8vh;
+			width: calc(100% - 24vw);
+		}
+	}
+
 	h1 {
 		font-size: 3vh;
 	}
+
 	p {
 		font-size: 1.75vh;
 		margin-bottom: .5vh;
@@ -87,10 +171,12 @@
 
 	input {
 		font-size: 1.75vh;
+		width: -webkit-fill-available;
 	}
 
 	textarea {
 		font-size: 1.75vh;
+		width: -webkit-fill-available;
 	}
 
 	.invisible {
@@ -103,19 +189,18 @@
 		padding: 2vh 2vw;
 		margin-right: 2vw;
 		position: absolute;
-		bottom: 2vh;
+		box-shadow: var(--box-shadow);
+		color: white;
 	}
 
 	.success {
-		background-color: rgba(51, 255, 89, 0.8);
-		border: .2vh solid rgb(11, 170, 0);
-		color: rgb(6, 88, 0)
+		background-color: rgb(21, 196, 53);
+		border: .2vh solid rgb(36, 122, 31);
 	}
 
 	.failed {
-		background-color: rgba(255, 37, 37, 0.8);
+		background-color: rgb(224, 24, 24);
 		border: .2vh solid rgb(201, 0, 0);
-		color: rgb(99, 0, 0);
 	}
 
 	.contact-section {
@@ -129,20 +214,13 @@
 		display: flex;
 	}
 
-	.left-section {
-		width: 40%;
-		padding: 1vh 1.5vw;
-	}
-
 	.email-form {
 		display: flex;
 		flex-direction: column;
 		background-color: rgba(255,255,255, .8);
 		border-radius: 1vh;
 		padding: 1vh 1vw;
-		width: 60%;
 		flex: 1;
-		height: calc(100% - 4vh);
 	}
 
 	.email-form p {
@@ -155,15 +233,6 @@
 
 	h1 {
 		margin: 0;
-	}
-	.full-width {
-		width: 100%;
-	}
-	.message-content {
-		height: 50%
-	}
-	.message-section {
-		height: 100%
 	}
 
 	.button {
@@ -182,6 +251,7 @@
 	.sender-info {
 		display: flex;
 		flex-direction: row;
+		margin-right: 3vw;
 	}
 
 	#sender, #replyTo {

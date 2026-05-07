@@ -78,6 +78,9 @@
 
 <style>
 	@media (min-width: 1001px) {
+		.contact-section {
+			height: calc(100% - 2vh);
+		}
 		.left-section {
 			width: 40%;
 			padding: 1vh 1.5vw;
@@ -95,11 +98,15 @@
 		#email-status-banner {
 			bottom: 2vh;
 		}
+		.button {
+			height: 8vh;
+		}
 	}
 
 	@media (max-width: 1000px) {
 		.contact-section {
 			flex-direction: column;
+			height: auto;
 		}
 
 		.left-section {
@@ -108,8 +115,9 @@
 
 		.email-form {
 			margin: 0 12vw;
-			margin-bottom: 15vh;
+			margin-bottom: 20vh;
 		}
+
 		input {
 			height: 4vh;
 			border-radius: .5vh;
@@ -133,6 +141,7 @@
 
 		.button {
 			margin: 0 3vw;
+			height: 4vh;
 		}
 
 		.message-section {
@@ -141,8 +150,7 @@
 
 		.message-content {
 			/* height: -webkit-fill-available; */
-			min-height: 8vh;
-  			margin-bottom: 7vh;
+  			margin-bottom: 1vh;
 		}
 
 		.socials {
@@ -207,7 +215,6 @@
 	.contact-section {
 		background-color: var(--dark-bg);
 		opacity: .90;
-		height: calc(100% - 2vh);
 		padding: 1vh 1vw;
 		color: white;
 		overflow-y: scroll;
@@ -242,7 +249,6 @@
 		font-size: 2vh;
 		border-radius: 1vh;
 		border: none;
-		height: 8vh;
 	}
 
 	.button:hover {

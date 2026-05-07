@@ -20,16 +20,6 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v5
-      - name: Setup Node 24
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24
-          cache: 'pnpm'
-      - name: Enable Corepack to Use pnpm
-        run: corepack enable
-      - name: Approve pnpm Builds
-        run: pnpm approve-builds
-        working-directory: ./portfolio
       - name: Install, build, and upload your site
         uses: withastro/action@v5
         with:

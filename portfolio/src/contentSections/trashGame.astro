@@ -51,7 +51,7 @@
 
 			// End the trash spawn
 			clearInterval(spawnInterval);
-		}, 40000);
+		}, 32500); // Additional 2.5 seconds for last trash to fall
 	}
 
 	function incrementScore () {
@@ -62,6 +62,7 @@
 
 	function resetScore () {
 		score = 0;
+		trashCount = 0;
 	}
 
 	function fall(trash) {

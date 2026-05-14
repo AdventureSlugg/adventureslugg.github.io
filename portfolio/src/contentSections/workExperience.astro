@@ -1,4 +1,5 @@
 ---
+import ArrowNav from "../components/ArrowNav/arrowNav.astro";
 import Badge from "../components/Badge/badge.astro";
 import LeftBrowseLayout from "../components/LeftBrowseLayout/leftBrowseLayout.astro";
 import type { IBrowseBarProps, ISearchObject } from "../components/OptionBrowseBar/IOptionBrowseBar";
@@ -165,6 +166,7 @@ const toolTypes: ToolType[] = ['process', 'development', 'design']
 			
 		</div>
 		<div slot="main-content" class="main-content">
+			<ArrowNav navId="work-experience"></ArrowNav>
 			{
 				workItems.map((w, i) => {
 					return (

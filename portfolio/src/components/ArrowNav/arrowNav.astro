@@ -1,0 +1,115 @@
+---
+interface IArrowNav {
+	navId: string;
+}
+
+const props = Astro.props as IArrowNav;
+---
+
+<script is:inline>
+	
+</script>
+
+<div class="vertical-center">
+	<button
+		id={`${props.navId}-d-left`}
+		class="left arrow-nav" 
+	>
+		←
+	</button>
+	
+	<button 
+		id={`${props.navId}-d-right`}
+		class="right arrow-nav"
+	>
+		→
+	</button>
+</div>
+
+<style>
+	@media (max-width: 1000px) {
+		.vertical-center {
+			bottom: 50vh;
+			position: absolute;
+			width: 100%;
+		}
+
+		.left {
+			position: absolute;
+			left: 1vw;
+		}
+
+		.right {
+			position: absolute;
+			right: 1vw;
+		}
+
+		button {
+			height: 10vh;
+			width: 5vw;
+			color: white;
+			background-color: rgb(0, 140, 255);
+			border-radius: .5vw;
+			border: none;
+			box-shadow: var(--box-shadow);
+		}
+	}
+
+	@media (min-width: 1001px) {
+		.vertical-center {
+			display: none;
+		}
+	}
+	
+</style>
+
+<script is:inline>
+	// Once the dom content has been loaded, add navigation events to the arrows
+	window.addEventListener("DOMContentLoaded", () => {
+		const arrowNavElements = document.querySelectorAll('.arrow-nav');
+
+		const projects = Array.from(document.getElementsByClassName('project-info'));
+		const works = Array.from(document.getElementsByClassName('work-info'));
+
+		const projectsIDs = projects.map(p => p.id); let projectIndex = 0;
+		const workIDs = works.map(w => w.id); let workIndex = 0;
+
+		function displayElement(elementArray, elementId) {
+			// Change the visibility to the correct project
+			elementArray.forEach(e => {
+				if (e.id == elementId) {
+					e.classList.remove('invisible');
+					e.classList.add('visible');
+				} else {
+					e.classList.remove('visible');
+					e.classList.add('invisible');
+				}				
+			})
+		}
+
+		const selectElement = (elementType, direction) => {
+
+			switch (elementType) {
+				case 'project-section':
+					projectIndex = ((direction == 'right') ? projectIndex + 1 : projectIndex - 1) % projectsIDs.length;
+					displayElement(projects, projectsIDs[projectIndex < 0 ? projectIndex * -1 : projectIndex]);
+					console.log(projectIndex)
+
+					break;
+				case 'work-experience':
+					workIndex = ((direction == 'right') ? workIndex + 1 : workIndex - 1) % workIDs.length;
+					displayElement(works, workIDs[workIndex < 0 ? workIndex * -1 : workIndex]);
+
+					break;
+			}
+		}
+
+		arrowNavElements.forEach(e => {
+			e.addEventListener("click", (e) => {
+				const descriptors = e.currentTarget.id.split('-d-')
+				selectElement(descriptors[0], descriptors[1])
+			})
+		})
+	})
+	
+</script>

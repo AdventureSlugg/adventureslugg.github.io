@@ -314,6 +314,20 @@ const toolTypes: ToolType[] = ['process', 'development', 'design']
 		.indent {
 			padding-left: 1vw;
 		}
+
+		.work-experience {
+			background-color: rgba(25, 85, 82, 0.8);
+		}
+
+		.highlights {
+			padding: 1vh;
+			background-color: rgba(13, 53, 51, 0.8);
+			border: solid 1px rgb(89, 151, 135);
+		}
+
+		.overlay {
+			background-color: rgba(34, 69, 100, 0.7);
+		}
 	}
 
 	@media (max-width: 1000px) {
@@ -324,7 +338,17 @@ const toolTypes: ToolType[] = ['process', 'development', 'design']
 		.work-content {
 			padding: 5vh 12vw;
 		}
+		.work-experience {
+			background-color: #1e1e1e
+		}
 
+		.highlights {
+			padding: 2vh 1vw;
+		}
+
+		.overlay {
+			background-color: rgba(0, 38, 75, 0.7);
+		}
 	}
 
 	a {
@@ -363,15 +387,10 @@ const toolTypes: ToolType[] = ['process', 'development', 'design']
 	.work-experience {
 		height: 100%;
 		width: 100%;
-		background-color: rgba(25, 85, 82, 0.8);
 	}
 
 	.full-height {
 		height: 100%;
-	}
-
-	.overlay {
-		background-color: rgba(34, 69, 100, 0.7);
 	}
 
 	.top-fold {
@@ -385,14 +404,12 @@ const toolTypes: ToolType[] = ['process', 'development', 'design']
 	}
 
 	.highlights {
-		background-color: rgba(13, 53, 51, 0.8);
 		border-radius: 1vw;
-		border: solid 1px rgb(89, 151, 135);
+		border-radius: 1vw;
 		height: fit-content;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-around;
-		padding: 1vh;
 	}
 
 	.highlight {

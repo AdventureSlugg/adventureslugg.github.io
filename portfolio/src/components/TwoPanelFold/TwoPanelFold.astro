@@ -23,7 +23,7 @@ const props = Astro.props as TwoFoldProps;
 		</p>
 	</div>
 	
-	<div class="fold" style="border-left: dashed white .1vh;">
+	<div class="right fold">
 		<h2>
 			{props.right.title}
 		</h2>
@@ -47,9 +47,8 @@ const props = Astro.props as TwoFoldProps;
 		border-radius: 1vh;
 		border: solid rgb(255, 255, 255) .1vh;
 	}
+
 	h2 {
-		font-size: 1.5vh;
-		font-weight: 100;
 		color: white;
 		margin-top: .5vh;
 		margin-bottom: .5vh;
@@ -57,10 +56,41 @@ const props = Astro.props as TwoFoldProps;
 	}
 
 	p {
-		font-size: 1.25vh;
-		font-weight: 100;
 		color: white;
 		margin-top: .5vh;
 		margin-bottom: .5vh;
+	}
+
+	@media (min-width: 1001px) {
+		.right {
+			border-left: dashed white .1vh;
+		}
+
+		h2 {
+			font-size: 1.5vh;
+			font-weight: 100;
+		}
+		
+		p {
+			font-size: 1.25vh;
+			font-weight: 100;
+		}
+	}
+
+	@media (max-width: 1000px) {
+		.right {
+			border-left: dashed white 1px;
+			padding-left: 2vw;
+		}
+
+		h2 {
+			font-size: 2vh;
+			font-weight: 100;
+		}
+		
+		p {
+			font-size: 1.5vh;
+			font-weight: 100;
+		}
 	}
 </style>

@@ -67,6 +67,7 @@
 
 	function fall(trash) {
 		const speed = 2 + Math.random() * 3;
+		const container = trash.parentElement;
 
 		function step() {
 			if (!started) {
@@ -80,7 +81,7 @@
 			checkCollision(trash);
 
 			// Remove if off screen
-			if (currentTop > window.innerHeight) {
+			if (container && currentTop > container.getBoundingClientRect().height) {
 				trash.remove();
 				return;
 			}
@@ -119,26 +120,115 @@
 			</span>
 		</p>
 		<button id="start-button" onclick="startGame()">Start</button>
-		<img id="trash-bin" src="/icons/trash-icon.webp" alt="trash-bin">
+		<img id="trash-bin" src="/icons/trash-icon.webp" alt="trash-bin" draggable="false">
 	</div>
 	
 </div>
 
 <script is:inline>
 	document.addEventListener("DOMContentLoaded", () => {
+		const gameContainer = document.getElementById("game-container");
 		const binElement = document.getElementById("trash-bin");
+		const desktopPointerQuery = window.matchMedia("(min-width: 1001px)");
+		let activePointerId = null;
+		let dragging = false;
 
-		function translateGameObject(e) {
-			if (!binElement) return;
+		if (!gameContainer || !binElement) return;
 
-			const gameContainerLeft = document.getElementById('game-container').getBoundingClientRect().left;
-			const binHalfWidth = binElement.getBoundingClientRect().width / 2;
-			const leftOffset = gameContainerLeft + binHalfWidth;
+		function clampBinLeft(left) {
+			const containerWidth = gameContainer.getBoundingClientRect().width;
+			const binWidth = binElement.getBoundingClientRect().width;
+			const maxLeft = Math.max(containerWidth - binWidth, 0);
 
-			binElement.style.left = `${(e.clientX - leftOffset)}px`;
+			return Math.min(Math.max(left, 0), maxLeft);
 		}
 
-		document.addEventListener("pointermove", translateGameObject);
+		function setBinLeft(left) {
+			binElement.style.left = `${clampBinLeft(left)}px`;
+		}
+
+		function moveBinToPointer(clientX) {
+			const containerLeft = gameContainer.getBoundingClientRect().left;
+			const binHalfWidth = binElement.getBoundingClientRect().width / 2;
+
+			setBinLeft(clientX - containerLeft - binHalfWidth);
+		}
+
+		function centerBin() {
+			const containerWidth = gameContainer.getBoundingClientRect().width;
+			const binWidth = binElement.getBoundingClientRect().width;
+
+			setBinLeft((containerWidth - binWidth) / 2);
+		}
+
+		function isDesktopPointerMode() {
+			return desktopPointerQuery.matches;
+		}
+
+		function followPointer(e) {
+			if (!isDesktopPointerMode() || !e.isPrimary) return;
+
+			moveBinToPointer(e.clientX);
+		}
+
+		function releaseActivePointerCapture() {
+			if (activePointerId === null) return;
+
+			if (binElement.hasPointerCapture(activePointerId)) {
+				binElement.releasePointerCapture(activePointerId);
+			}
+		}
+
+		function startDrag(e) {
+			if (isDesktopPointerMode() || !e.isPrimary) return;
+
+			dragging = true;
+			activePointerId = e.pointerId;
+			binElement.setPointerCapture(activePointerId);
+			moveBinToPointer(e.clientX);
+			e.preventDefault();
+		}
+
+		function drag(e) {
+			if (isDesktopPointerMode() || !dragging || e.pointerId !== activePointerId) return;
+
+			moveBinToPointer(e.clientX);
+			e.preventDefault();
+		}
+
+		function stopDrag(e) {
+			if (!dragging || e.pointerId !== activePointerId) return;
+
+			releaseActivePointerCapture();
+			dragging = false;
+			activePointerId = null;
+		}
+
+		function syncPointerMode() {
+			releaseActivePointerCapture();
+			dragging = false;
+			activePointerId = null;
+
+			const currentLeft = parseFloat(binElement.style.left);
+
+			if (Number.isNaN(currentLeft)) {
+				centerBin();
+				return;
+			}
+
+			setBinLeft(currentLeft);
+		}
+
+		document.addEventListener("pointermove", followPointer);
+		binElement.addEventListener("pointerdown", startDrag);
+		binElement.addEventListener("pointermove", drag);
+		binElement.addEventListener("pointerup", stopDrag);
+		binElement.addEventListener("pointercancel", stopDrag);
+		binElement.addEventListener("lostpointercapture", stopDrag);
+		desktopPointerQuery.addEventListener("change", syncPointerMode);
+		window.addEventListener("resize", syncPointerMode);
+
+		centerBin();
 	});
 </script>
 
@@ -148,12 +238,14 @@
 	#trash-bin {
 		position: absolute;
 		bottom: 0;
+		cursor: default;
 	}
 }
 @media (max-width: 1000px) {
 	#trash-bin {
 		position: absolute;
 		bottom: 12vh;
+		cursor: grab;
 	}
 }
 .hidden {
@@ -171,7 +263,12 @@
 .game-container {
 	display: flex;
 	flex-direction: column;
+	height: 100%;
+	overflow: hidden;
+	position: relative;
 	touch-action: none;
+	user-select: none;
+	width: 100%;
 }
 
 .score {
@@ -206,5 +303,13 @@
 #trash-bin {
 	width: 10vh;
 	height: 10vh;
+	left: calc(50% - 5vh);
+	touch-action: none;
+	-webkit-user-drag: none;
+	z-index: 1;
+}
+
+#trash-bin:active {
+	cursor: grabbing;
 }
 </style>

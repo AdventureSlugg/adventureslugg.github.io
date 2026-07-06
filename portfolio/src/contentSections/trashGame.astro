@@ -9,6 +9,7 @@
 
 	function startGame() {
 		resetScore();
+		document.dispatchEvent(new Event("trash-game:start"));
 		started = true;
 
 		// Hide start button
@@ -135,9 +136,23 @@
 
 		if (!gameContainer || !binElement) return;
 
-		function clampBinLeft(left) {
-			const containerWidth = gameContainer.getBoundingClientRect().width;
+		function getGameWidth() {
+			return gameContainer.getBoundingClientRect().width || window.innerWidth;
+		}
+
+		function getBinWidth() {
 			const binWidth = binElement.getBoundingClientRect().width;
+			const computedWidth = parseFloat(window.getComputedStyle(binElement).width);
+
+			if (binWidth > 0) return binWidth;
+			if (!Number.isNaN(computedWidth) && computedWidth > 0) return computedWidth;
+
+			return window.innerHeight * 0.1;
+		}
+
+		function clampBinLeft(left) {
+			const containerWidth = getGameWidth();
+			const binWidth = getBinWidth();
 			const maxLeft = Math.max(containerWidth - binWidth, 0);
 
 			return Math.min(Math.max(left, 0), maxLeft);
@@ -155,8 +170,8 @@
 		}
 
 		function centerBin() {
-			const containerWidth = gameContainer.getBoundingClientRect().width;
-			const binWidth = binElement.getBoundingClientRect().width;
+			const containerWidth = getGameWidth();
+			const binWidth = getBinWidth();
 
 			setBinLeft((containerWidth - binWidth) / 2);
 		}
@@ -212,6 +227,8 @@
 			const currentLeft = parseFloat(binElement.style.left);
 
 			if (Number.isNaN(currentLeft)) {
+				if (isDesktopPointerMode()) return;
+
 				centerBin();
 				return;
 			}
@@ -219,7 +236,14 @@
 			setBinLeft(currentLeft);
 		}
 
+		function centerMobileBin() {
+			if (!isDesktopPointerMode()) {
+				centerBin();
+			}
+		}
+
 		document.addEventListener("pointermove", followPointer);
+		document.addEventListener("trash-game:start", centerMobileBin);
 		binElement.addEventListener("pointerdown", startDrag);
 		binElement.addEventListener("pointermove", drag);
 		binElement.addEventListener("pointerup", stopDrag);
@@ -228,7 +252,7 @@
 		desktopPointerQuery.addEventListener("change", syncPointerMode);
 		window.addEventListener("resize", syncPointerMode);
 
-		centerBin();
+		centerMobileBin();
 	});
 </script>
 
@@ -244,7 +268,7 @@
 @media (max-width: 1000px) {
 	#trash-bin {
 		position: absolute;
-		bottom: 12vh;
+		bottom: 25vh;
 		cursor: grab;
 	}
 }
